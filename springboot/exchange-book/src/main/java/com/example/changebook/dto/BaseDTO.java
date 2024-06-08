@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class BaseDTO {
-    @NotNull
     private long id;
 }
 
