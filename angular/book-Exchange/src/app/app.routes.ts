@@ -19,6 +19,7 @@ import { authCommonGuard } from './shared/guards/authCommon.guarrd';
 // import { MyBooksComponent } from './components/my-books/my-books.component';
 import { BooksInStoresComponent } from './components/books-in-stores/books-in-stores.component';
 import { BooksWithPersonsComponent } from './components/books-with-persons/books-with-persons.component';
+import { MyBooksComponent } from './components/my-books/my-books.component';
 
 
 
@@ -32,6 +33,7 @@ export const routes: Routes = [
   {path:'store-books', component: StoreBooksComponent,canActivate:[authStoreGuard]},
   {path: 'add-book-person', component: AddBookComponent,canActivate:[authPersonalGuard] },
   {path:'books-table', component: BooksTableComponent,canActivate:[authPersonalGuard]},
+  {path:'my-books', component: MyBooksComponent,canActivate:[authPersonalGuard]},
   { path: `books-in-stores`, component: BooksInStoresComponent,canActivate:[authPersonalGuard]},
   { path: `books-with-persons`, component:BooksWithPersonsComponent,canActivate:[authPersonalGuard]},
   { path: 'search', component: SearchBookComponent,canActivate:[authPersonalGuard] },
