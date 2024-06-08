@@ -1,0 +1,40 @@
+
+
+<nav class=" navbar navbar-dark bg-primary  justify-content-between">
+  
+  <a
+    role="button"
+    class="navbar-brand ms-3"
+    routerLink="">
+    CF5 - Book exchange
+  </a>
+  <!-- <div>
+    <app-list-group-menu class="d-flex "></app-list-group-menu>
+  </div> -->
+  <!-- <a
+  role="button"
+  class="navbar-brand ms-3"
+  routerLink="user-registration">
+  Register User
+</a> -->
+<button type="button" class="btn btn-primary dropdown-toggle" [mat-menu-trigger-for]="register">
+REGISTER</button>
+<mat-menu #register="matMenu">
+  <ul class="dropdown-header">
+    <li><a role="button" class="hover dropdown-item" routerLink="user-registration">Εγγραφη προσωπικου χρηστη</a></li>
+    <li><a class="hover dropdown-item" role="button" routerLink="store-registration">Εγγραφη χρήστη καταστήματος</a></li>
+  </ul>
+</mat-menu>
+  <span role="button" routerLink="login" class="text-light me-3 d-flex gap-2 align-items-center">
+      Login
+      <mat-icon
+        role="button"
+
+        class="icon-link-hover "
+        >
+        login
+      </mat-icon>
+    </span>
+
+</nav>
+

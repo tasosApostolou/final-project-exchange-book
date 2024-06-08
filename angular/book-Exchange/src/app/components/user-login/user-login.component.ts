@@ -1,0 +1,82 @@
+import { Component, inject } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { Credentials, LoggedInUser, User } from 'src/app/shared/interfaces/user';
+import { UserService } from 'src/app/shared/services/user.service';
+
+
+@Component({
+  selector: 'app-user-login',
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterLink],
+  templateUrl: './user-login.component.html',
+  styleUrl: './user-login.component.css',
+})
+export class UserLoginComponent {
+  userService = inject(UserService);
+  router = inject(Router);
+
+  invalidLogin = false;
+
+  form = new FormGroup({
+    username: new FormControl('',Validators.required),
+    password: new FormControl('', Validators.required),
+  });
+  // items:any = localStorage.getItem
+
+  onSubmit() {
+    const credentials = this.form.value as Credentials;
+    const username = null
+    // let resp = ''
+    let resp:User
+    let role = ''
+    this.userService.loginUser(credentials).subscribe({
+      next: (response) => {
+        console.log(response)
+        console.log(jwtDecode(response.jwt))
+
+        // const access_token = JSON.stringify(response);
+        const access_token = response.jwt
+        localStorage.setItem('access_token', access_token);
+        const decodedTokenSubject = jwtDecode(access_token) as unknown as LoggedInUser;
+        // let respJSON:User = JSON.parse(items)
+       
+
+        // const decodedTokenSubject = jwtDecode(access_token)
+        //   .sub as unknown as LoggedInUser;
+
+
+        // //resp = JSON.stringify(response)
+        let resp = response as unknown as LoggedInUser
+console.log(`${this.userService.id}:::`)
+        this.userService.id=resp.userId
+        console.log(`${this.userService.id} awawdw`)
+       // // if(resp.toLowerCase().includes('teacher')){
+        ////   role = 'teacher'
+        // }
+        
+        this.userService.user.set({
+          // fullname: JSON.stringify(response),
+          // role: role
+          userId:decodedTokenSubject.userId,
+          sub: decodedTokenSubject.sub,
+          role: decodedTokenSubject.role,
+          roleEntityId: decodedTokenSubject.roleEntityId
+        });
+        console.log(`id:${this.userService.user().roleEntityId}`)
+
+        this.router.navigate(['']);
+      },
+      error: (response) => {
+        console.error('Login Error', response);
+        this.invalidLogin = true;
+      },
+    });
+  }
+}
