@@ -45,25 +45,11 @@ export class UserLoginComponent {
         const access_token = response.jwt
         localStorage.setItem('access_token', access_token);
         const decodedTokenSubject = jwtDecode(access_token) as unknown as LoggedInUser;
-        // let respJSON:User = JSON.parse(items)
-       
-
-        // const decodedTokenSubject = jwtDecode(access_token)
-        //   .sub as unknown as LoggedInUser;
-
-
-        // //resp = JSON.stringify(response)
         let resp = response as unknown as LoggedInUser
 console.log(`${this.userService.id}:::`)
         this.userService.id=resp.userId
         console.log(`${this.userService.id} awawdw`)
-       // // if(resp.toLowerCase().includes('teacher')){
-        ////   role = 'teacher'
-        // }
-        
         this.userService.user.set({
-          // fullname: JSON.stringify(response),
-          // role: role
           userId:decodedTokenSubject.userId,
           sub: decodedTokenSubject.sub,
           role: decodedTokenSubject.role,

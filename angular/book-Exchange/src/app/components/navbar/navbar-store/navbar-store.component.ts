@@ -50,50 +50,22 @@ matBadgeValue(){
         this.notificationsUnseenNumber = this.notifications.filter(notification => !notification.isSeen).length
       
       })
-    // this.loadNotifications()
   }
-  // loadNotifications(){
-  //   this.userService.getUserNotifications().subscribe(
-  //     (data:[]) =>{
-  //       this.fff = data
-  //       this.notificationsNumber = this.fff.filter(not => !not.isSeen).length
-      
-  //     })
-  // }
-
-
 
 // Router navigates in a table component with interestUser's books
  notificationClicked(notification:Notifica){
-    this.ngOnInit() // maybe notificationType has be changed from INTEREST to MATCH
+    this.ngOnInit() 
     console.log(`${notification.interested.id} a-sss-as`)
     let notificationToUpdate = this.notifications.find(noti => noti.id === notification.id) //ngOnInit refreshing notification
     this.UpdateNotificationAsSeen(notificationToUpdate)
     
     localStorage.setItem('interestedUser_id',notification.interested.id.toString())// to find user's books after navigating router in user's bookstable 
     console.log(`${this.notificationsUnseenNumber} eidopoihseis`)
-  
-    // this.router.navigate(['neo'])
-    // this.router.navigate(['books-table']);
-    // localStorage.removeItem('user_id')
   }
 
-
   UpdateNotificationAsSeen(notificationToUpdate:Notifica){
-
-   
-    // let notificationToUpdate = this.fff.find(not => not.id === notification.id)
     console.log(notificationToUpdate.notificationType)
-    //     not:Notifica ={
-    //   id:notification.id,
-    //   interested:notification.interested,
-    //   user:notification.user,
-    //   book:notification.book,
-    //   timestamp:notification.timestamp,
-    //   isSeen:true
-    // }
     notificationToUpdate.isSeen = true
-    console.log(`type:${notificationToUpdate.notificationType}`)
     this.notificationService.updateNotificationStatus(notificationToUpdate as Notifica).subscribe({
       next:(response) => {
         console.log(`${response} data`)
@@ -104,8 +76,6 @@ matBadgeValue(){
       }
     })
     }
-
-    // <div class= {{bgNotif(notif)}}></div>
     bgNotif(notif:Notifica):string{
       if (!notif.isSeen){
         return 'bg-light'
