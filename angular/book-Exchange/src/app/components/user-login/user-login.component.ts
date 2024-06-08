@@ -46,17 +46,13 @@ export class UserLoginComponent {
         localStorage.setItem('access_token', access_token);
         const decodedTokenSubject = jwtDecode(access_token) as unknown as LoggedInUser;
         let resp = response as unknown as LoggedInUser
-console.log(`${this.userService.id}:::`)
         this.userService.id=resp.userId
-        console.log(`${this.userService.id} awawdw`)
         this.userService.user.set({
           userId:decodedTokenSubject.userId,
           sub: decodedTokenSubject.sub,
           role: decodedTokenSubject.role,
           roleEntityId: decodedTokenSubject.roleEntityId
         });
-        console.log(`id:${this.userService.user().roleEntityId}`)
-
         this.router.navigate(['']);
       },
       error: (response) => {

@@ -52,18 +52,8 @@ matBadgeValue(){
         this.notificationsUnseenNumber = this.notifications.filter(notification => !notification.isSeen).length
       
       })
-    // this.loadNotifications()
   }
-  // loadNotifications(){
-  //   this.userService.getUserNotifications().subscribe(
-  //     (data:[]) =>{
-  //       this.notifications = data
-  //       this.notificationsNumber = this.fff.filter(notif => !notif.isSeen).length
-      
-  //     })
-  // }
-
-// Router navigates in a table component with interestUser's books
+  
  notificationClicked(notification:Notifica){
     this.ngOnInit() 
     console.log(`${notification.interested.id} a-sss-as`)
