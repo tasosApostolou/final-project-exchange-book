@@ -32,7 +32,6 @@ export const routes: Routes = [
   {path:'store-books', component: StoreBooksComponent,canActivate:[authStoreGuard]},
   {path: 'add-book-person', component: AddBookComponent,canActivate:[authPersonalGuard] },
   {path:'books-table', component: BooksTableComponent,canActivate:[authPersonalGuard]},
-  // { path: `my-books`, component: MyBooksComponent,canActivate:[authPersonalGuard]},
   { path: `books-in-stores`, component: BooksInStoresComponent,canActivate:[authPersonalGuard]},
   { path: `books-with-persons`, component:BooksWithPersonsComponent,canActivate:[authPersonalGuard]},
   { path: 'search', component: SearchBookComponent,canActivate:[authPersonalGuard] },
