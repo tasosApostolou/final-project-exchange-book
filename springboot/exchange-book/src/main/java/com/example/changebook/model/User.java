@@ -123,29 +123,4 @@ public class User extends AbstractEntity implements UserDetails {
         notifications.forEach((notification -> notification.setInterestedUser(null)));
         notifications.clear();
     }
-//    public Set<Book> getaBooks() {
-//        return this.books;
-//    }
-//    public Set<Course> getAllCourses() {
-//        return Collections.unmodifiableSet(courses);
-//    }
-
-
-//
-//    @OneToOne(mappedBy = "user")
-//    @Getter(AccessLevel.PROTECTED)
-//    private Teacher teacher;
-//    public void addTeacher(Teacher teacher){
-//        teacher.setUser(this);
-//        this.setRole("teacher");
-//    }
-//
-//public void addStudent(Student student){
-////    this.students.add(student);
-////    student.setUser(this);
-//    student.setUser(this);
-//    this.setRole("student");
-//}
-
-
 }
