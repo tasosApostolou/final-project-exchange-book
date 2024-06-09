@@ -18,7 +18,7 @@ import { PersonService } from "src/app/shared/services/person.service"
           background: #fff;
           border-radius: 8px;
           padding: 16px;
-          max-width: 500px;
+          max-width: 400px;
         }
       `,
     ],
