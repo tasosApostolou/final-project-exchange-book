@@ -55,12 +55,6 @@ public class User extends AbstractEntity implements UserDetails {
         this.password = password;
         this.role = role;
     }
-//    public User(Long id,String username, String password) {
-//        this.setId(id);
-//        this.username = username;
-//        this.password = password;
-//
-//    }
 
     public User(Long id,String username, Role role) {
         this.setId(id);

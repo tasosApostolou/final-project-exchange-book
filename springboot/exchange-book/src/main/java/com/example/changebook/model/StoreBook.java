@@ -26,7 +26,6 @@ public class StoreBook {
     private double price;
 
 
-
     public void addBook(Book book){
         this.setBook(book);
         book.getStoreBooks().add(this);
