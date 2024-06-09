@@ -42,8 +42,6 @@ userservce = inject(UserService)
   this.bookService.getBooksByTitle(this.title).subscribe( {
     next:(response) => {
       this.booksWithPersons = response
-      console.log(this.userservce.user().role)    
-
     for(let i in response.length as any){
       const book:Book ={
         id:response[i].id,
