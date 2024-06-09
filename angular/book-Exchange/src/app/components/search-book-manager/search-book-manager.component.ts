@@ -23,10 +23,7 @@ export class SearchBookManagerComponent {
   booksWithPersons:BookWithPersons[] = []
 
   bookService = inject(BookService)
-notificationService = inject(NotificationService)
-userservce = inject(UserService)
   ngOnInit(): void {
-
     this.loadBooksOfPersons()
   }
 
