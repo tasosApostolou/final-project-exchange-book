@@ -34,6 +34,7 @@ export class BooksWithPersonsComponent {
 bookService = inject(BookService)
 notificationService = inject(NotificationService)
 userservce = inject(UserService)
+
 booksWithPersons:BookWithPersons[] // a list with books and for each book a list with persons which have this book
 
 

@@ -21,6 +21,7 @@ import { BooksWithPersonsComponent } from './components/books-with-persons/books
 import { MyBooksComponent } from './components/my-books/my-books.component';
 import { SearchBookManagerComponent } from './components/search-book-manager/search-book-manager.component';
 import { SearchBookFormComponent } from './components/search-book-form/search-book-form.component';
+import { UpdateStoreComponent } from './components/update-store/update-store.component';
 
 
 
@@ -32,6 +33,7 @@ export const routes: Routes = [
   { path: 'login', component: UserLoginComponent },
   {path:'add-book-store', component: AddBookStoreComponent,canActivate:[authStoreGuard]},
   {path:'store-books', component: StoreBooksComponent,canActivate:[authStoreGuard]},
+  {path:'update-store', component: UpdateStoreComponent,canActivate:[authStoreGuard]},
   {path: 'add-book-person', component: AddBookComponent,canActivate:[authPersonalGuard] },
   {path:'books-table', component: BooksTableComponent,canActivate:[authPersonalGuard]},
   {path:'my-books', component: MyBooksComponent,canActivate:[authPersonalGuard]},
