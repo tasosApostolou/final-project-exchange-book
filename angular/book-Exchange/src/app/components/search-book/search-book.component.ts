@@ -36,16 +36,10 @@ bookService = inject(BookService)
 notificationService = inject(NotificationService)
 userservce = inject(UserService)
 books:Book[]=[]
-users:User[]=[]
 persons:Person[] = []
-booksWithUsers:BookWithUsers[]
 booksWithPersons:BookWithPersons[] // a list with books and for each book a list with persons which have this book
 title:string
 
-constructor(){
-  this.booksWithUsers
-  console.log(this.booksWithUsers)
-}
 form = new FormGroup({
 title:new FormControl('', Validators.required),
 searching:new FormControl('others',Validators.required)
