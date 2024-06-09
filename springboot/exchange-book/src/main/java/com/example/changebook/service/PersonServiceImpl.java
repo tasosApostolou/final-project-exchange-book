@@ -83,7 +83,7 @@ public class PersonServiceImpl implements IPersonService {
         Person person;
         try {
             person =  personRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Person.class,id));
-//            notificationRepository.deleteAllByInterestedUser(person.getUser());
+            notificationRepository.deleteAllByInterestedUser(person.getUser());
             personRepository.deleteById(id);
             log.info("Person user deleted");
         }catch (EntityNotFoundException e){
