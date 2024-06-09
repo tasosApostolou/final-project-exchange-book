@@ -2,15 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { User } from 'src/app/shared/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
-// import { Router, RouterLink, RouterOutlet } from '@angular/router';
-// import { MatIconModule } from '@angular/material/icon';
-// import { MatMenu } from '@angular/material/menu';
-// import { MatToolbar, MatToolbarModule, MatToolbarRow } from '@angular/material/toolbar';
-// import { PersonService } from 'src/app/shared/services/person.service';
 import { DialogRef } from '@angular/cdk/dialog';
 import { bootstrapApplication } from '@angular/platform-browser';
 
@@ -46,8 +40,6 @@ export class ChangePasswordComponent {
     password: new FormControl('',[Validators.required, Validators.minLength(4)]),
     confirmPassword:new FormControl('',[Validators.required, Validators.minLength(4)]),
   },this.passwordConfirmsValidator)
-  
-  
   
   passwordConfirmsValidator(form:FormGroup){
     if (form.get('password').value !== form.get('confirmPassword').value){
