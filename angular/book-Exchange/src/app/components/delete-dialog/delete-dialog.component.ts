@@ -8,8 +8,8 @@ import { PersonService } from "src/app/shared/services/person.service"
     imports: [],
     standalone: true,
     template: `
-      <p>Are you sure that you want to delete your account?</p>
-      <button class="ms-5 btn btn-primary" (click)="userDelete()">delete  Account</button>
+      <p >Are you sure that you want to delete your account?</p>
+      <button class="ms-5 btn btn-primary text-bg-danger " (click)="userDelete()">delete  Account</button>
     `,
     styles: [
       `
