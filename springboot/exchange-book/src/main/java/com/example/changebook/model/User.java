@@ -61,19 +61,6 @@ public class User extends AbstractEntity implements UserDetails {
         this.username = username;
         this.role = role;
     }
-
-//    @OneToOne(mappedBy = "user")
-//    @Getter(AccessLevel.PROTECTED)
-//    private Student student;
-
-
-//    public void addBook(Book book){ 1
-//    this.books.add(book);
-//    book.getUsers().add(this);
-//
-//    }
-
-
     public Set<Book> getAllBooks() {
         return Collections.unmodifiableSet(books);
     }
