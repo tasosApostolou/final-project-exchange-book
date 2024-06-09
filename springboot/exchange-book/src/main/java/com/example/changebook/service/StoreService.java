@@ -95,8 +95,6 @@ public class StoreService implements IStoreService {
             store = storeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Store.class,id));
             System.out.println(store.getId());
             books = store.getAllBooks().stream().toList();
-            System.out.println(books.get(0).getBook().getId()+" bookid");
-            System.out.println(books.get(0).getStore().getId()+" store_id");
             log.info("books of store with id "+ id  + " were found");
         }catch (EntityNotFoundException e){
             log.error(e.getMessage());
