@@ -27,87 +27,81 @@ import { Person } from 'src/app/shared/interfaces/person';
   styleUrl: './books-with-persons.component.css'
 })
 export class BooksWithPersonsComponent {
-//   @ViewChild('iconRef', { static: true }) iconRef: ElementRef;
-// @Input() title:string
-// bookService = inject(BookService)
-// notificationService = inject(NotificationService)
-// userservce = inject(UserService)
-// books:Book[]=[]
-// users:User[]=[]
-// persons:Person[] = []
-// booksWithUsers:BookWithUsers[]
-// booksWithPersons:BookWithPersons[] // a list with books and for each book a list with persons which have this book
+  @ViewChild('iconRef', { static: true }) iconRef: ElementRef;
+@Input() data:BookWithPersons[]
+@Input() title:string
 
-// constructor(){
-//   this.booksWithUsers
-//   console.log(this.booksWithUsers)
-// }
+bookService = inject(BookService)
+notificationService = inject(NotificationService)
+userservce = inject(UserService)
+booksWithPersons:BookWithPersons[] // a list with books and for each book a list with persons which have this book
+
 
 // ngOnInit(): void {
 //   if(this.title){
-//   this.loadBooks()
+//   this.onSubmit()
 //   }
 // }
-// loadBooks(){
-//   const t = this.title
-//   let f = this.booksWithPersons
-//   this.bookService.getBooksByTitle(t).subscribe( {
-//     next:(response) => {
-//       this.booksWithPersons = response
-//       console.log(this.userservce.user().role)    
+onSubmit(){
+  let f = this.booksWithPersons
+  this.bookService.getBooksByTitle(this.title).subscribe( {
+    next:(response) => {
+      this.booksWithPersons = response
+    
 
-//     for(let i in response.length as any){
-//       // const book:Book ={
-//       //   id:response[i].id,
-//       //   title:response[i].title,
-//       // author:response[i].author
-//       // }
-//       let bkps:BookWithPersons={
-//         id:response[i].id,
-//         title:response[i].title,
-//         author:response[i].author,
-//         persons:response[i].persons
-//       }
-//       console.log(bkps)
-//   }
-//     },
-//     error: (response) => {
-//       console.log('Error in response',response);
+    for(let i in response.length as any){
+      const book:Book ={
+        id:response[i].id,
+        title:response[i].title,
+        author:response[i].author
+      }
+      let bkps:BookWithPersons={
+        id:response[i].id,
+        title:response[i].title,
+        author:response[i].author,
+        persons:response[i].persons
+      }
+      console.log(bkps)
+  }
+    },
+    error: (response) => {
+      console.log('Error in response',response);
       
-//     }
-//   })
-// }
-// interest(bkps:BookWithPersons,person:Person,event:Event){
+    }
+  })
+}
 
-// this.iconType(event)
-// const notification = {
-//   isSeen:false,
-//   user:{
-//     id:person.userId,
-//   },
-//   book:{
-//     id:bkps.id
-//   }
-// }
+interest(bkps:BookWithPersons,person:Person,event:Event){
 
-// this.notificationService.createNotification(notification as any as JSON ).subscribe({
-//   next:(response) => {
-//     console.log(`${response} data`)
-//   },
-//   error:(response) => {
-//     console.log('Error in notification creation', response)
-//   }
-// })
-// }
+  this.iconType(event)
+  const notification = {
+    isSeen:false,
+    user:{
+      id:person.userId,
+    },
+    book:{
+      id:bkps.id
+    }
+  }
+  
+  this.notificationService.createNotification(notification as any as JSON ).subscribe({
+    next:(response) => {
+      console.log(`${response} data`)
+    },
+    error:(response) => {
+      console.log('Error in notification creation', response)
+    }
+  })
+  }
 
+  iconType(event:Event){
+    let matIcon: HTMLElement = event.target as HTMLElement;
+    if(matIcon.textContent ==="thumb_down"){
+      matIcon.innerText = "thumb_up"
+    }
+    else{
+      matIcon.innerText = "thumb_down"
+    }
+  }
 
-// iconType(event:Event){
-//   let matIcon: HTMLElement = event.target as HTMLElement;
-//   if(matIcon.textContent ==="thumb_down"){
-//     matIcon.innerText = "thumb_up"
-//   }
-//   else{
-//     matIcon.innerText = "thumb_down"
-//   }
-// }
 }

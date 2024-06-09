@@ -13,11 +13,12 @@ import { BooksTableComponent } from '../../books-table/books-table.component';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { UpdateComponent } from '../../update/update.component';
 import { ManageAccountComponent } from '../../manage-account/manage-account.component';
+import { SearchBookManagerComponent } from '../../search-book-manager/search-book-manager.component';
 
 @Component({
   selector: 'app-navbar-personal',
   standalone: true,
-  imports: [UpdateComponent,BooksTableComponent,ManageAccountComponent,
+  imports: [UpdateComponent,SearchBookManagerComponent, BooksTableComponent,ManageAccountComponent,
     MatIcon,RouterLink,AddBookComponent,MatIconModule,MatMenu,MatMenuTrigger,MatBadgeModule,MatBadge,MatButtonToggle,MatButtonToggleGroup,MatButtonToggleModule,MatIcon,MatIconButton,MatButton,BooksTableComponent,BooksTableComponent
     ],
   templateUrl: './navbar-personal.component.html',

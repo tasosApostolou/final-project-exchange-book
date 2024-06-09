@@ -5,7 +5,6 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import {authPersonalGuard} from './shared/guards/authPersonal.guard';
 import { UserLoginComponent } from './components/user-login/user-login.component';
-import { SearchBookComponent } from './components/search-book/search-book.component';
 import { AddBookComponent } from './components/add-book/add-book.component';
 import { BooksTableComponent } from './components/books-table/books-table.component';
 import { UpdateComponent } from './components/update/update.component';
@@ -20,6 +19,8 @@ import { authCommonGuard } from './shared/guards/authCommon.guarrd';
 import { BooksInStoresComponent } from './components/books-in-stores/books-in-stores.component';
 import { BooksWithPersonsComponent } from './components/books-with-persons/books-with-persons.component';
 import { MyBooksComponent } from './components/my-books/my-books.component';
+import { SearchBookManagerComponent } from './components/search-book-manager/search-book-manager.component';
+import { SearchBookFormComponent } from './components/search-book-form/search-book-form.component';
 
 
 
@@ -36,7 +37,8 @@ export const routes: Routes = [
   {path:'my-books', component: MyBooksComponent,canActivate:[authPersonalGuard]},
   { path: `books-in-stores`, component: BooksInStoresComponent,canActivate:[authPersonalGuard]},
   { path: `books-with-persons`, component:BooksWithPersonsComponent,canActivate:[authPersonalGuard]},
-  { path: 'search', component: SearchBookComponent,canActivate:[authPersonalGuard] },
+  {path:'search-book-form', component: SearchBookFormComponent,canActivate:[authPersonalGuard]},
+  {path:'search-book-manager', component: SearchBookManagerComponent,canActivate:[authPersonalGuard]},
   {path: "books-table", component:BooksTableComponent,canActivate:[authPersonalGuard]},
   {path:'update',component:UpdateComponent,canActivate:[authCommonGuard]},
   {path:"manage-account", component:ManageAccountComponent,canActivate:[authCommonGuard],},
