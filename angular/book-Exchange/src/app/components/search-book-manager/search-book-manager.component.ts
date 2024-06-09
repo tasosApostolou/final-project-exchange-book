@@ -21,7 +21,6 @@ export class SearchBookManagerComponent {
   choice = ''
   title = ''
   booksWithPersons:BookWithPersons[] = []
-  titlee = ''
 
   bookService = inject(BookService)
 notificationService = inject(NotificationService)
@@ -33,7 +32,7 @@ userservce = inject(UserService)
 
   formResults(formValue:SearchBookForm){
     this.choice = formValue.searching
-    this.titlee = formValue.title
+    this.title = formValue.title
     if (this.choice==="others"){
       this.loadBooksOfPersons()
 }
