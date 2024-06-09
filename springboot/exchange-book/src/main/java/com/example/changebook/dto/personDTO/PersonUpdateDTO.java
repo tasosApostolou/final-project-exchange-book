@@ -12,12 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PersonUpdateDTO extends BaseDTO {
-//    private String username;
-//    private String password;
     private String firstname;
     private String lastname;
     private Long userId;
-//    private UserUpdateDTO user;
 
     public PersonUpdateDTO(Long id,String username, String password, String firstname, String lastname,Long userId) {
         this.setId(id);

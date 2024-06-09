@@ -13,7 +13,6 @@ import java.util.List;
 public class BookReadWithPersonsSetDTO extends BaseDTO {
     public String title;
     public AuthorReadOnlyDTO author;
-//    public List<UserReadOnlyDTO> users;
     public List<PersonReadonlyDTO> persons;
     public BookReadWithPersonsSetDTO() {
     }

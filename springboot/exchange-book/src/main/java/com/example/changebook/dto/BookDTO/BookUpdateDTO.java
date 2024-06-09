@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class BookUpdateDTO extends BaseDTO {
-
     private String title;
     public BookUpdateDTO(Long bookId, String title) {
         this.setId(bookId);

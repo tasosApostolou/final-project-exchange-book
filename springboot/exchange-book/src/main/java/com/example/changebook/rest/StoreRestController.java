@@ -66,7 +66,7 @@ public class StoreRestController {
             StoreReadOnlyDTO storeReadOnlyDTO = Mapper.mapToReadOnlyDTO(createdStore);
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
-                    .buildAndExpand(storeReadOnlyDTO.getId())
+                    .buildAndExpand(storeReadOnlyDTO.getUserId())
                     .toUri();
             return ResponseEntity.created(location).body(storeReadOnlyDTO);
         } catch (Exception e) {

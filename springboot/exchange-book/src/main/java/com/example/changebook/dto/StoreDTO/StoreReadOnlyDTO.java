@@ -10,14 +10,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class StoreReadOnlyDTO extends BaseDTO {
+public class StoreReadOnlyDTO {
     private String name;
     private String address;
     //    private UserReadOnlyDTO user;
     private Long userId;
 
     public StoreReadOnlyDTO(Long id, String firstname, String lastname) {
-        this.setId(id);
+
 //        this.username = username;
 //        this.password = password;
         this.name = firstname;

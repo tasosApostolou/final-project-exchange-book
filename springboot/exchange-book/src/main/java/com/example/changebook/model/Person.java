@@ -19,9 +19,6 @@ import java.util.Set;
 //@ToString
 public class Person extends AbstractEntity {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
     @Column(length = 50)
     private String firstname;
 

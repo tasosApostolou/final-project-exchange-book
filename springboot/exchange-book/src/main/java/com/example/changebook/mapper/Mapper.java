@@ -23,6 +23,58 @@ import java.util.List;
 
 public class Mapper {
 
+    public static PersonReadonlyDTO mapToReadOnlyDTO(Person person){
+        PersonReadonlyDTO personReadonlyDTO = new PersonReadonlyDTO(person.getId(),person.getFirstname(),person.getLastname());
+        personReadonlyDTO.setUserId(person.getUser().getId());
+//        personReadonlyDTO.setUser(mapToReadOnlyDTO(person.getUser()));
+        return personReadonlyDTO;
+    }
+    public static StoreReadOnlyDTO mapToReadOnlyDTO(Store store){
+        StoreReadOnlyDTO storeReadOnlyDTO = new StoreReadOnlyDTO(store.getId(), store.getName(), store.getAddress());
+        return storeReadOnlyDTO;
+    }
+    public static User mapToUser(UserInsertDTO dto) {
+        return new User(null, dto.getUsername(), dto.getPassword(), Role.valueOf(dto.getRole()));
+
+    }
+
+    public static User mapToUser(UserUpdateDTO dto) {
+        return new User(dto.getId(), dto.getUsername(), dto.getPassword(), dto.getRole());
+    }
+
+    public static Person mapToPerson(PersonUpdateDTO dto){
+        Person person = new Person(dto.getFirstname(), dto.getLastname());
+        person.setId(dto.getId());
+        return person;
+
+    }
+    public static Person extractPersonFromRegisterPersonDTO(RegisterPersonDTO dto){
+        return new Person(dto.getFirstname(), dto.getLastname());
+    }
+
+    public static User extractUserFromRegisterPersonDTO(RegisterPersonDTO dto){
+        return User.NEW_PERSON(dto.getUsername(), dto.getPassword());
+    }
+
+    public static Store extractStoreFromStoreRegisterDTO(StoreRegisterDTO dto){
+        return new Store(dto.getName(), dto.getAddress());
+    }
+
+    public static User extractUserFromStoreRegisterDTO(StoreRegisterDTO dto){
+        return User.NEW_STORE(dto.getUsername(), dto.getPassword());
+    }
+
+    public static UserReadOnlyDTO mapToReadOnlyDTO(User user) {
+        return new UserReadOnlyDTO(user.getId(), user.getUsername(), String.valueOf(user.getRole()));
+    }
+
+    public static LoginResponseDTO mapToLoginResponseDTO(User user){
+        if (user.getRole() == Role.PERSONAL){
+            return new LoginResponseDTO(user.getId(),user.getUsername(),Role.PERSONAL,user.getPerson().getId());
+        }else {
+            return new LoginResponseDTO(user.getId(),user.getUsername(),Role.STORE,user.getStore().getId());
+        }
+    }
     public static Author mapToAuthor(AuthorInsertDTO dto) {
         Author author = new Author();
         author.setName(dto.name);
@@ -38,16 +90,8 @@ public class Mapper {
     public static Book mapToBook(BookInsertDTO dto) {
         Book book = new Book();
         book.setTitle(dto.Title);
-
-//        Set<Book> books = new HashSet<>();
-//        for(BookInsertDTO bookInsertDTO :  dto.authorInsertDTO.booksDTO){
-//            books.add(new Book(bookInsertDTO.Title,mapToAuthor(dto.authorInsertDTO)));
-//        }
         Author author = new Author();
-
         author.setName(dto.author.name);
-//        book.setAuthor(author);
-
         book = new Book(null,dto.getTitle(),author);
         return book;
     }
@@ -127,59 +171,6 @@ public class Mapper {
         }
         bookReadOnlyDTO.setPersons(personDTOs);
         return bookReadOnlyDTO;
-    }
-
-    public static PersonReadonlyDTO mapToReadOnlyDTO(Person person){
-        PersonReadonlyDTO personReadonlyDTO = new PersonReadonlyDTO(person.getId(),person.getFirstname(),person.getLastname());
-        personReadonlyDTO.setUserId(person.getUser().getId());
-//        personReadonlyDTO.setUser(mapToReadOnlyDTO(person.getUser()));
-        return personReadonlyDTO;
-    }
-    public static StoreReadOnlyDTO mapToReadOnlyDTO(Store store){
-        StoreReadOnlyDTO storeReadOnlyDTO = new StoreReadOnlyDTO(store.getId(), store.getName(), store.getAddress());
-        return storeReadOnlyDTO;
-    }
-    public static User mapToUser(UserInsertDTO dto) {
-        return new User(null, dto.getUsername(), dto.getPassword(), Role.valueOf(dto.getRole()));
-
-    }
-
-    public static User mapToUser(UserUpdateDTO dto) {
-        return new User(dto.getId(), dto.getUsername(), dto.getPassword(), dto.getRole());
-    }
-
-    public static Person mapToPerson(PersonUpdateDTO dto){
-        Person person = new Person(dto.getFirstname(), dto.getLastname());
-        person.setId(dto.getId());
-        return person;
-
-    }
-    public static Person extractPersonFromRegisterPersonDTO(RegisterPersonDTO dto){
-        return new Person(dto.getFirstname(), dto.getLastname());
-    }
-
-    public static User extractUserFromRegisterPersonDTO(RegisterPersonDTO dto){
-        return User.NEW_PERSON(dto.getUsername(), dto.getPassword());
-    }
-
-    public static Store extractStoreFromStoreRegisterDTO(StoreRegisterDTO dto){
-        return new Store(dto.getName(), dto.getAddress());
-    }
-
-    public static User extractUserFromStoreRegisterDTO(StoreRegisterDTO dto){
-        return User.NEW_STORE(dto.getUsername(), dto.getPassword());
-    }
-
-    public static UserReadOnlyDTO mapToReadOnlyDTO(User user) {
-        return new UserReadOnlyDTO(user.getId(), user.getUsername(), String.valueOf(user.getRole()));
-    }
-
-    public static LoginResponseDTO mapToLoginResponseDTO(User user){
-        if (user.getRole() == Role.PERSONAL){
-            return new LoginResponseDTO(user.getId(),user.getUsername(),Role.PERSONAL,user.getPerson().getId());
-        }else {
-            return new LoginResponseDTO(user.getId(),user.getUsername(),Role.STORE,user.getStore().getId());
-        }
     }
 
 }
