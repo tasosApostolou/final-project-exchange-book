@@ -40,7 +40,7 @@ userservce = inject(UserService)
 
   loadBooksOfPersons(){
     let f = this.booksWithPersons
-  this.bookService.getBooksByTitle(this.titlee).subscribe( {
+  this.bookService.getBooksByTitle(this.title).subscribe( {
     next:(response) => {
       this.booksWithPersons = response
       console.log(this.userservce.user().role)    
