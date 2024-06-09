@@ -4,8 +4,6 @@ import com.example.changebook.dto.BaseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 public class BookUpdateDTO extends BaseDTO {
@@ -14,7 +12,5 @@ public class BookUpdateDTO extends BaseDTO {
         this.setId(bookId);
         this.title = title;
     }
-
-
 
 }

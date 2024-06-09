@@ -1,7 +1,6 @@
 package com.example.changebook.dto.personDTO;
 
 import com.example.changebook.dto.BaseDTO;
-import com.example.changebook.dto.usersDTO.UserUpdateDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
