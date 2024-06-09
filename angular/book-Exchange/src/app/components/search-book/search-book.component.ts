@@ -73,11 +73,11 @@ onSubmit(){
       console.log(this.userservce.user().role)    
 
     for(let i in response.length as any){
-      const book:Book ={
-        id:response[i].id,
-        title:response[i].title,
-      author:response[i].author
-      }
+      // const book:Book ={
+      //   id:response[i].id,
+      //   title:response[i].title,
+      // author:response[i].author
+      // }
       let bkps:BookWithPersons={
         id:response[i].id,
         title:response[i].title,
