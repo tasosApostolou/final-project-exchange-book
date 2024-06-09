@@ -83,7 +83,7 @@ public class PersonServiceImpl implements IPersonService {
         Person person;
         try {
             person =  personRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Person.class,id));
-            notificationRepository.deleteAllByInterestedUser(person.getUser());
+//            notificationRepository.deleteAllByInterestedUser(person.getUser());
             personRepository.deleteById(id);
             log.info("Person user deleted");
         }catch (EntityNotFoundException e){
@@ -133,21 +133,6 @@ public class PersonServiceImpl implements IPersonService {
         return person;
     }
 
-    //    @Override
-//    public Person getPersonByUsername(String username) throws EntityNotFoundException {
-////        User user;
-////        try {
-////            user = userRepository.findUserByUsername(username);
-////            if(user==null)throw new EntityNotFoundException(User.class,0L);
-////
-////        }catch (EntityNotFoundException e){
-////            log.error(e.getMessage());
-////            throw e;
-////        }
-//
-//        User user = userRepository.findByUsername(username).orElseThrow(() -> new jakarta.persistence.EntityNotFoundException());
-//        Person person = user1.getPerson();
-//    }
     @Override
     public List<Person> getPersonsByBookTitle(String bookTitle) throws EntityNotFoundException {
         List<Person> persons = new ArrayList<>();
@@ -199,7 +184,4 @@ public class PersonServiceImpl implements IPersonService {
         }
         return book;
     }
-
 }
-
-

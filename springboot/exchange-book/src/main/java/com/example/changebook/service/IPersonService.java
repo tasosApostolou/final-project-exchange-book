@@ -18,9 +18,7 @@ public interface IPersonService {
     Person updatePerson(PersonUpdateDTO personDTO) throws EntityNotFoundException;
     Person deletePerson(Long id) throws EntityNotFoundException;
     List<Person> getPersonsByLastname(String lastname) throws EntityNotFoundException;
-    //    public User addBooksToPerson(Long userId, Set<Long> bookIds) throws Exception;
     Person getPersonById(Long id) throws EntityNotFoundException;
-//    User getUserByUsername(String username) throws EntityNotFoundException;
     Person getPersonByUserId(Long id) throws EntityNotFoundException;
     List<Person> getPersonsByBookTitle(String bookTitle) throws EntityNotFoundException;
 

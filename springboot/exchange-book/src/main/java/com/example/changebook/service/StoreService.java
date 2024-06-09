@@ -23,7 +23,6 @@ public class StoreService implements IStoreService {
     private final StoreRepository storeRepository;
     private final StoreBooksRepository storeBooksRepository;
 
-
     @Override
     @Transactional
     public Store registerStore(StoreRegisterDTO dto) throws EntityAlreadyExistsException {

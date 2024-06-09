@@ -18,7 +18,6 @@ public interface IUserService {
     User updateUser(UserUpdateDTO userDTO) throws EntityNotFoundException;
     User deleteUser(Long id) throws EntityNotFoundException;
     List<User> getUsersByUsername(String username) throws EntityNotFoundException;
-//    public User addBooksToUser(Long userId, Set<Long> bookIds) throws Exception;
     User getUserById(Long id) throws EntityNotFoundException;
     User getUserByUsername(String username) throws EntityNotFoundException;
     List<Notification> getNotificationsByUserId(Long userID) throws EntityNotFoundException;
