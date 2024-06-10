@@ -112,13 +112,12 @@ public class BookServiceImpl implements IBookService{
             System.out.println(authorRepository.findByName(dto.book.author.getName())+"--------------------------------------------------");
 //            insertedAuthor = authorRepository.findByName(dto.authorInsertDTO.getName()).orElse(authorRepository.save(author));
             insertedAuthor = authorRepository.findAuthorByName(dto.book.author.getName());
-            if(insertedAuthor == null){ //create new author if does not exist
+            if(insertedAuthor == null){ //creates new author if does not exist
                 insertedAuthor = authorRepository.save(author);
             }
             book = Mapper.mapToBook(dto.book);
-            List<Book> sameTitleBooks = bookRepository.findBookByTitle(dto.book.Title);
             Book bookToAdd =  new Book();// Να θυμηθω να το αλλαξω
-            Boolean thereIsSameBook = sameTitleBooks.stream().anyMatch(b -> b.isTheSameBook(book));//lets say if author name and book title is the same so books is the same
+            Boolean thereIsSameBook = store.getAllBooks().stream().anyMatch(bookStore -> bookStore.getBook().isTheSameBook(book));//lets say if author name and book title is the same so books is the same
             if (!thereIsSameBook){
                 bookToAdd = bookRepository.save(book); // save book if does not exists
             }

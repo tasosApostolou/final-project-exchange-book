@@ -67,25 +67,6 @@ public class StoreService implements IStoreService {
         }
         return store;
     }
-    @Override
-    public List<Store> getStoresByName(String lastname) throws EntityNotFoundException {
-        return null;
-    }
-
-    @Override
-    public Store getStoreById(Long id) throws EntityNotFoundException {
-        return null;
-    }
-
-    @Override
-    public Store getStoreByUserId(Long id) throws EntityNotFoundException {
-        return null;
-    }
-
-    @Override
-    public List<Store> getStoresByBookTitle(String bookTitle) throws EntityNotFoundException {
-        return null;
-    }
 
     @Override
     public List<StoreBook> getAllBooksByStoreId(Long id) throws EntityNotFoundException {
@@ -118,4 +99,41 @@ public class StoreService implements IStoreService {
         }
         return storeBook.getBook();
     }
+
+    @Override
+    public List<StoreBook> getStoreBooksByBookTitle(String title) throws EntityNotFoundException {
+        List<StoreBook> storeBooks = new ArrayList<>();
+        try{
+            storeBooks = storeBooksRepository.findByBook_Title(title);
+            if (storeBooks.isEmpty()) throw new EntityNotFoundException(Book.class,0L);
+            log.info("Books with title "+ title +" were found");
+        }catch (EntityNotFoundException e){
+            log.error(e.getMessage());
+            throw e;
+        }
+        return  storeBooks;
+    }
+
+    @Override
+    public List<Store> getStoresByName(String lastname) throws EntityNotFoundException {
+        return null;
+    }
+
+    @Override
+    public Store getStoreById(Long id) throws EntityNotFoundException {
+        return null;
+    }
+
+    @Override
+    public Store getStoreByUserId(Long id) throws EntityNotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<Store> getStoresByBookTitle(String bookTitle) throws EntityNotFoundException {
+        return null;
+    }
+
+
+
 }

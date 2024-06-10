@@ -20,5 +20,6 @@ public interface IStoreService {
 
     List<StoreBook> getAllBooksByStoreId(Long id) throws EntityNotFoundException;
     Book removeBookFromStore(Long personId, Long bookId) throws EntityNotFoundException;
+    List<StoreBook> getStoreBooksByBookTitle(String title) throws EntityNotFoundException;
 }
 
