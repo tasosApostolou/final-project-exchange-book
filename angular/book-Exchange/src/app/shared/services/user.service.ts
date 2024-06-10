@@ -51,7 +51,6 @@ this.router.navigate(['login']);
   }
   // api/{role}/roleEntityId/books
   getUserBooks(){
-    console.log(`userasa:${this.id}`)
     return this.http.get<Book[] | StoreBook[]>(`${environment.apiURL}/${this.user().role.toLowerCase()}/${this.user().roleEntityId}/books`,{
       headers: {
         Accept:'application/json'

@@ -1,12 +1,9 @@
-export interface store{
-    id:number
-    name: string;
-    address: string;
-    // user:User;
-    userId:number;
-    // city: number;
-    // email: string;
-    // phone: string;
+export interface Store{
+  id:number
+  name: string;
+  address: string;
+  // user:User;
+  userId:number;
 }
 
 export interface storeRegister{

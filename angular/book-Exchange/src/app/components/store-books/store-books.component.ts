@@ -22,25 +22,17 @@ export class StoreBooksComponent {
   booksWithPrice:BookWithPrice[] = []
 
   ngOnInit(): void {
-    this.userService.getUserBooks().subscribe((data:StoreBook[]) => {
+    this.storeService.getStoreBooks().subscribe((data:StoreBook[]) => {
       this.storeBooks = data
       this.getBooks(this.storeBooks)
     })
   }
   getBooks(storeBooks:StoreBook[]){
-    let i =0
     for (let storeBook of storeBooks){
-      this.bookService.getBookById(storeBook.bookId).subscribe((book:Book) => {
-        this.books.push(book)
-        console.log(storeBook.price)
-        this.booksWithPrice.push({
-          book:book,
-          price:storeBooks[i].price
-        })
-        i+=1
-      })
+        this.books.push(storeBook.book)
     }
   }
+  
   
   deleteBook(bookId:number){
     this.userService.deleteBookFromLoggedInUser(bookId).subscribe({

@@ -136,9 +136,9 @@ public class Mapper {
     }
 
     public static StoreBookReadOnlyDTO mapToReadOnlyDTO(StoreBook bookStore){
-        AuthorReadOnlyDTO authorReadOnlyDTO = new AuthorReadOnlyDTO();
-        authorReadOnlyDTO = mapToReadOnlyDTO(bookStore.getBook().getAuthor());
-        StoreBookReadOnlyDTO readOnlyDTO = new StoreBookReadOnlyDTO(bookStore.getStore().getId(),bookStore.getBook().getId(), bookStore.getPrice());
+//        AuthorReadOnlyDTO authorReadOnlyDTO = new AuthorReadOnlyDTO();
+//        authorReadOnlyDTO = mapToReadOnlyDTO(bookStore.getBook().getAuthor());
+        StoreBookReadOnlyDTO readOnlyDTO = new StoreBookReadOnlyDTO(mapToReadOnlyDTO(bookStore.getBook()),mapToReadOnlyDTO(bookStore.getStore()),bookStore.getPrice());
         return readOnlyDTO;
     }
     public static NotificationReadOnlyDTO mapToReadOnlyDTO(Notification notification){
@@ -156,7 +156,6 @@ public class Mapper {
 
     public static BookReadWithPersonsSetDTO mapToReadOnlyDTOwithPersonDetails(Book book) {
         UserReadOnlyDTO userReadOnlyDTO;
-        // //     return new TeacherReadOnlyDTO(book.getId(), auth.getSsn(), teacher.getFirstname(), teacher.getLastname(), teacher.getUser(), teacher.getSpeciality());
         AuthorReadOnlyDTO authorReadOnlyDTO = new AuthorReadOnlyDTO();
         authorReadOnlyDTO = mapToReadOnlyDTO(book.getAuthor());
         BookReadWithPersonsSetDTO bookReadOnlyDTO = new BookReadWithPersonsSetDTO();

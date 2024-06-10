@@ -1,6 +1,7 @@
 
 import { Author, AuthorInsertDTO } from "./author-insert-dto";
 import { Person } from "./person";
+import { Store } from "./store";
 import { User } from "./user";
 
 export interface Book {
@@ -9,9 +10,9 @@ export interface Book {
     author: Author;
 }
 export interface StoreBook{
-    bookId:number,
-    storeId:number,
-    price:number
+    book:Book;
+    store:Store;
+    price:number;
 }
 export interface BookWithPrice{
     book:Book,

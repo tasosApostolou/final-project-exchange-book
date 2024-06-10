@@ -20,14 +20,14 @@
       </tr>
     </thead>
     <tbody>
-      @for (bookWithPrice of booksWithPrice; track bookWithPrice) {
+      @for (storeBook of storeBooks; track storeBook) {
         <tr class="align-middle">
-          <td>{{ bookWithPrice.book.id }}</td>
-          <td>{{ bookWithPrice.book.title }}</td>
-          <td>{{ bookWithPrice.book.author.name  }}</td>
-          <td>{{ bookWithPrice.price  }}</td>
+          <td>{{ storeBook.book.id }}</td>
+          <td>{{ storeBook.book.title }}</td>
+          <td>{{ storeBook.book.author.name  }}</td>
+          <td>{{ storeBook.price  }}</td>
           <td class="btn btn-primary  ">  
-            <button mat-fab color="primary" class="rounded-2 " (click)="deleteBook(bookWithPrice.book.id)"aria-label="Example icon button with a delete icon"> Delete
+            <button mat-fab color="primary" class="rounded-2 " (click)="deleteBook(storeBook.book.id)"aria-label="Example icon button with a delete icon"> Delete
         <mat-icon>delete</mat-icon>
       </button></td>
         </tr>

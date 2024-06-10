@@ -77,7 +77,6 @@ public class BookServiceImpl implements IBookService{
         try{
             person = personRepository.findById(personId).orElseThrow(() -> new EntityNotFoundException(Person.class,personId));
             author = Mapper.mapToAuthor(dto.author);
-            System.out.println(authorRepository.findByName(dto.author.getName())+"--------------------------------------------------");
             insertedAuthor = authorRepository.findAuthorByName(dto.author.getName());
             if(insertedAuthor == null){ //create new author if does not exist
                 insertedAuthor = authorRepository.save(author);

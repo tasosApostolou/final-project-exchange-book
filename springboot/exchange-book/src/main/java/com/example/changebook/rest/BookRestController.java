@@ -85,9 +85,7 @@ public class BookRestController {
         StoreBookReadOnlyDTO readOnlyDTO;
         try {
             storeBook = bookService.insertBookToStore(storeID,dto);
-            log.info(storeBook.getBook().getTitle() + storeBook.getBook().getAuthor().getName());
-            readOnlyDTO = new StoreBookReadOnlyDTO(storeBook.getStore().getId(), storeBook.getBook().getId(), storeBook.getPrice());
-            //            BookReadOnlyDTO bookReadOnlyDTO = Mapper.mapToReadOnlyDTO(storeBook.getBook());
+            readOnlyDTO = Mapper.mapToReadOnlyDTO(storeBook);
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
                     .buildAndExpand(storeBook.getStore().getId())
