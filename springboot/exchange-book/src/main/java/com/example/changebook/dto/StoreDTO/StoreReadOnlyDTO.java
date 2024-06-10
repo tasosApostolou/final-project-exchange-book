@@ -18,8 +18,6 @@ public class StoreReadOnlyDTO {
 
     public StoreReadOnlyDTO(Long id, String firstname, String lastname) {
 
-//        this.username = username;
-//        this.password = password;
         this.name = firstname;
         this.address = lastname;
     }
