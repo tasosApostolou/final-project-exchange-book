@@ -1,4 +1,4 @@
-import { Component, inject,QueryList, ViewChildren, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, NgForm, NgModel, NgModelGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,7 +16,7 @@ import { SearchBookForm } from 'src/app/shared/interfaces/Search-book-form';
 @Component({
   selector: 'app-search-book-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule,MatInputModule,MatSelectModule,MatButtonModule,RouterLink,RouterOutlet,UserLoginComponent,MatIconModule,MatMenu,MatButtonModule, MatIconModule, MatButtonModule,MatButtonToggleModule,MatIconModule,MatIconButton,BooksInStoresComponent],
+  imports: [ReactiveFormsModule, MatFormFieldModule,MatInputModule,MatSelectModule,MatButtonModule,RouterLink,RouterOutlet,MatIconModule,MatMenu,MatButtonModule, MatIconModule, MatButtonModule,MatButtonToggleModule,MatIconModule,MatIconButton,BooksInStoresComponent],
   templateUrl: './search-book-form.component.html',
   styleUrl: './search-book-form.component.css'
 })
