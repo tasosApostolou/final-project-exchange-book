@@ -28,6 +28,7 @@ export class SearchBookManagerComponent {
 
   ngOnInit(): void {
     this.loadBooksOfPersons()
+    // this.loadBooksOfStores()
   }
 
   formResults(formValue:SearchBookForm){
@@ -37,7 +38,8 @@ export class SearchBookManagerComponent {
       this.loadBooksOfPersons()
 }
     if (this.choice==="stores"){
-      this.loadBooksOfPersons()
+      console.log(`$title ${this.title} --`)
+      this.loadBooksOfStores()
     }
 
 
