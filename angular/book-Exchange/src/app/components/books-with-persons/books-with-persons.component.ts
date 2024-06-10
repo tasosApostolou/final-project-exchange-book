@@ -38,40 +38,6 @@ userservce = inject(UserService)
 booksWithPersons:BookWithPersons[] // a list with books and for each book a list with persons which have this book
 
 
-// ngOnInit(): void {
-//   if(this.title){
-//   this.onSubmit()
-//   }
-// }
-onSubmit(){
-  let f = this.booksWithPersons
-  this.bookService.getBooksByTitle(this.title).subscribe( {
-    next:(response) => {
-      this.booksWithPersons = response
-    
-
-    for(let i in response.length as any){
-      const book:Book ={
-        id:response[i].id,
-        title:response[i].title,
-        author:response[i].author
-      }
-      let bkps:BookWithPersons={
-        id:response[i].id,
-        title:response[i].title,
-        author:response[i].author,
-        persons:response[i].persons
-      }
-      console.log(bkps)
-  }
-    },
-    error: (response) => {
-      console.log('Error in response',response);
-      
-    }
-  })
-}
-
 interest(bkps:BookWithPersons,person:Person,event:Event){
 
   this.iconType(event)

@@ -36,6 +36,9 @@ export class SearchBookManagerComponent {
     if (this.choice==="others"){
       this.loadBooksOfPersons()
 }
+    if (this.choice==="stores"){
+      this.loadBooksOfPersons()
+    }
 
 
   }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { StoreBook } from 'src/app/shared/interfaces/book';
 
 @Component({
   selector: 'app-books-in-stores',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './books-in-stores.component.css'
 })
 export class BooksInStoresComponent {
+  @Input()  storeBooks:StoreBook[]
   
 }
