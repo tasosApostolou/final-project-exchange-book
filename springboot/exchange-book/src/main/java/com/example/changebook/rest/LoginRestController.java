@@ -52,26 +52,6 @@ public class LoginRestController {
                     content = @Content)})
     @PostMapping("/login")
     public AuthendicationResponse loginUser(@RequestBody LoginCredentialsDTO dto, HttpServletResponse response) throws BadCredentialsException, DisabledException, UsernameNotFoundException, IOException {
-//        insertValidator.validate(dto, bindingResult);
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//        try {
-//            User user = userService.getUserByUsername(dto.getUsername());
-//            LoginResponseDTO responseDTO = Mapper.mapToLoginResponseDTO(user);
-//            if (!Objects.equals(dto.getPassword(), user.getPassword())){
-//                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//            }
-//            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//                    .path("/{id}")
-//                    .buildAndExpand(responseDTO.getUserId())
-//                    .toUri();
-//            return ResponseEntity.created(location).body(responseDTO);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-//        }
-//    }
-
 
         User user;
         LoginResponseDTO responseDTO;
