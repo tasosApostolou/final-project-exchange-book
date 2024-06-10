@@ -36,6 +36,10 @@ export class StoreService {
         },
       })
     }
+
+    getStoreBooksByTitle(title:string){
+      return this.http.get<StoreBook[]>(`${API_URL}/books?title=${title}`)
+    }
   
     deleteBookFromLoggedInStore(bookId:number){
      return this.http.delete<{any:Book}>(`${API_URL}/${this.userService.user().roleEntityId}/books/${bookId}`)
@@ -52,7 +56,5 @@ export class StoreService {
     deleteUser(){
       return this.http.delete<{user:User}>(`${environment.apiURL}/${this.userService.user().role.toLowerCase()}/${this.userService.user().roleEntityId}`)
     }
-    // deleteUser(){
-    //   return this.http.delete<{user:User}>(`${environment.apiURL}/user/${this.userService.user().userId}`)
-    // }
+
   }
