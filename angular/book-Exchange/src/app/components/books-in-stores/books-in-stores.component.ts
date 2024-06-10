@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Dialog } from '@angular/cdk/dialog';
+import { Component, Input, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { StoreBook } from 'src/app/shared/interfaces/book';
+import { BuyBookComponent } from '../buy-book/buy-book.component';
 
 @Component({
   selector: 'app-books-in-stores',
@@ -10,6 +12,10 @@ import { StoreBook } from 'src/app/shared/interfaces/book';
   styleUrl: './books-in-stores.component.css'
 })
 export class BooksInStoresComponent {
+  constructor(public dialog: Dialog, dia:Dialog) {}
   @Input()  storeBooks:StoreBook[]
 
+  buyBook(){
+    this.dialog.open(BuyBookComponent)
+  }
 }

@@ -40,6 +40,7 @@ export class ManageAccountComponent {
     this.dialog.open(ChangePasswordComponent)
   }
   
+  
   deleteUserDialog(){
     this.dialog.open(DeleteDialogComponent);
   }

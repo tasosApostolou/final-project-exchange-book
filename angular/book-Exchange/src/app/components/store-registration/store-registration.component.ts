@@ -16,6 +16,7 @@ import { PersonRegister } from 'src/app/shared/interfaces/person';
 import { PersonService } from 'src/app/shared/services/person.service';
 import { storeRegister } from 'src/app/shared/interfaces/store';
 import { StoreService } from 'src/app/shared/services/store.service';
+import { Dialog } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-store-registration',
@@ -31,6 +32,8 @@ export class StoreRegistrationComponent {
   inject(Router)
   registrationStatus:{succes:boolean;message:string} = {succes:false,message:'Not Attempted yet'}
   
+  constructor(public dialog: Dialog, dia:Dialog) {}
+
   form = new FormGroup({
     name:new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
@@ -39,8 +42,6 @@ export class StoreRegistrationComponent {
     role:new FormControl({value:'STORE',disabled:true},Validators.required),
     confirmPassword:new FormControl('',[Validators.required, Validators.minLength(4)]),
   },this.passwordConfirmsValidator)
-  
-  
   
   passwordConfirmsValidator(form:FormGroup){
     if (form.get('password').value !== form.get('confirmPassword').value){
