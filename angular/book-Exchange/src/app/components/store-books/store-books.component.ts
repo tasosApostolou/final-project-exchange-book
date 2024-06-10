@@ -29,15 +29,9 @@ export class StoreBooksComponent {
   }
   getBooks(storeBooks:StoreBook[]){
     let i =0
-    console.log(storeBooks[0])
     for (let storeBook of storeBooks){
-      // this.storeBooks.push(storeBook)
       this.bookService.getBookById(storeBook.bookId).subscribe((book:Book) => {
         this.books.push(book)
-        // const bookWithPrice:BookWithPrice = {
-        //   book:book,
-        //   price:storeBook.price
-        // }
         console.log(storeBook.price)
         this.booksWithPrice.push({
           book:book,
