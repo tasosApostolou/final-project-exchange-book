@@ -43,11 +43,10 @@ public class Person extends AbstractEntity {
         this.lastname = lastname;
     }
 
-    public Person(Long id, String firstname, String lastname, String gender, String birthdate, String city, User user) {
+    public Person(Long id, String firstname, String lastname, User user) {
         this.setId(id);
         this.firstname = firstname;
         this.lastname = lastname;
-        this.city = city;
         this.user = user;
     }
 
