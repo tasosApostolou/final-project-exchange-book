@@ -23,16 +23,10 @@ export class StoreBooksComponent {
   ngOnInit(): void {
     this.storeService.getStoreBooks().subscribe((data:StoreBook[]) => {
       this.storeBooks = data
-      this.getBooks(this.storeBooks)
+      data.forEach(storeBook => this.books.push(storeBook.book))
     })
   }
-  getBooks(storeBooks:StoreBook[]){
-    for (let storeBook of storeBooks){
-        this.books.push(storeBook.book)
-    }
-  }
-  
-  
+
   deleteBook(bookId:number){
     this.userService.deleteBookFromLoggedInUser(bookId).subscribe({
       next:(response)=> {
