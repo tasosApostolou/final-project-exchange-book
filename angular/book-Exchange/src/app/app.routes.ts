@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router'
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
-
-import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import {authPersonalGuard} from './shared/guards/authPersonal.guard';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { AddBookComponent } from './components/add-book/add-book.component';
@@ -23,6 +21,7 @@ import { SearchBookManagerComponent } from './components/search-book-manager/sea
 import { SearchBookFormComponent } from './components/search-book-form/search-book-form.component';
 import { UpdateStoreComponent } from './components/update-store/update-store.component';
 import { BuyBookComponent } from './components/buy-book/buy-book.component';
+import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 
 
 

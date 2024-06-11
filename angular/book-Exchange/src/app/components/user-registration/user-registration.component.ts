@@ -62,7 +62,7 @@ onSubmit(value:any){
       this.registrationStatus = {succes:true,message:"User register succesfully"}
     },
     error: (response) => {
-      const message = "user not register"
+      const message = "username already exists or error"
       console.log('Error registration user', message);
       this.registrationStatus = {succes:false,message}
       // this.registrationStatus = {succes:false,message:message}
@@ -71,6 +71,7 @@ onSubmit(value:any){
 }
 registerUser(){
 this.form.reset();
+this.form.patchValue({role:"PERSONAL"})
 this.registrationStatus ={
   succes:false,message:'Not Attempted yet'
 }

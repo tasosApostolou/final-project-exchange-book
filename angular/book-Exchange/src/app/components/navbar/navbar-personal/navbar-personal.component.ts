@@ -57,7 +57,6 @@ matBadgeValue(){
   
  notificationClicked(notification:Notifica){
     this.ngOnInit() 
-    console.log(`${notification.interested.id} a-sss-as`)
     let notificationToUpdate = this.notifications.find(noti => noti.id === notification.id) //ngOnInit refreshing notification
     this.UpdateNotificationAsSeen(notificationToUpdate)
     
@@ -80,7 +79,6 @@ matBadgeValue(){
     })
     }
 
-    // <div class= {{bgNotif(notif)}}></div>
     bgNotif(notif:Notifica):string{
       if (!notif.isSeen){
         return 'bg-light'

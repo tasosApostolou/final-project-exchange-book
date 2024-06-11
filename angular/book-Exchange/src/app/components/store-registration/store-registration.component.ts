@@ -5,15 +5,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatInputModule } from '@angular/material/input';
-import { User } from 'src/app/shared/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UserLoginComponent } from '../user-login/user-login.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenu } from '@angular/material/menu';
 import { MatToolbar, MatToolbarModule, MatToolbarRow } from '@angular/material/toolbar';
-import { PersonRegister } from 'src/app/shared/interfaces/person';
-import { PersonService } from 'src/app/shared/services/person.service';
 import { storeRegister } from 'src/app/shared/interfaces/store';
 import { StoreService } from 'src/app/shared/services/store.service';
 import { Dialog } from '@angular/cdk/dialog';
@@ -31,9 +28,6 @@ export class StoreRegistrationComponent {
   router:Router = 
   inject(Router)
   registrationStatus:{succes:boolean;message:string} = {succes:false,message:'Not Attempted yet'}
-  
-  constructor(public dialog: Dialog, dia:Dialog) {}
-
   form = new FormGroup({
     name:new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
@@ -62,8 +56,8 @@ export class StoreRegistrationComponent {
         this.registrationStatus = {succes:true,message:"User register succesfully"}
       },
       error: (response) => {
-        const message = "user not register"
-        console.log('Error registration user', message);
+        const message = "username already exists or error"
+        console.log('Error registration user', response);
         this.registrationStatus = {succes:false,message}
         // this.registrationStatus = {succes:false,message:message}
       }
@@ -71,6 +65,7 @@ export class StoreRegistrationComponent {
   }
   registerUser(){
   this.form.reset();
+  this.form.patchValue({role:"STORE"})
   this.registrationStatus ={
     succes:false,message:'Not Attempted yet'
   }
