@@ -1,6 +1,7 @@
 package com.example.changebook.service;
 
 import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
+import com.example.changebook.dto.StoreDTO.StoreUpdateDTO;
 import com.example.changebook.model.Book;
 import com.example.changebook.model.Store;
 import com.example.changebook.model.StoreBook;
@@ -11,7 +12,6 @@ import java.util.List;
 
 public interface IStoreService {
     Store registerStore(StoreRegisterDTO dto) throws EntityAlreadyExistsException;
-    Store updateStore(StoreRegisterDTO personDTO) throws EntityNotFoundException;
     Store deleteStore(Long id) throws EntityNotFoundException;
     List<Store> getStoresByName(String lastname) throws EntityNotFoundException;
     Store getStoreById(Long id) throws EntityNotFoundException;
@@ -21,5 +21,7 @@ public interface IStoreService {
     List<StoreBook> getAllBooksByStoreId(Long id) throws EntityNotFoundException;
     Book removeBookFromStore(Long personId, Long bookId) throws EntityNotFoundException;
     List<StoreBook> getStoreBooksByBookTitle(String title) throws EntityNotFoundException;
-}
+   Store updateStore(StoreUpdateDTO dto) throws EntityNotFoundException;
+
+    }
 

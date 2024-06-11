@@ -64,12 +64,12 @@ public class PersonServiceImpl implements IPersonService {
         Person person;
         Person personToUpdate;
         try {
-            person = personRepository.findById(dto.getId()).orElseThrow(()-> new EntityNotFoundException(User.class, dto.getId()));
+            person = personRepository.findById(dto.getId()).orElseThrow(()-> new EntityNotFoundException(Person.class, dto.getId()));
             User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new EntityNotFoundException(User.class,dto.getUserId()));
             personToUpdate = Mapper.mapToPerson(dto);
             personToUpdate.setUser(user);
             person = personRepository.save(personToUpdate);
-            log.info("User with id: "+ person.getId()+ " was updated");
+            log.info("Person with id: "+ person.getId()+ " was updated");
         }catch (EntityNotFoundException e){
             log.error(e.getMessage());
             throw e;

@@ -4,7 +4,9 @@ import com.example.changebook.dto.BookDTO.BookReadOnlyDTO;
 import com.example.changebook.dto.BookDTO.StoreBookReadOnlyDTO;
 import com.example.changebook.dto.StoreDTO.StoreReadOnlyDTO;
 import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
+import com.example.changebook.dto.StoreDTO.StoreUpdateDTO;
 import com.example.changebook.dto.personDTO.PersonReadonlyDTO;
+import com.example.changebook.dto.personDTO.PersonUpdateDTO;
 import com.example.changebook.dto.usersDTO.UserReadOnlyDTO;
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.Book;
@@ -71,6 +73,24 @@ public class StoreRestController {
             return ResponseEntity.created(location).body(storeReadOnlyDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<StoreReadOnlyDTO> updateStore(@PathVariable("id") Long id, @RequestBody StoreUpdateDTO dto, BindingResult bindingResult) {
+        if(!(dto.getId() ==id)){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+//        updateValidator.validate(dto, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+        try {
+            Store store = storeService.updateStore(dto);
+            StoreReadOnlyDTO readOnlyDTO = Mapper.mapToReadOnlyDTO(store);
+            return new ResponseEntity<>(readOnlyDTO,HttpStatus.OK);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.changebook.service;
 
 import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
+import com.example.changebook.dto.StoreDTO.StoreUpdateDTO;
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.*;
 import com.example.changebook.repository.*;
@@ -48,8 +49,21 @@ public class StoreService implements IStoreService {
 
     @Override
     @Transactional
-    public Store updateStore(StoreRegisterDTO personDTO) throws EntityNotFoundException {
-        return null;
+    public Store updateStore(StoreUpdateDTO dto) throws EntityNotFoundException {
+        Store store;
+        Store storeToUpdate;
+        try {
+            store = storeRepository.findById(dto.getId()).orElseThrow(()-> new EntityNotFoundException(User.class, dto.getId()));
+            User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new EntityNotFoundException(User.class,dto.getUserId()));
+            storeToUpdate = Mapper.mapToStore(dto);
+            storeToUpdate.setUser(user);
+            store = storeRepository.save(storeToUpdate);
+            log.info("Store with id: "+ store.getId()+ " was updated");
+        }catch (EntityNotFoundException e){
+            log.error(e.getMessage());
+            throw e;
+        }
+        return store;
     }
 
     @Transactional

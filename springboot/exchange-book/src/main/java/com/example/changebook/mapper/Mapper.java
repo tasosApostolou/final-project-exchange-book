@@ -5,6 +5,7 @@ import com.example.changebook.dto.NotificationDTO.NotificationReadOnlyDTO;
 import com.example.changebook.dto.NotificationDTO.NotificationUpdateDTO;
 import com.example.changebook.dto.StoreDTO.StoreReadOnlyDTO;
 import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
+import com.example.changebook.dto.StoreDTO.StoreUpdateDTO;
 import com.example.changebook.dto.authorDTO.AuthorInsertDTO;
 import com.example.changebook.dto.authorDTO.AuthorReadOnlyDTO;
 
@@ -31,6 +32,7 @@ public class Mapper {
     }
     public static StoreReadOnlyDTO mapToReadOnlyDTO(Store store){
         StoreReadOnlyDTO storeReadOnlyDTO = new StoreReadOnlyDTO(store.getId(), store.getName(), store.getAddress());
+        storeReadOnlyDTO.setUserId( store.getUser().getId());
         return storeReadOnlyDTO;
     }
     public static User mapToUser(UserInsertDTO dto) {
@@ -47,6 +49,11 @@ public class Mapper {
         person.setId(dto.getId());
         return person;
 
+    }
+    public static Store mapToStore(StoreUpdateDTO dto){
+        Store store = new Store(dto.getName(), dto.getAddress());
+        store.setId(dto.getId());
+        return store;
     }
     public static Person extractPersonFromRegisterPersonDTO(RegisterPersonDTO dto){
         return new Person(dto.getFirstname(), dto.getLastname());
@@ -96,17 +103,6 @@ public class Mapper {
         return book;
     }
 
-//    public static Notification mapToNotification(NotificationInsertDTO dto){
-////    Author author = new Author();
-////    BookInsertDTO bookInsertDTO = dto.getBook();
-////    Book book = mapToBook(dto.getBook());
-////    AuthorInsertDTO authorInsertDTO = bookInsertDTO.getAuthorInsertDTO();
-////    author = mapToAuthor(authorInsertDTO);
-////    book.setAuthor(author);
-////    return new Notification(null,mapToUser(dto.getUser()),book,dto.getTimestamp(),dto.getIsSeen());
-//        return new Notification(null,dto.getInterested(),dto.getUser(),dto.getBook(),dto.getTimestamp(),dto.getIsSeen());
-//
-//    }
     public static Notification mapToNotification(NotificationUpdateDTO dto){
         Notification notification = new Notification();
         notification.setId(dto.getId());

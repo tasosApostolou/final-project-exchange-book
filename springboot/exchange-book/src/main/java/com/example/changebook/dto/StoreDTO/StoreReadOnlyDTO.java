@@ -16,9 +16,11 @@ public class StoreReadOnlyDTO {
     //    private UserReadOnlyDTO user;
     private Long userId;
 
-    public StoreReadOnlyDTO(Long id, String firstname, String lastname) {
+    public StoreReadOnlyDTO(Long id, String name, String address) {
 
-        this.name = firstname;
-        this.address = lastname;
+        this.name = name;
+        this.address = address;
     }
+
+
 }

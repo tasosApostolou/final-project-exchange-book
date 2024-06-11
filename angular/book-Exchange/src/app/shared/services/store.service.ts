@@ -3,7 +3,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { Book, StoreBook } from '../interfaces/book';
 import { Person } from '../interfaces/person';
-import { storeRegister } from '../interfaces/store';
+import { Store, storeRegister } from '../interfaces/store';
 import { User } from '../interfaces/user';
 import { UserService } from './user.service';
 const API_URL = `${environment.apiURL}/store`;
@@ -43,6 +43,14 @@ export class StoreService {
   
     deleteBookFromLoggedInStore(bookId:number){
      return this.http.delete<{any:Book}>(`${API_URL}/${this.userService.user().roleEntityId}/books/${bookId}`)
+    }
+    updateStore(store:Store){
+      return this.http.put<{any:Store}>(`${API_URL}/update/${
+        store.id}`,store)
+    }
+  
+    getStoreByUserId(userID:number){
+      return this.http.get<Person>(`${API_URL}/user/${userID}`)
     }
   
     deleteUser(){
