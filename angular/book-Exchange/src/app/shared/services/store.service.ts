@@ -44,14 +44,6 @@ export class StoreService {
     deleteBookFromLoggedInStore(bookId:number){
      return this.http.delete<{any:Book}>(`${API_URL}/${this.userService.user().roleEntityId}/books/${bookId}`)
     }
-    updatePersonal(person:Person){
-      return this.http.put<{any:Person}>(`${API_URL}/update/${
-        person.id}`,person)
-    }
-  
-    getPersonByUserId(userID:number){
-      return this.http.get<Person>(`${API_URL}/user/${userID}`)
-    }
   
     deleteUser(){
       return this.http.delete<{user:User}>(`${environment.apiURL}/${this.userService.user().role.toLowerCase()}/${this.userService.user().roleEntityId}`)

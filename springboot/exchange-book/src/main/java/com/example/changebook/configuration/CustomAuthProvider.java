@@ -34,7 +34,7 @@ public class CustomAuthProvider {
     }
     @Bean
     public PasswordEncoder passwordEncoder(){
-//        return new BCryptPasswordEncoder(11); //default is 10 === 2^10 interations
         return NoOpPasswordEncoder.getInstance();
+        //        return new BCryptPasswordEncoder(11); //default is 10 === 2^10 interations
     }
 }

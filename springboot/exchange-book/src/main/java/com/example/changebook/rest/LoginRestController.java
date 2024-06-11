@@ -69,8 +69,6 @@ public class LoginRestController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getUsername());
 
         final String jwt = jwtUtil.generateToken(userDetails.getUsername(),responseDTO.getUserId(), String.valueOf(responseDTO.getRole()),responseDTO.getRoleEntityId());
-        System.out.println("--------------------------------"+jwt);
-        System.out.println(new AuthendicationResponse(jwt)+"----------------------");
 
         return new AuthendicationResponse(jwt);
 
