@@ -45,7 +45,7 @@ public class User extends AbstractEntity implements UserDetails {
     )
     private Set<Book> books = new HashSet<>();
 
-    @OneToMany(mappedBy = "holderUSer", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "holderUSer", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},orphanRemoval = true)
     @Getter(AccessLevel.PUBLIC)
     private Set<Notification> notifications;
 
