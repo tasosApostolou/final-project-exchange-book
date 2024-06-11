@@ -25,16 +25,6 @@ public class Person extends AbstractEntity {
     @Column(length = 50)
     private String lastname;
 
-    @Column (length = 15)
-    private String birthdate;
-
-    @Column(length = 20)
-    private String city;
-
-//    @ManyToOne
-//    @JoinColumn(name = "city_id")
-//    private Cities city;
-
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "user_id",referencedColumnName = "id",unique = true)
     private User user;
