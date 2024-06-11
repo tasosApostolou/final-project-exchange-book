@@ -16,6 +16,8 @@ import com.example.changebook.model.StoreBook;
 import com.example.changebook.service.IStoreService;
 import com.example.changebook.service.exceptions.EntityAlreadyExistsException;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
+import com.example.changebook.validator.StoreRegisterValidator;
+import com.example.changebook.validator.StoreUpdateValidator;
 import com.example.changebook.validator.UserInsertValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -41,11 +43,9 @@ import java.util.List;
 @RequestMapping("/api/store")
 @Slf4j
 public class StoreRestController {
-    private final IStoreService storeService;
-//    private final RegisterPersonValidator registerPersonValidator;
-    //    private final IUserService userService;
-    private final UserInsertValidator insertValidator;
-//    private final PersonUpdateValidator updateValidator;
+    private final IStoreService storeService;;
+    private final StoreRegisterValidator storeRegisterValidator;
+    private final StoreUpdateValidator updateValidator;
 
     @Operation(summary = "Add a Store")
     @ApiResponses(value = {
@@ -58,10 +58,10 @@ public class StoreRestController {
                     content = @Content)})
     @PostMapping("/register")
     public ResponseEntity<StoreReadOnlyDTO> RegisterStore(@Valid @RequestBody @Schema(implementation = StoreRegisterDTO.class) StoreRegisterDTO dto, BindingResult bindingResult) throws EntityAlreadyExistsException {
-//        registerPersonValidator.validate(dto,bindingResult);
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+        storeRegisterValidator.validate(dto,bindingResult);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Store createdStore;
         try {
             createdStore = storeService.registerStore(dto);
@@ -81,10 +81,10 @@ public class StoreRestController {
         if(!(dto.getId() ==id)){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-//        updateValidator.validate(dto, bindingResult);
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+        updateValidator.validate(dto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
             Store store = storeService.updateStore(dto);
             StoreReadOnlyDTO readOnlyDTO = Mapper.mapToReadOnlyDTO(store);

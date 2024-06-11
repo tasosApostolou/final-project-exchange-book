@@ -15,7 +15,6 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class StoreBooksComponent {
   userService = inject(UserService)
   user = this.userService.user
-  bookService = inject(BookService)
   storeService = inject(StoreService)
   books:Book[] = []
   storeBooks:StoreBook[]
