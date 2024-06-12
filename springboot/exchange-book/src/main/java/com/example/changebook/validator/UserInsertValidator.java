@@ -22,7 +22,7 @@ public class UserInsertValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"password","empty");
-        if(userInsertDTO.getPassword().length()< 3 || userInsertDTO.getPassword().length() > 50){
+        if(userInsertDTO.getPassword().length()< 3 || userInsertDTO.getPassword().length() > 500){
             errors.reject("password", "size");
         }
 

@@ -23,7 +23,7 @@ public class RegisterPersonValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"password","empty");
-        if(registerPersonDTO.getPassword().length()< 3 || registerPersonDTO.getPassword().length() > 50){
+        if(registerPersonDTO.getPassword().length()< 3 || registerPersonDTO.getPassword().length() > 300){
             errors.reject("password", "size");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"firstname","empty");

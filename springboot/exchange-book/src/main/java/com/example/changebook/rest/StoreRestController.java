@@ -129,6 +129,7 @@ public class StoreRestController {
                             schema = @Schema(implementation = StoreReadOnlyDTO.class)) }),
             @ApiResponse(responseCode = "404", description = "Store not found",
                     content = @Content)})
+
     @DeleteMapping("/{id}")
     public ResponseEntity<StoreReadOnlyDTO> deletePerson(@PathVariable("id") Long id){
         Store store;
@@ -141,15 +142,15 @@ public class StoreRestController {
         }
     }
 
-//    @Operation(summary = "remove the book_id and person_id from middleware person_books ")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "the book deleted from person list with books",
-//                    content = {@Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-//            @ApiResponse(responseCode = "400", description = "entity not found(person or book) searching by id in variable path ",
-//                    content = @Content),
-//            @ApiResponse(responseCode = "500", description = "personn does not have this book to delete",
-//                    content = @Content)})
+    @Operation(summary = "remove the book_id and person_id from middleware person_books ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "the book deleted from person list with books",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
+            @ApiResponse(responseCode = "404", description = "entity not found(person or book) searching by id in variable path ",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "person does not have this book to delete",
+                    content = @Content)})
     @DeleteMapping("/{storeId}/books/{bookId}")
     public ResponseEntity<BookReadOnlyDTO> removeBookFromPerson(@PathVariable Long storeId, @PathVariable Long bookId) {
         Book book;

@@ -23,7 +23,7 @@ public class StoreRegisterValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "empty");
-        if (storeRegisterDTO.getPassword().length() < 3 || storeRegisterDTO.getPassword().length() > 50) {
+        if (storeRegisterDTO.getPassword().length() < 3 || storeRegisterDTO.getPassword().length() > 500) {
             errors.reject("password", "size");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "empty");

@@ -16,6 +16,7 @@ import com.example.changebook.service.exceptions.EntityAlreadyExistsException;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,12 +41,14 @@ public class PersonServiceImpl implements IPersonService {
     public Person registerPerson(RegisterPersonDTO dto) throws EntityAlreadyExistsException {
         Person person;
         User user;
+        String password = new BCryptPasswordEncoder().encode(dto.getPassword());
 
         try {
 //            person = new Person(dto.getFirstname(), dto.getLastname());
 //            user = User.NEW_PERSON(dto.getUsername(), dto.getPassword());
             person = Mapper.extractPersonFromRegisterPersonDTO(dto);
             user = Mapper.extractUserFromRegisterPersonDTO(dto);
+            user.setPassword(password);
             Optional<User> returnedUser = userRepository.findByUsername(dto.getUsername());
             if (returnedUser.isPresent()) throw new EntityAlreadyExistsException(Person.class, dto.getUsername());
             person.addUser(user);
@@ -177,10 +180,13 @@ public class PersonServiceImpl implements IPersonService {
             boolean isRemoved = personRepository.deleteSpecificPersonBook(personId,bookId)>0;
             if (!isRemoved) {
                 log.error("Problem in deleting book");
+                throw new Exception("book not deleted");
             }
         }catch (EntityNotFoundException e){
             log.error("Error in deleting book");
             throw e;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return book;
     }

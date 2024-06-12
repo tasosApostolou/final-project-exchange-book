@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,8 +58,7 @@ public class UserServiceImpl implements IUserService {
         try {
             user = userRepository.findById(dto.getId()).orElseThrow(() -> new EntityNotFoundException(User.class,dto.getId()));
             userToUpdate = Mapper.mapToUser(dto);// This user without notifications
-//            userToUpdate.setPassword(user.getPassword()); // userToUpdate it was found user with notifications
-//            user = userRepository.save(userToUpdate); // save changing password user
+            userToUpdate.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
             userToUpdate.setNotifications(user.getNotifications());
             user = userRepository.save(userToUpdate);
             log.info("User with id: "+ userToUpdate.getId()+ " was updated");

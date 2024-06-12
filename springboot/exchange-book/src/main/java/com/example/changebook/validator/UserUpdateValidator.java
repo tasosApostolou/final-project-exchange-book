@@ -21,7 +21,7 @@ public class UserUpdateValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"password","empty");
-        if(userUpdateDTO.getPassword().length()< 3 || userUpdateDTO.getPassword().length() > 50){
+        if(userUpdateDTO.getPassword().length()< 3 || userUpdateDTO.getPassword().length() > 500){
             errors.reject("password", "size");
         }
 

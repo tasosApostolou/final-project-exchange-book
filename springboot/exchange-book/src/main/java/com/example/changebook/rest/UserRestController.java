@@ -45,103 +45,26 @@ public class UserRestController {
     private final IUserService userService;
     private final UserInsertValidator insertValidator;
     private final UserUpdateValidator updateValidator;
+    @Operation(summary = "Get a User by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User Found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                    content = @Content)})
+    @GetMapping("/{userID}")
+    public ResponseEntity<UserReadOnlyDTO> getUser(@PathVariable("userID") Long id) {
+        User user;
 
-//    @Operation(summary = "Get users by their username starting with initials")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Users Found",
-//                    content = {@Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-//            @ApiResponse(responseCode = "400", description = "Invalid username supplied",
-//                    content = @Content)})
-//    @GetMapping("/users")
-//    public ResponseEntity<List<UserReadOnlyDTO>> getUsersByUsernameStarting(@RequestParam("username") String username) {
-//        List<User> users;
-//        List<UserReadOnlyDTO> readOnlyDTOS = new ArrayList<>();
-//        try {
-////            users = userService.getUsersByUsername(username);
-//            users = userService.getUsersByUsername(username);
-//
-//            for (User user : users) {
-//                readOnlyDTOS.add(Mapper.mapToReadOnlyDTO(user));
-//            }
-//            return new ResponseEntity<>(readOnlyDTOS, HttpStatus.OK);
-//        } catch (EntityNotFoundException e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-////            throw e;
-//        }
-//    }
+        try {
+            user = userService.getUserById(id);
+            UserReadOnlyDTO dto = Mapper.mapToReadOnlyDTO(user);
+            return ResponseEntity.ok(dto);
 
-
-//    @Operation(summary = "find users who have a book with given title exactly")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Users Found",
-//                    content = {@Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-//            @ApiResponse(responseCode = "400", description = "Users not found",
-//                    content = @Content)})
-//    @GetMapping("/book/{title}")
-//    public ResponseEntity<List<UserReadOnlyDTO>> getUsersByBookTitle(@PathVariable("title") String title) {
-//        List<User> users;
-//        List<UserReadOnlyDTO> readOnlyDTOS = new ArrayList<>();
-//        try {
-////            users = userService.getUsersByUsername(username);
-//            users = userService.getUsersByBookTitle(title);
-//
-//            for (User user : users) {
-//                readOnlyDTOS.add(Mapper.mapToReadOnlyDTO(user));
-//            }
-//            return new ResponseEntity<>(readOnlyDTOS, HttpStatus.OK);
-//        } catch (EntityNotFoundException e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-////            throw e;
-//        }
-//    }
-//    @Operation(summary = "Get a User by username")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "User Found",
-//                    content = {@Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-//            @ApiResponse(responseCode = "400", description = "User not found",
-//                    content = @Content)})
-//    @GetMapping("/find/{username}")
-//    public ResponseEntity<UserReadOnlyDTO> getUserByUsername(@PathVariable("username") String username) {
-//        User user;
-//        UserReadOnlyDTO readOnlyDTO;
-//        try {
-////            users = userService.getUsersByUsername(username);
-//            user = userService.getUserByUsername(username);
-//            readOnlyDTO = Mapper.mapToReadOnlyDTO(user);
-//            readOnlyDTO.setPassword(null);
-////            for (User user : users) {
-////                readOnlyDTOS.add(Mapper.mapToReadOnlyDTO(user));
-////            }
-//            return ResponseEntity.ok(readOnlyDTO);
-//        } catch (EntityNotFoundException e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-////            throw e;
-//        }
-//    }
-
-//    @Operation(summary = "Get a User by id")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "User Found",
-//                    content = {@Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-//            @ApiResponse(responseCode = "404", description = "User not found",
-//                    content = @Content)})
-//    @GetMapping("/{userID}")
-//    public ResponseEntity<UserReadOnlyDTO> getUser(@PathVariable("userID") Long id) {
-//        User user;
-//
-//        try {
-//            user = userService.getUserById(id);
-//            UserReadOnlyDTO dto = Mapper.mapToReadOnlyDTO(user);
-//            return ResponseEntity.ok(dto);
-//
-//        } catch (EntityNotFoundException e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//    }
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @Operation(summary = "Add a user")
     @ApiResponses(value = {

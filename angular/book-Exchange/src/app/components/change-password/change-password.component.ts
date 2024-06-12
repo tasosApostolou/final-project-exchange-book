@@ -75,7 +75,8 @@ export class ChangePasswordComponent {
   }
   updatePassword(password:string):void{
     const user:User = {
-    id:this.userSignal().userId,username:this.userSignal().sub,// sub is username taken from token
+    id:this.userSignal().userId,
+    username:this.userSignal().sub,// sub is username taken from token
     password:password,
     role:this.userSignal().role
   }

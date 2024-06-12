@@ -9,6 +9,7 @@ import com.example.changebook.service.exceptions.EntityAlreadyExistsException;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,7 @@ public class StoreService implements IStoreService {
             user = Mapper.extractUserFromStoreRegisterDTO(dto);
             Optional<User> returnedUser = userRepository.findByUsername(dto.getUsername());
             if (returnedUser.isPresent()) throw new EntityAlreadyExistsException(User.class, dto.getUsername());
+            user.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
             store.addUser(user);
             storeRepository.save(store);
             log.info("Store added");
