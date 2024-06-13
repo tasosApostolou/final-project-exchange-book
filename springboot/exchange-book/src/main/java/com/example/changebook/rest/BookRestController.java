@@ -133,7 +133,6 @@ public class BookRestController {
     @GetMapping("/author/{authorName}")
     public ResponseEntity<List<BookReadOnlyDTO>> findBooksByAuthor(@PathVariable("authorName") String name) {
         List<Book> books;
-//        System.out.println(name);
         List<BookReadOnlyDTO> readOnlyDTOs = new ArrayList<>();
 
         try {
@@ -179,7 +178,6 @@ public class BookRestController {
     @GetMapping("/user/{personId}")
     public ResponseEntity<List<BookReadOnlyDTO>> getBooksByPersonID(@PathVariable("personId") Long personId) {
         List<Book> books;
-//        System.out.println(userId);
         List<BookReadOnlyDTO> readOnlyDTOs = new ArrayList<>();
         try {
             books = bookService.getBookByPersonId(personId);

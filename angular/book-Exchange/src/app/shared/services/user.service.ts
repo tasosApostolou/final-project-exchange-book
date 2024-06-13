@@ -19,16 +19,6 @@ user = signal<LoggedInUser | null>(null);
 id:number;
 
   constructor() {
-    // const access_token = localStorage.getItem('access_token');
-    // if (access_token) {
-    //   const decodedTokenSubject = JSON.parse(access_token) as unknown as User;
-    //   this.id = decodedTokenSubject.id
-    //   this.user.set({
-    //     fullname: decodedTokenSubject.username,
-    //     role: decodedTokenSubject.role,
-    //   });
-    // }
-
     effect(() => {
       if (this.user()) {
         console.log('USer loggedin', this.user().sub);
@@ -45,7 +35,6 @@ id:number;
 
   logoutUser(){
     this.user.set(null)
-    // this.user().id = 0
 localStorage.removeItem('access_token');
 this.router.navigate(['login']);
   }

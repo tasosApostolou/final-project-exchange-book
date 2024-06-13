@@ -28,20 +28,15 @@ export class UserLoginComponent {
     username: new FormControl('',Validators.required),
     password: new FormControl('', Validators.required),
   });
-  // items:any = localStorage.getItem
 
   onSubmit() {
     const credentials = this.form.value as Credentials;
     const username = null
-    // let resp = ''
     let resp:User
     let role = ''
     this.userService.loginUser(credentials).subscribe({
       next: (response) => {
-        console.log(response)
         console.log(jwtDecode(response.jwt))
-
-        // const access_token = JSON.stringify(response);
         const access_token = response.jwt
         localStorage.setItem('access_token', access_token);
         const decodedTokenSubject = jwtDecode(access_token) as unknown as LoggedInUser;
