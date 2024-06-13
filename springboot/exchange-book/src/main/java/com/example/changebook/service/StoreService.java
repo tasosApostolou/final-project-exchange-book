@@ -1,12 +1,19 @@
 package com.example.changebook.service;
 
+import com.example.changebook.dto.StoreDTO.StoreReadOnlyDTO;
 import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
 import com.example.changebook.dto.StoreDTO.StoreUpdateDTO;
+import com.example.changebook.dto.usersDTO.UserReadOnlyDTO;
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.*;
 import com.example.changebook.repository.*;
 import com.example.changebook.service.exceptions.EntityAlreadyExistsException;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

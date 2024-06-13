@@ -17,7 +17,6 @@ public class NotificationInsertDTO {
     User interested;
     User user;
     Book book;
-    LocalDateTime timestamp;
     Boolean isSeen;
     public NotificationInsertDTO() {
     }

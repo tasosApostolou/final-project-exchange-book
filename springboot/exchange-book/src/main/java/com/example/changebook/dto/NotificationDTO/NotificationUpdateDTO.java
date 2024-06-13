@@ -16,18 +16,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class NotificationUpdateDTO extends BaseDTO {
-//    UserUpdateDTO interested;
-//    UserUpdateDTO user;
-//    BookUpdateDTO book;
-//    LocalDateTime timestamp;
-//    NotificationType notificationType;
-//    Boolean isSeen;
     User interested;
     User user;
     Book book;
     NotificationType notificationType;
     Boolean isSeen;
-
 
     public NotificationUpdateDTO() {
     }

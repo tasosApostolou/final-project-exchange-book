@@ -115,7 +115,6 @@ public class BookRestController {
                 readOnlyDTOs.add(Mapper.mapToReadOnlyDTOwithPersonDetails(book));
                 System.out.println(books);
             }
-//if (readOnlyDTOs.isEmpty()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(readOnlyDTOs, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
@@ -169,7 +168,7 @@ public class BookRestController {
     }
 
 
-    @Operation(summary = "Get the books of a user by user id ")
+    @Operation(summary = "Get the books of a user by person_id ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Books Found",
                     content = {@Content(mediaType = "application/json",
@@ -193,10 +192,4 @@ public class BookRestController {
 
         }
     }
-
-//    @GetMapping("/search/book")
-//    public ResponseEntity<List<BookInfoDTO>> findBooksByTitle(@RequestParam("title") String title) {
-//        List<BookInfoDTO> books = bookService.getBooksByTitleWithDetails(title);
-//        return ResponseEntity.ok(books);
-//    }
 }

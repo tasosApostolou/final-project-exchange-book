@@ -76,6 +76,15 @@ public class StoreRestController {
         }
     }
 
+    @Operation(summary = "Update a store(name and address")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "store updated",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserReadOnlyDTO.class)) }),
+            @ApiResponse(responseCode = "401", description = "Unauthorized user",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid input was supplied",
+                    content = @Content)})
     @PutMapping("/update/{id}")
     public ResponseEntity<StoreReadOnlyDTO> updateStore(@PathVariable("id") Long id, @RequestBody StoreUpdateDTO dto, BindingResult bindingResult) {
         if(!(dto.getId() ==id)){
@@ -94,7 +103,7 @@ public class StoreRestController {
         }
     }
 
-    @Operation(summary = "get all books of a user by store id")
+    @Operation(summary = "get all books of a store by store id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "books found",
                     content = {@Content(mediaType = "application/json",
@@ -104,22 +113,17 @@ public class StoreRestController {
     @GetMapping("{storeId}/books")
     public ResponseEntity<List<StoreBookReadOnlyDTO>> getAllBooksByStoreId(@PathVariable Long storeId){
         List<StoreBook> books;
-//        System.out.println(userId);
         List<StoreBookReadOnlyDTO> readOnlyDTOs = new ArrayList<>();
-
         try {
             books = storeService.getAllBooksByStoreId(storeId);
 
             for (StoreBook book : books) {
                 readOnlyDTOs.add(Mapper.mapToReadOnlyDTO(book));
             }
-//if (readOnlyDTOs.isEmpty()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(readOnlyDTOs, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>( HttpStatus.NOT_FOUND);
-//            throw e;
         }
-
     }
 
     @Operation(summary = "Delete a Store by id")
@@ -131,7 +135,7 @@ public class StoreRestController {
                     content = @Content)})
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<StoreReadOnlyDTO> deletePerson(@PathVariable("id") Long id){
+    public ResponseEntity<StoreReadOnlyDTO> deleteStore(@PathVariable("id") Long id){
         Store store;
         try {
             store = storeService.deleteStore(id);
@@ -148,8 +152,6 @@ public class StoreRestController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
             @ApiResponse(responseCode = "404", description = "entity not found(person or book) searching by id in variable path ",
-                    content = @Content),
-            @ApiResponse(responseCode = "500", description = "person does not have this book to delete",
                     content = @Content)})
     @DeleteMapping("/{storeId}/books/{bookId}")
     public ResponseEntity<BookReadOnlyDTO> removeBookFromPerson(@PathVariable Long storeId, @PathVariable Long bookId) {

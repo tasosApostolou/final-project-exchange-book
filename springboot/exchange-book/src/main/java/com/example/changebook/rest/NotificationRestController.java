@@ -3,6 +3,7 @@ package com.example.changebook.rest;
 import com.example.changebook.dto.NotificationDTO.NotificationInsertDTO;
 import com.example.changebook.dto.NotificationDTO.NotificationReadOnlyDTO;
 import com.example.changebook.dto.NotificationDTO.NotificationUpdateDTO;
+import com.example.changebook.dto.personDTO.PersonUpdateDTO;
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.Notification;
 import com.example.changebook.service.INotificationService;
@@ -33,7 +34,10 @@ public class NotificationRestController {
             @ApiResponse(responseCode = "200", description = "Notification Found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = NotificationReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "404", description = "Notification not found",
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = NotificationReadOnlyDTO.class))}),
+            @ApiResponse(responseCode = "400", description = "Notification not found",
                     content = @Content)})
     @GetMapping("/{notificationID}")
     public ResponseEntity<NotificationReadOnlyDTO> getNotification (@PathVariable("notificationID") Long id){
@@ -59,15 +63,10 @@ public class NotificationRestController {
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
                     content = @Content)})
     @PostMapping("/add/{interestedID}")
-    public ResponseEntity<NotificationReadOnlyDTO> createNotification(@PathVariable("interestedID")Long interestedID, @RequestBody NotificationInsertDTO dto, BindingResult bindingResult) {
-
+    public ResponseEntity<NotificationReadOnlyDTO> createNotification(@PathVariable("interestedID")Long interestedID, @RequestBody @Schema(implementation = NotificationInsertDTO.class) NotificationInsertDTO dto, BindingResult bindingResult) {
         try {
             Notification notification = notificationService.insert(dto,interestedID);
-            System.out.println(notification.getId()+"dssada");
-            System.out.println(notification.getBook().getId());
-
             NotificationReadOnlyDTO readOnlyDTO = Mapper.mapToReadOnlyDTO(notification);
-            System.out.println(notification.getHolderUSer().getId()+"============================================");
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
                     .buildAndExpand(readOnlyDTO.getId())
@@ -83,12 +82,8 @@ public class NotificationRestController {
             @ApiResponse(responseCode = "200", description = "Teacher updated",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = NotificationReadOnlyDTO.class)) }),
-            @ApiResponse(responseCode = "401", description = "Unauthorized user",
-                    content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid input was supplied",
-                    content = @Content),
-            @ApiResponse(responseCode = "404", description = "Notification not found",
-                    content = @Content) })
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content)})
     @PutMapping("/notifications/{id}")
     public ResponseEntity<NotificationReadOnlyDTO> updateNotification(@PathVariable("id") Long id, @RequestBody NotificationUpdateDTO dto, BindingResult bindingResult) {
         if (!Objects.equals(id, dto.getId())) {

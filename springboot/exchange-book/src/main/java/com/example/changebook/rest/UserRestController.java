@@ -3,6 +3,7 @@ package com.example.changebook.rest;
 import com.example.changebook.dto.BookDTO.BookReadOnlyDTO;
 import com.example.changebook.dto.NotificationDTO.NotificationReadOnlyDTO;
 import com.example.changebook.dto.loginDTO.LoginCredentialsDTO;
+import com.example.changebook.dto.personDTO.PersonUpdateDTO;
 import com.example.changebook.dto.usersDTO.UserInsertDTO;
 import com.example.changebook.dto.usersDTO.UserReadOnlyDTO;
 import com.example.changebook.dto.usersDTO.UserUpdateDTO;
@@ -40,7 +41,6 @@ import java.util.Set;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserRestController {
-    BookRepository bookRepository;
 
     private final IUserService userService;
     private final UserInsertValidator insertValidator;
@@ -50,7 +50,7 @@ public class UserRestController {
             @ApiResponse(responseCode = "200", description = "User Found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "404", description = "User not found",
+            @ApiResponse(responseCode = "400", description = "User not found",
                     content = @Content)})
     @GetMapping("/{userID}")
     public ResponseEntity<UserReadOnlyDTO> getUser(@PathVariable("userID") Long id) {
@@ -76,7 +76,7 @@ public class UserRestController {
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
                     content = @Content)})
     @PostMapping("/users")
-    public ResponseEntity<UserReadOnlyDTO> addUser(@Valid @RequestBody UserInsertDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<UserReadOnlyDTO> addUser(@Valid @RequestBody @Schema(implementation = UserInsertDTO.class) UserInsertDTO dto, BindingResult bindingResult) {
         insertValidator.validate(dto, bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -104,10 +104,10 @@ public class UserRestController {
                     content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid input was supplied",
                     content = @Content),
-            @ApiResponse(responseCode = "404", description = "User not found",
+            @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content) })
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserReadOnlyDTO> updateUser(@PathVariable("id") Long id, @Valid @RequestBody UserUpdateDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<UserReadOnlyDTO> updateUser(@PathVariable("id") Long id, @Valid @RequestBody @Schema(implementation = UserUpdateDTO.class) UserUpdateDTO dto, BindingResult bindingResult) {
         if (!Objects.equals(id, dto.getId())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -149,12 +149,11 @@ public class UserRestController {
             @ApiResponse(responseCode = "200", description = "the book deleted from user list with books",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "500", description = "User does not have this book to delete",
+            @ApiResponse(responseCode = "404", description = "User not found",
                     content = @Content)})
     @GetMapping("/notification/{userId}")
     public ResponseEntity<List<NotificationReadOnlyDTO>> getNotificationsByUserID(@PathVariable("userId") Long userId) {
         List<Notification> notifications;
-//        System.out.println(userId);
         List<NotificationReadOnlyDTO> readOnlyDTOs = new ArrayList<>();
 
         try {
@@ -162,11 +161,9 @@ public class UserRestController {
             for (Notification notification : notifications) {
                 readOnlyDTOs.add(Mapper.mapToReadOnlyDTO(notification));
             }
-//if (readOnlyDTOs.isEmpty()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(readOnlyDTOs, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>( HttpStatus.NOT_FOUND);
-//            throw e;
         }
     }
 

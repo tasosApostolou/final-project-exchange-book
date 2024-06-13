@@ -1,6 +1,7 @@
 package com.example.changebook.rest;
 
 import com.example.changebook.dto.BookDTO.BookReadOnlyDTO;
+import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
 import com.example.changebook.dto.personDTO.PersonReadonlyDTO;
 import com.example.changebook.dto.personDTO.PersonUpdateDTO;
 import com.example.changebook.dto.personDTO.RegisterPersonDTO;
@@ -42,21 +43,19 @@ import java.util.Objects;
 public class PersonRestController {
     private final IPersonService personService;
     private final RegisterPersonValidator registerPersonValidator;
-//    private final IUserService userService;
-    private final UserInsertValidator insertValidator;
     private final PersonUpdateValidator updateValidator;
 
     @Operation(summary = "Add a person")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Person created",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
+                            schema = @Schema(implementation = PersonReadonlyDTO.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid input was supplied",
                     content = @Content),
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
                     content = @Content)})
     @PostMapping("/register")
-    public ResponseEntity<PersonReadonlyDTO> RegisterPerson(@Valid @RequestBody RegisterPersonDTO dto, BindingResult bindingResult) throws EntityAlreadyExistsException {
+    public ResponseEntity<PersonReadonlyDTO> RegisterPerson(@Valid @RequestBody @Schema(implementation = RegisterPersonDTO.class) RegisterPersonDTO dto, BindingResult bindingResult) throws EntityAlreadyExistsException {
         registerPersonValidator.validate(dto,bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -75,21 +74,18 @@ public class PersonRestController {
         }
     }
 
-
-
     @Operation(summary = "Get persons by their lastname starting with initials")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Users Found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid username supplied",
+            @ApiResponse(responseCode = "400", description = "Invalid username supplied, Bad-Request",
                     content = @Content)})
     @GetMapping("/persons")
     public ResponseEntity<List<PersonReadonlyDTO>> getPersonsByLastnameStarting(@RequestParam("lastname") String lastname) {
         List<Person> persons;
         List<PersonReadonlyDTO> readOnlyDTOS = new ArrayList<>();
         try {
-//            users = userService.getUsersByUsername(username);
             persons = personService.getPersonsByLastname(lastname);
 
             for (Person person : persons) {
@@ -107,15 +103,14 @@ public class PersonRestController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Persons Found",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "400", description = "Users not found",
+                            schema = @Schema(implementation = PersonReadonlyDTO.class))}),
+            @ApiResponse(responseCode = "400", description = "Persons not found",
                     content = @Content)})
     @GetMapping("/book/{title}")
     public ResponseEntity<List<PersonReadonlyDTO>> getPersonsByBookTitle(@PathVariable("title") String title) {
         List<Person> persons;
         List<PersonReadonlyDTO> readOnlyDTOS = new ArrayList<>();
         try {
-//            users = userService.getUsersByUsername(username);
             persons = personService.getPersonsByBookTitle(title);
 
             for (Person person : persons) {
@@ -133,7 +128,7 @@ public class PersonRestController {
             @ApiResponse(responseCode = "200", description = "Person Found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "404", description = "Person not found",
+            @ApiResponse(responseCode = "400", description = "Person not found",
                     content = @Content)})
     @GetMapping("/{personId}")
     public ResponseEntity<PersonReadonlyDTO> getPerson(@PathVariable("personId") Long id) {
@@ -156,11 +151,9 @@ public class PersonRestController {
             @ApiResponse(responseCode = "401", description = "Unauthorized user",
                     content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid input was supplied",
-                    content = @Content),
-            @ApiResponse(responseCode = "404", description = "Person not found",
-                    content = @Content) })
+                    content = @Content)})
     @PutMapping("/update/{id}")
-    public ResponseEntity<PersonReadonlyDTO> updatePerson(@PathVariable("id") Long id, @RequestBody PersonUpdateDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<PersonReadonlyDTO> updatePerson(@PathVariable("id") Long id, @RequestBody @Schema(implementation = PersonUpdateDTO.class) PersonUpdateDTO dto, BindingResult bindingResult) {
         if(!(dto.getId() ==id)){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -197,25 +190,12 @@ public class PersonRestController {
         }
     }
 
-//    @PostMapping("/{userId}/books")
-//    public ResponseEntity<UserReadOnlyDTO> addBooksToUser(@PathVariable Long userId, @RequestBody Set<Long> bookIds) {
-//        UserReadOnlyDTO userReadOnlyDTO;
-//        try {
-//            User user = userService.addBooksToUser(userId, bookIds);
-//            userReadOnlyDTO = Mapper.mapToReadOnlyDTO(user);
-//            return ResponseEntity.ok(userReadOnlyDTO);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-//        }
-//    }
-
-
     @Operation(summary = "get all books of a user by person id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "books founs",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "404", description = "User not found or user not have added books yet",
+            @ApiResponse(responseCode = "404", description = "Person not found or user not have added books yet",
                     content = @Content)})
     @GetMapping("{personId}/books")
     public ResponseEntity<List<BookReadOnlyDTO>> getAllBooksByPersonId(@PathVariable Long personId){
@@ -239,14 +219,14 @@ public class PersonRestController {
     }
 
 
-    @Operation(summary = "remove the book_id and person_id from middleware person_books ")
+    @Operation(summary = "remove a book from person list with books(remove the book_id and person_id from middleware person_books)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "the book deleted from person list with books",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "400", description = "entity not found(person or book) searching by id in variable path ",
+            @ApiResponse(responseCode = "404", description = "entity not found(person or book) searching by id in variable path ",
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "personn does not have this book to delete",
+            @ApiResponse(responseCode = "401", description = "personn does not have this book to delete, Unauthorized",
                     content = @Content)})
     @DeleteMapping("/{personId}/books/{bookId}")
     public ResponseEntity<BookReadOnlyDTO> removeBookFromPerson(@PathVariable Long personId, @PathVariable Long bookId) {

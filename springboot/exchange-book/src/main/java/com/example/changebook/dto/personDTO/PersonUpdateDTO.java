@@ -15,10 +15,8 @@ public class PersonUpdateDTO extends BaseDTO {
     private String lastname;
     private Long userId;
 
-    public PersonUpdateDTO(Long id,String username, String password, String firstname, String lastname,Long userId) {
+    public PersonUpdateDTO(Long id,String firstname, String lastname,Long userId) {
         this.setId(id);
-//        this.username = username;
-//        this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.userId = userId;
