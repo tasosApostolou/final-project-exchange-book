@@ -9,6 +9,7 @@ import com.example.changebook.model.StoreBook;
 import com.example.changebook.service.IBookService;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import com.example.changebook.validator.BookInsertValidator;
+import com.example.changebook.validator.StoreBookInsertValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,6 +35,7 @@ import java.util.List;
 public class BookRestController {
     private final IBookService bookService;
     private final BookInsertValidator bookInsertValidator;
+    private final StoreBookInsertValidator storeBookInsertValidator;
 
     @Operation(summary = " Create and Add a book to user(in middleware person_books) also create author if is not exist else add a book into existed author Set<Book> books ")
     @ApiResponses(value = {
@@ -77,10 +79,10 @@ public class BookRestController {
                     content = @Content)})
     @PostMapping("/store/{storeID}/add")
     public ResponseEntity<StoreBookReadOnlyDTO> addBookToStore(@PathVariable("storeID") Long storeID, @RequestBody @Valid StoreBookInsertDTO dto, BindingResult bindingResult) {
-//        bookInsertValidator.validate(bookDTO,bindingResult);
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+        storeBookInsertValidator.validate(dto,bindingResult);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         StoreBook storeBook = new StoreBook();
         StoreBookReadOnlyDTO readOnlyDTO;
         try {
@@ -96,7 +98,7 @@ public class BookRestController {
         }
     }
 
-    @Operation(summary = "Get books by their title starting with initials and the users list who have any book starting with initials ")
+    @Operation(summary = "Get books by their title starting with initials and the users list of each book ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Books Found",
                     content = {@Content(mediaType = "application/json",
@@ -126,7 +128,7 @@ public class BookRestController {
             @ApiResponse(responseCode = "200", description = "Books Found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = BookReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid lastname supplied",
+            @ApiResponse(responseCode = "400", description = "Invalid author name or not exists supplied",
                     content = @Content)})
     @GetMapping("/author/{authorName}")
     public ResponseEntity<List<BookReadOnlyDTO>> findBooksByAuthor(@PathVariable("authorName") String name) {
@@ -140,7 +142,6 @@ public class BookRestController {
             for (Book book : books) {
                 readOnlyDTOs.add(Mapper.mapToReadOnlyDTO(book));
             }
-//if (readOnlyDTOs.isEmpty()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(readOnlyDTOs, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
@@ -153,7 +154,7 @@ public class BookRestController {
             @ApiResponse(responseCode = "200", description = "Book Found",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = BookReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "404", description = "Book not found",
+            @ApiResponse(responseCode = "400", description = "Book not found",
                     content = @Content)})
     @GetMapping("/{bookID}")
     public ResponseEntity<BookReadOnlyDTO> getBook(@PathVariable("bookID") Long id) {

@@ -13,7 +13,7 @@ public class BookInsertValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return UserInsertDTO.class == clazz;
+        return BookInsertDTO.class == clazz;
     }
 
     @Override
