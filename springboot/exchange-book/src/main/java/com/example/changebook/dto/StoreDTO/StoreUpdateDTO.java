@@ -18,8 +18,6 @@ public class StoreUpdateDTO extends BaseDTO {
 
     public StoreUpdateDTO(Long id, String name, String address, Long userId) {
         this.setId(id);
-//        this.username = username;
-//        this.password = password;
         this.name = name;
         this.address = address;
         this.userId = userId;

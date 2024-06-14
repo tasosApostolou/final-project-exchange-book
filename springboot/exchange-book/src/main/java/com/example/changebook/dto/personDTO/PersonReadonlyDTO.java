@@ -12,16 +12,12 @@ import lombok.*;
 @Setter
 @Getter
 public class PersonReadonlyDTO extends BaseDTO {
-//    private String username;
-//    private String password;
     private String firstname;
     private String lastname;
 //    private UserReadOnlyDTO user;
     private Long userId;
     public PersonReadonlyDTO(Long id, String firstname, String lastname) {
         this.setId(id);
-//        this.username = username;
-//        this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
     }

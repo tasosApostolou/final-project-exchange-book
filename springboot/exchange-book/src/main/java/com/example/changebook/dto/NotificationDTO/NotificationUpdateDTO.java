@@ -21,7 +21,6 @@ public class NotificationUpdateDTO extends BaseDTO {
     Book book;
     NotificationType notificationType;
     Boolean isSeen;
-
     public NotificationUpdateDTO() {
     }
 

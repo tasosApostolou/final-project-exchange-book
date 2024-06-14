@@ -14,7 +14,5 @@ import lombok.Setter;
 public class StoreBookReadOnlyDTO {
     public BookReadOnlyDTO book;
     public StoreReadOnlyDTO store;
-//    public Long storeId;
-//    public Long bookId;
     public Double price;
 }

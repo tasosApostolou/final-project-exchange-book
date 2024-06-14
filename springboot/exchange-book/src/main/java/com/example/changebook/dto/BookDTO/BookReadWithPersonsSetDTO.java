@@ -19,13 +19,13 @@ public class BookReadWithPersonsSetDTO extends BaseDTO {
 
     public BookReadWithPersonsSetDTO(Long id, String title, AuthorReadOnlyDTO authorReadOnlyDTO) {
         this.setId(id);
-        title = title;
+        this.title = title;
         this.author = authorReadOnlyDTO;
     }
 
 
     public BookReadWithPersonsSetDTO(Long id, String title) {
         this.setId(id);
-        title = title;
+        this.title = title;
     }
 }

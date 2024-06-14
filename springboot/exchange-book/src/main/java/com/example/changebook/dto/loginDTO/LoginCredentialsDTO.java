@@ -10,7 +10,6 @@ import lombok.*;
 //@Setter
 @Data
 public class LoginCredentialsDTO {
-
     @NotBlank
     public String username;
 
