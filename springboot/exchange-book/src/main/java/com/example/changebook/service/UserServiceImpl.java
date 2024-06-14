@@ -144,50 +144,6 @@ public class UserServiceImpl implements IUserService {
         return notifications;
     }
 
-    @Override
-    public List<User> getUsersByBookTitle(String bookTitle) throws EntityNotFoundException {
-        List<User> users = new ArrayList<>();
-        Book b = new Book();
-        try {
-            users = userRepository.findUsersByBookTitle(bookTitle);
-            if (users.isEmpty()) throw new EntityNotFoundException(User.class,0L);
-            log.info("Users with book title "+ bookTitle +" were found");
-        }catch (EntityNotFoundException e){
-            log.error(e.getMessage());
-            throw e;
-        }
-        return users;
-    }
-
-    @Override
-    public List<Book> getAllBooksByUserId(Long id) throws EntityNotFoundException {
-        List<Book> books = new ArrayList<>();
-        User user;
-        try {
-           user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Book.class,0L));
-           books = user.getAllBooks().stream().toList();
-            if (books.isEmpty()) throw new EntityNotFoundException(Book.class,0L);
-            log.info("books of user with id "+ id  + " were found");
-        }catch (EntityNotFoundException e){
-            log.error(e.getMessage());
-            throw e;
-        }
-        return books;
-    }
-
-    @Transactional
-    @Override
-    public void removeBookFromUser(Long userId, Long bookId) throws EntityNotFoundException {
-            Optional<User> userOptional = userRepository.findById(userId);
-            User user = userOptional.orElseThrow(() -> new EntityNotFoundException(User.class,userId));
-            Optional<Book> bookOptional = bookRepository.findById(bookId);
-            Book book = bookOptional.orElseThrow(() -> new EntityNotFoundException(Book.class,bookId));
-            boolean isRemoved = user.getBooks().remove(book);
-            if (!isRemoved) {
-                throw new RuntimeException("Book not found in the user's collection");
-            }
-            userRepository.save(user);
-    }
 
 }
 

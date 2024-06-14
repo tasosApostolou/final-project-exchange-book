@@ -55,7 +55,7 @@ public class User extends AbstractEntity implements UserDetails {
     public Set<Notification> getAllNotifications(){
         return Collections.unmodifiableSet(notifications);
     }
-    
+
     public static User NEW_PERSON(String username, String password) {
         User user = new User();
 //        user.setIsActive(true);

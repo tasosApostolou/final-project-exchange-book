@@ -21,10 +21,6 @@ public interface IUserService {
     User getUserById(Long id) throws EntityNotFoundException;
     User getUserByUsername(String username) throws EntityNotFoundException;
     List<Notification> getNotificationsByUserId(Long userID) throws EntityNotFoundException;
-    List<User> getUsersByBookTitle(String bookTitle) throws EntityNotFoundException;
-
-    List<Book> getAllBooksByUserId(Long id) throws EntityNotFoundException;
-    void removeBookFromUser(Long userId, Long bookId) throws EntityNotFoundException;
 
 
 }
