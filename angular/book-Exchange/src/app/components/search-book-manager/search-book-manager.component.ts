@@ -6,9 +6,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { BooksInStoresComponent } from '../books-in-stores/books-in-stores.component';
 import { SearchBookForm } from 'src/app/shared/interfaces/Search-book-form';
 import { BookService } from 'src/app/shared/services/book.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
-import { UserService } from 'src/app/shared/services/user.service';
-import { StoreBooksComponent } from '../store-books/store-books.component';
 import { StoreService } from 'src/app/shared/services/store.service';
 
 @Component({

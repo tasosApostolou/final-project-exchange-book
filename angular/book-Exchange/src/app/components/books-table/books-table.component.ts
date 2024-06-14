@@ -41,11 +41,7 @@ getUserID(){
   return Number(localStorage.getItem('interestedUser_id'))
 
 }
-async ngOnInit(){
-//   this.bookService.getUserBooks(this.getUserID()).subscribe((data:Book[]) => {
-//     this.books = data
-//   }
-// )
+ ngOnInit(){
 this.getPersonBooks(this.getUserID())
 }
 getPersonBooks(userId:number){

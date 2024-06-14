@@ -1,7 +1,6 @@
 import { Component,inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { Book, BookWithPrice, StoreBook } from 'src/app/shared/interfaces/book';
-import { BookService } from 'src/app/shared/services/book.service';
+import { Book, BookWithPrice, StoreBook } from 'src/app/shared/interfaces/book'
 import { StoreService } from 'src/app/shared/services/store.service';
 import { UserService } from 'src/app/shared/services/user.service';
 @Component({
