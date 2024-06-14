@@ -36,24 +36,15 @@ onSubmit(value:any){
     book:book,
     price:this.form.get('price').value
   }
-  console.log(bookStore)
-
-
-  // const teacher = value;
   this.bookService.addBook(bookStore).subscribe({
     next: (response) => {
       console.log('book register', response);
       this.form.reset()
-      // this.regStatus = {succes:true, message:JSON.stringify(response)}
-      // this.regStatus.succes=true
     },
     error: (response) => {
       const message = response
       console.log('Error in adding book',response.error);
-      
       this.regStatus.succes=false;
-      // this.regStatus = {succes:false,message:message}
-      // this.registrationStatus = {succes:false,message:message}
     }
   })
 }

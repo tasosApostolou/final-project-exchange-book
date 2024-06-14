@@ -29,9 +29,8 @@ getBooksByTitle(title:string){
   })
     }
 
-  getUserBooks(userID:number){
-    console.log(`books user id:${userID}`)
-    return this.http.get <Book[]>(`${API_URL}/user/${userID}`,{
+  getUserBooks(personId:number){
+    return this.http.get <Book[]>(`${API_URL}/person/${personId}`,{
       headers: {
         Accept:'application/json'
       },

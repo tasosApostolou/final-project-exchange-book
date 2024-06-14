@@ -175,7 +175,7 @@ public class BookRestController {
                             schema = @Schema(implementation = BookReadOnlyDTO.class))}),
             @ApiResponse(responseCode = "404", description = "user not found OR user has no books added yet",
                     content = @Content)})
-    @GetMapping("/user/{personId}")
+    @GetMapping("/person/{personId}")
     public ResponseEntity<List<BookReadOnlyDTO>> getBooksByPersonID(@PathVariable("personId") Long personId) {
         List<Book> books;
         List<BookReadOnlyDTO> readOnlyDTOs = new ArrayList<>();

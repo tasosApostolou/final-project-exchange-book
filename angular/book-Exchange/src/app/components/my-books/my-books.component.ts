@@ -19,20 +19,20 @@ export class MyBooksComponent {
     bookService = inject(BookService)
     books:Book[]
   ngOnInit(): void {
+  this.loadMyBooks()
+  }
+
+  loadMyBooks(){
     this.personService.getPersonBooks().subscribe((data:Book[]) => {
       this.books = data
     })
-  
   }
   
   deleteBook(bookId:number){
     this.userService.deleteBookFromLoggedInUser(bookId).subscribe({
       next:(response)=> {
         console.log("book deleted",response)
-        if(this.books.length===1){
-          this.books = null
-        } 
-        this.ngOnInit()
+        this.loadMyBooks()
       },
       error:(response) => {
         console.error('Error in delete book',response)

@@ -73,10 +73,9 @@ interest(event:Event,book:Book){
   this.notificationService.createNotification(notification as any as JSON ).subscribe({
     next:(response) => {
       console.log(`${response} data`)
-      console.log(`${response} data`)
     },
     error:(response) => {
-      console.log('Error in notification creaation', response)
+      console.log('Error in notification creation', response)
     }
   })
   }

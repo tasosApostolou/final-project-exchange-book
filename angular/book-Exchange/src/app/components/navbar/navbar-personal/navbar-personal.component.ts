@@ -48,7 +48,6 @@ matBadgeValue(){
     this.userService.getUserNotifications().subscribe(
       (data:[]) =>{
         this.notifications = data
-        
         this.notificationsUnseenNumber = this.notifications.filter(notification => !notification.isSeen).length
       
       })

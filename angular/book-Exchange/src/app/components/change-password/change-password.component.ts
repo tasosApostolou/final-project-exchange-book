@@ -97,9 +97,5 @@ export class ChangePasswordComponent {
     succes:false,message:'Not Attempted yet'
   }
   }
-  // closeDialog(){
-  //   this.dialogPassword().close
-  // }
-
 }
   

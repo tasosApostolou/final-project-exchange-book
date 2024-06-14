@@ -16,9 +16,7 @@
       </tr>
     </thead>
     <tbody>
-    
       @for (storeBook of storeBooks; track storeBook){
-          <!--a book with title starting with initials can have many persons-->
           <tr role="button" class="align-middle">
             <td class="w-10"><mat-icon (click)="buyBook()">add_shopping_cart</mat-icon></td>
             <td><a class="text-primary">{{storeBook.store.name}}</a></td>

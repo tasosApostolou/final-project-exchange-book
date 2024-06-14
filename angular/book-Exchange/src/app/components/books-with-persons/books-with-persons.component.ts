@@ -33,11 +33,7 @@ export class BooksWithPersonsComponent {
 notificationService = inject(NotificationService)
 userservce = inject(UserService)
 
-
-
-
 interest(bkps:BookWithPersons,person:Person,event:Event){
-
   this.iconType(event)
   const notification = {
     isSeen:false,
