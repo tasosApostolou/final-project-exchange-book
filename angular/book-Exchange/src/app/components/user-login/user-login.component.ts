@@ -1,10 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import {FormControl,FormGroup,ReactiveFormsModule,Validators} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { Credentials, LoggedInUser, User } from 'src/app/shared/interfaces/user';
@@ -48,8 +43,10 @@ export class UserLoginComponent {
           role: decodedTokenSubject.role,
           roleEntityId: decodedTokenSubject.roleEntityId
         });
-        this.router.navigate(['']);
+        const rout = {'PERSONAL':'my-books','STORE':'store-books'}
+        this.router.navigate([rout[decodedTokenSubject.role]]);
       },
+    // if role is PERSONAL, router navigates to page with its book, else if role is store, router navigates at page with  store books 
       error: (response) => {
         console.error('Login Error', response);
         this.invalidLogin = true;

@@ -21,11 +21,9 @@
       formControlName="address" />
   </div>
   <button
+  [disabled]="!form.valid"
     type="submit"
-    class="btn btn-primary"
-    >
-    <!-- [disabled]="!form.valid" -->
-
+    class="btn btn-primary">
     update
   </button>
   
@@ -37,6 +35,5 @@
     @if(clicked){
       <p class="text-success alert text-wrap alert-success">Update succesfully name:{{updatedName}}, address:{{updatedAddress}}</p>
     }
-
   }
 </form>

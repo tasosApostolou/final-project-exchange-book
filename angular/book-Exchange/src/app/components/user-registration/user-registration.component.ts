@@ -5,7 +5,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatInputModule } from '@angular/material/input';
-import { User } from 'src/app/shared/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UserLoginComponent } from '../user-login/user-login.component';
@@ -40,8 +39,6 @@ form = new FormGroup({
   role:new FormControl({value:'PERSONAL',disabled:true},Validators.required),
   confirmPassword:new FormControl('',[Validators.required, Validators.minLength(4)]),
 },this.passwordConfirmsValidator)
-
-
 
 passwordConfirmsValidator(form:FormGroup){
   if (form.get('password').value !== form.get('confirmPassword').value){

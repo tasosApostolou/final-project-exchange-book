@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { SearchBookFormComponent } from '../search-book-form/search-book-form.component'; 
 import { BooksWithPersonsComponent } from '../books-with-persons/books-with-persons.component'; 
-import { Book, BookWithPersons, BookWithUsers, StoreBook } from 'src/app/shared/interfaces/book';
+import { BookWithPersons, StoreBook } from 'src/app/shared/interfaces/book';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { BooksInStoresComponent } from '../books-in-stores/books-in-stores.component';
 import { SearchBookForm } from 'src/app/shared/interfaces/Search-book-form';
