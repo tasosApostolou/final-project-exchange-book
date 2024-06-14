@@ -13,9 +13,7 @@
     routerLink="store-books">
     My books
   </a>
-  
-
-    @if (user()) {
+    <!-- @if (user().role==="STORE") { -->
       <a
       role="button"
       class="navbar-brand  ms-3"
@@ -47,7 +45,6 @@
           logout
         </mat-icon>
       </span>
-    }
   </nav>
 
 
