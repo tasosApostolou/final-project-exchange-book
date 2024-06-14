@@ -23,21 +23,16 @@ form = new FormGroup({
 })
 
 onSubmit(value:any){
-  console.log("sasasa",value);
   const book:InsertBook = {
     title: this.form.get('title').value,
     author: {
-      
       name: this.form.get('name').value
     }
   };
-  // const teacher = value;
   this.bookService.addBook(book).subscribe({
     next: (response) => {
       console.log('book register', response);
       this.form.reset()
-      // this.regStatus = {succes:true, message:JSON.stringify(response)}
-      // this.regStatus.succes=true
     },
     error: (response) => {
       const message = response
@@ -46,8 +41,6 @@ onSubmit(value:any){
       console.log('Error in adding book',response.error);
       
       this.regStatus.succes=false;
-      // this.regStatus = {succes:false,message:message}
-      // this.registrationStatus = {succes:false,message:message}
     }
   })
 }

@@ -58,10 +58,6 @@ loadBooks(personId:number){
   }
 )
 }
-// getBooks(){
-//   return this.books
-// }
-
 
 interest(event:Event,book:Book){
 

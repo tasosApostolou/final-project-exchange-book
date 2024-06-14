@@ -8,7 +8,6 @@ import { MatButtonToggle, MatButtonToggleGroup, MatButtonToggleModule } from '@a
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { Notifica } from 'src/app/shared/interfaces/notification';
 import { AddBookComponent } from '../../add-book/add-book.component';
-import { User } from 'src/app/shared/interfaces/user';
 import { BooksTableComponent } from '../../books-table/books-table.component';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { UpdateComponent } from '../../update/update.component';

@@ -22,11 +22,7 @@
           <td>{{ book.id }}</td>
           <td>{{ book.title }}</td>
           <td>{{ book.author.name  }}</td>
-          <!-- <td><button class="btn btn-primary " (click)="deleteBook(book.id)">Delete</button></td> -->
           <td class="btn btn-primary  ">  
-            <!-- <button mat-fab color="primary" (click)="deleteBook(book.id)"aria-label="Example  icon button with a delete icon">
-            <mat-icon>delete</mat-icon>
-          </button></td> -->
             <button mat-fab color="primary" class="rounded-2 " (click)="deleteBook(book.id)"aria-label="Example icon button with a delete icon"> Delete
         <mat-icon>delete</mat-icon>
       </button></td>
