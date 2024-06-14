@@ -15,16 +15,9 @@ import lombok.Setter;
 @Setter
 public class UserReadOnlyDTO extends BaseDTO {
     private String username;
-//    private String password;
 //    @Enumerated(EnumType.STRING)
     private String role;
-//
-//    public UserReadOnlyDTO(Long id,String username, String password, String role) {
-//        this.setId(id);
-//        this.username = username;
-//        this.password = password;
-//        this.role = role;
-//    }
+
 
     public UserReadOnlyDTO(Long id,String username, String role) {
         this.setId(id);

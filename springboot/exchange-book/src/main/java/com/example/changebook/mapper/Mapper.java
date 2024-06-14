@@ -8,8 +8,6 @@ import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
 import com.example.changebook.dto.StoreDTO.StoreUpdateDTO;
 import com.example.changebook.dto.authorDTO.AuthorInsertDTO;
 import com.example.changebook.dto.authorDTO.AuthorReadOnlyDTO;
-
-
 import com.example.changebook.dto.loginDTO.LoginResponseDTO;
 import com.example.changebook.dto.personDTO.PersonReadonlyDTO;
 import com.example.changebook.dto.personDTO.PersonUpdateDTO;
@@ -27,7 +25,6 @@ public class Mapper {
     public static PersonReadonlyDTO mapToReadOnlyDTO(Person person){
         PersonReadonlyDTO personReadonlyDTO = new PersonReadonlyDTO(person.getId(),person.getFirstname(),person.getLastname());
         personReadonlyDTO.setUserId(person.getUser().getId());
-//        personReadonlyDTO.setUser(mapToReadOnlyDTO(person.getUser()));
         return personReadonlyDTO;
     }
     public static StoreReadOnlyDTO mapToReadOnlyDTO(Store store){

@@ -37,7 +37,6 @@ public class Book extends AbstractEntity {
     @OneToMany(mappedBy = "book")
     private Set<Notification> notifications;
     public void addPerson(Person person){
-
         this.persons.add(person);
         person.getBooks().add(this);
     }

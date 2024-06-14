@@ -1,6 +1,5 @@
 package com.example.changebook.model;
 
-import com.example.changebook.model.Identity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -9,18 +8,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-
-
-//@NoArgsConstructor
-
-
-
-
-
-
-
-
-
 
 @AllArgsConstructor
 @Setter

@@ -2,8 +2,6 @@ package com.example.changebook.model;
 import com.example.changebook.model.Identity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,14 +30,6 @@ public class Store extends AbstractEntity {
         this.name = name;
         this.address = address;
     }
-
-    //    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-//    @JoinTable(
-//            name = "store_books",
-//            joinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id",nullable = false),
-//            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id",nullable = false)
-//    )
-//    private Set<Book> books = new HashSet<>();
     public void addUser(User user) {
         this.user = user;
         user.setStore(this);

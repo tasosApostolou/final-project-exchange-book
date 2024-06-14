@@ -2,12 +2,9 @@ package com.example.changebook.rest;
 
 import com.example.changebook.dto.authorDTO.AuthorInsertDTO;
 import com.example.changebook.dto.authorDTO.AuthorReadOnlyDTO;
-
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.Author;
-
 import com.example.changebook.service.IAuthorService;
-import com.example.changebook.service.IUserService;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import com.example.changebook.validator.AuthorInsertValidator;
 import io.swagger.v3.oas.annotations.Operation;

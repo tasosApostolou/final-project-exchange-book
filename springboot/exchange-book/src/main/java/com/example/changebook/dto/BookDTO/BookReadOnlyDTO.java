@@ -25,6 +25,7 @@ public class BookReadOnlyDTO extends BaseDTO {
         this.setId(id);
         this.title = title;
         this.author = authorReadOnlyDTO;
+//        this.userReadOnlyDTOS=userReadOnlyDTOS;
     }
 
 

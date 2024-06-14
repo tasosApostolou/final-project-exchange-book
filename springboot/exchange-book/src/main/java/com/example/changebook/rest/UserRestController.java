@@ -1,21 +1,14 @@
 package com.example.changebook.rest;
 
-import com.example.changebook.dto.BookDTO.BookReadOnlyDTO;
 import com.example.changebook.dto.NotificationDTO.NotificationReadOnlyDTO;
-import com.example.changebook.dto.loginDTO.LoginCredentialsDTO;
-import com.example.changebook.dto.personDTO.PersonUpdateDTO;
 import com.example.changebook.dto.usersDTO.UserInsertDTO;
 import com.example.changebook.dto.usersDTO.UserReadOnlyDTO;
 import com.example.changebook.dto.usersDTO.UserUpdateDTO;
 import com.example.changebook.mapper.Mapper;
-import com.example.changebook.model.Book;
 import com.example.changebook.model.Notification;
 import com.example.changebook.model.User;
-import com.example.changebook.repository.BookRepository;
 import com.example.changebook.service.IUserService;
-import com.example.changebook.service.exceptions.EntityAlreadyExistsException;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
-
 import com.example.changebook.validator.UserInsertValidator;
 import com.example.changebook.validator.UserUpdateValidator;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +28,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/user")

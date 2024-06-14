@@ -16,17 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByUsername(String username);
     User findUserById(Long id);
 
-    @Query("SELECT u FROM User u JOIN u.books b WHERE b.id = :bookId")
-    List<User> findUsersByBookId(Long bookId);
 
-    @Query("SELECT u FROM User u JOIN u.books b WHERE b.title = :title")
-    List<User> findUsersByBookTitle(String title);
-
-    List<User> findByBooksContaining(Optional<Book> book);
-    List<User> findByBooksContains(Book book);
-    List<User> findUserByBooksContains(Book book);
-    @Query("SELECT u.id FROM User u JOIN u.books b WHERE b.id = :bookId")
-    List<Long> findUserIdsByBookId(Long bookId);
 
 
 }

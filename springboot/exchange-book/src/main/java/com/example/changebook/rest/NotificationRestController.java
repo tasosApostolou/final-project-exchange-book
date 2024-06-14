@@ -3,7 +3,6 @@ package com.example.changebook.rest;
 import com.example.changebook.dto.NotificationDTO.NotificationInsertDTO;
 import com.example.changebook.dto.NotificationDTO.NotificationReadOnlyDTO;
 import com.example.changebook.dto.NotificationDTO.NotificationUpdateDTO;
-import com.example.changebook.dto.personDTO.PersonUpdateDTO;
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.Notification;
 import com.example.changebook.service.INotificationService;

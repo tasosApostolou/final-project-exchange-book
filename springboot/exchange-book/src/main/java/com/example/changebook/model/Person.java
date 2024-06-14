@@ -3,8 +3,6 @@ package com.example.changebook.model;
 import com.example.changebook.model.Identity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;

@@ -22,8 +22,7 @@ public class AuthorServiceImpl implements IAuthorService{
     @Override
     @Transactional
     public Author insert(AuthorInsertDTO dto) throws Exception {
-        Author author = null;
-
+        Author author;
         try{
             author = authorRepository.save(Mapper.mapToAuthor(dto));
             if(author.getId()==null){

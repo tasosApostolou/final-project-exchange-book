@@ -5,12 +5,9 @@ import com.example.changebook.dto.BookDTO.StoreBookReadOnlyDTO;
 import com.example.changebook.dto.StoreDTO.StoreReadOnlyDTO;
 import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
 import com.example.changebook.dto.StoreDTO.StoreUpdateDTO;
-import com.example.changebook.dto.personDTO.PersonReadonlyDTO;
-import com.example.changebook.dto.personDTO.PersonUpdateDTO;
 import com.example.changebook.dto.usersDTO.UserReadOnlyDTO;
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.Book;
-import com.example.changebook.model.Person;
 import com.example.changebook.model.Store;
 import com.example.changebook.model.StoreBook;
 import com.example.changebook.service.IStoreService;
@@ -18,7 +15,6 @@ import com.example.changebook.service.exceptions.EntityAlreadyExistsException;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import com.example.changebook.validator.StoreRegisterValidator;
 import com.example.changebook.validator.StoreUpdateValidator;
-import com.example.changebook.validator.UserInsertValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -43,7 +39,7 @@ import java.util.List;
 @RequestMapping("/api/store")
 @Slf4j
 public class StoreRestController {
-    private final IStoreService storeService;;
+    private final IStoreService storeService;
     private final StoreRegisterValidator storeRegisterValidator;
     private final StoreUpdateValidator updateValidator;
 

@@ -1,7 +1,6 @@
 package com.example.changebook.rest;
 
 import com.example.changebook.dto.BookDTO.BookReadOnlyDTO;
-import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
 import com.example.changebook.dto.personDTO.PersonReadonlyDTO;
 import com.example.changebook.dto.personDTO.PersonUpdateDTO;
 import com.example.changebook.dto.personDTO.RegisterPersonDTO;
@@ -14,8 +13,6 @@ import com.example.changebook.service.exceptions.EntityAlreadyExistsException;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import com.example.changebook.validator.PersonUpdateValidator;
 import com.example.changebook.validator.RegisterPersonValidator;
-import com.example.changebook.validator.UserInsertValidator;
-import com.example.changebook.validator.UserUpdateValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,7 +31,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
