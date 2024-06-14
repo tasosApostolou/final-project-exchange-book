@@ -20,16 +20,11 @@ export class StoreService {
   personSignal = signal<Person | null>(null);
   
     constructor() { }
-  
-    // registerPerson(person:PersonRegister){
-    //   return this.http.post<{data:JSON}>(`${API_URL}/register`, person);
-    // }
     registerStore(store:storeRegister){
       return this.http.post<{data:JSON}>(`${API_URL}/register`, store);
     }
   
     getStoreBooks(){
-      // console.log(`func:${storeId}`)
       return this.http.get<StoreBook[]>(`${API_URL}/${this.userService.user().roleEntityId}/books`,{
         headers: {
           Accept:'application/json'
@@ -38,7 +33,11 @@ export class StoreService {
     }
 
     getStoreBooksByTitle(title:string){
-      return this.http.get<StoreBook[]>(`${API_URL}/books?title=${title}`)
+      return this.http.get<StoreBook[]>(`${API_URL}/books?title=${title}`,{
+        headers: {
+          Accept:'application/json'
+        },
+      })
     }
   
     deleteBookFromLoggedInStore(bookId:number){
@@ -50,7 +49,11 @@ export class StoreService {
     }
   
     getStoreByUserId(userID:number){
-      return this.http.get<Person>(`${API_URL}/user/${userID}`)
+      return this.http.get<Person>(`${API_URL}/user/${userID}`,{
+        headers: {
+          Accept:'application/json'
+        },
+      })
     }
   
     deleteUser(){

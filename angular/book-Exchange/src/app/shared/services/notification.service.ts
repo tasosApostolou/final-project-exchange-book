@@ -23,6 +23,10 @@ updateNotificationStatus(notification:Notifica){
 }
 
 getNotificationById(id:Number){
-  return this.http.get<{notification:Notifica}>(`${API_URL}/${id}`)
+  return this.http.get<{notification:Notifica}>(`${API_URL}/${id}`,{
+    headers: {
+      Accept:'application/json'
+    },
+  })
 }
 }

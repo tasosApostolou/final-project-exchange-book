@@ -43,6 +43,9 @@ matBadgeValue(){
   }
 
   ngOnInit(){
+    this.getNotifications
+  }
+  getNotifications(){
     this.userService.getUserNotifications().subscribe(
       (data:[]) =>{
         this.notifications = data
@@ -54,13 +57,13 @@ matBadgeValue(){
 
 // Router navigates in a table component with interestUser's books
  notificationClicked(notification:Notifica){
-    this.ngOnInit() 
+    this.getNotifications
     console.log(`${notification.interested.id} a-sss-as`)
-    let notificationToUpdate = this.notifications.find(noti => noti.id === notification.id) //ngOnInit refreshing notification
+    let notificationToUpdate = this.notifications.find(noti => noti.id === notification.id) //refreshing notification
     this.UpdateNotificationAsSeen(notificationToUpdate)
     
     localStorage.setItem('interestedUser_id',notification.interested.id.toString())// to find user's books after navigating router in user's bookstable 
-    console.log(`${this.notificationsUnseenNumber} eidopoihseis`)
+    console.log(`${this.notificationsUnseenNumber} notifications`)
   }
 
   UpdateNotificationAsSeen(notificationToUpdate:Notifica){

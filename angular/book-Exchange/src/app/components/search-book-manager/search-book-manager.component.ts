@@ -28,7 +28,7 @@ export class SearchBookManagerComponent {
 
   ngOnInit(): void {
     this.loadBooksOfPersons()
-    // this.loadBooksOfStores()
+    this.loadBooksOfStores
   }
 
   formResults(formValue:SearchBookForm){
@@ -38,32 +38,19 @@ export class SearchBookManagerComponent {
       this.loadBooksOfPersons()
 }
     if (this.choice==="stores"){
-      console.log(`$title ${this.title} --`)
       this.loadBooksOfStores()
     }
-
-
   }
 
   loadBooksOfPersons(){
-  this.bookService.getBooksByTitle(this.title).subscribe( {
-    next:(response) => {
-      this.booksWithPersons = response
-    },
-    error: (response) => {
-      console.log('Error in response',response);   
-    }
-  })
+    this.bookService.getBooksByTitle(this.title).subscribe((data) => {
+      this.booksWithPersons = data
+    })
   }
 
   loadBooksOfStores(){
-    this.storeService.getStoreBooksByTitle(this.title).subscribe({
-      next: (response) => {
-        this.storeBooks=response
-      },
-      error:(response) =>{
-
-      }
+    this.storeService.getStoreBooksByTitle(this.title).subscribe((data) => {
+      this.storeBooks = data
     })
   }
 }

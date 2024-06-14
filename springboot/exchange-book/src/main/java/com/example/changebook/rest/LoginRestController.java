@@ -48,7 +48,7 @@ public class LoginRestController {
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
             @ApiResponse(responseCode = "401", description = "Invalid password unauthorized",
                     content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable",
+            @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content)})
     @PostMapping("/login")
     public AuthendicationResponse loginUser(@RequestBody LoginCredentialsDTO dto, HttpServletResponse response) throws BadCredentialsException, DisabledException, UsernameNotFoundException, IOException {

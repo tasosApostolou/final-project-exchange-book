@@ -20,6 +20,9 @@ export class StoreBooksComponent {
   booksWithPrice:BookWithPrice[] = []
 
   ngOnInit(): void {
+    this.loadBooks()
+  }
+  loadBooks(){
     this.storeService.getStoreBooks().subscribe((data:StoreBook[]) => {
       this.storeBooks = data
       data.forEach(storeBook => this.books.push(storeBook.book))
@@ -27,18 +30,13 @@ export class StoreBooksComponent {
   }
 
   deleteBook(bookId:number){
-    // this.ngOnInit()
     this.userService.deleteBookFromLoggedInUser(bookId).subscribe({
       next:(response)=> {
         console.log("book deleted",response)
         if(this.books.length===1){
           this.books = null
         } 
-        this.ngOnInit()
-
-      //Not completed as expected
-        // this.ngOnInit()
-        // this.getBooks(this.storeBooks)
+        this.loadBooks()
       },
       error:(response) => {
         console.error('Error in delete book',response)

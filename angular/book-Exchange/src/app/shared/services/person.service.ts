@@ -44,7 +44,11 @@ personSignal = signal<Person | null>(null);
   }
 
   getPersonByUserId(userID:number){
-    return this.http.get<Person>(`${API_URL}/user/${userID}`)
+    return this.http.get<Person>(`${API_URL}/user/${userID}`,{
+      headers: {
+        Accept:'application/json'
+      },
+    })
   }
 
   deleteUser(){
