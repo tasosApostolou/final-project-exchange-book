@@ -18,14 +18,13 @@ public class BookReadOnlyDTO extends BaseDTO {
 
     public BookReadOnlyDTO(Long id, String title, AuthorReadOnlyDTO authorReadOnlyDTO) {
         this.setId(id);
-        title = title;
+        this.title = title;
         this.author = authorReadOnlyDTO;
     }
     public BookReadOnlyDTO(Long id, String title, AuthorReadOnlyDTO authorReadOnlyDTO, List<UserReadOnlyDTO> userReadOnlyDTOS) {
         this.setId(id);
-        title = title;
+        this.title = title;
         this.author = authorReadOnlyDTO;
-//        this.userReadOnlyDTOS=userReadOnlyDTOS;
     }
 
 
