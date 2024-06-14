@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -81,16 +82,24 @@ public class BookServiceImpl implements IBookService{
             if(insertedAuthor == null){ //create new author if does not exist
                 insertedAuthor = authorRepository.save(author);
             }
+
             Book bookToAdd = Mapper.mapToBook(dto);
 //            List<Book> listWithSameTitleBooks = person.getBooks().stream().filter(book1 -> book1.getTitle()== dto.Title).collect(Collectors.toList());
             List<Book> listWithSameTitleBooks = bookRepository.findBookByTitle(dto.getTitle());
-            if (!listWithSameTitleBooks.stream().anyMatch(b -> b.isTheSameBook(bookToAdd))){ //isTheSameBook returns if author name and book title is the same so books is the same
+            Optional<Book> optBook= listWithSameTitleBooks.stream().filter(book1 -> book1.isTheSameBook(bookToAdd)).findFirst();
+            if (optBook.isPresent()){
+                inserted = optBook.get();
+                inserted.addAuthor(insertedAuthor);
+                inserted.addPerson(person);
+            }
+            else{
+//            if (!listWithSameTitleBooks.stream().anyMatch(b -> b.isTheSameBook(bookToAdd))){ //isTheSameBook returns if author name and book title is the same so books is the same
+               bookToAdd.addAuthor(insertedAuthor);
+               bookToAdd.addPerson(person);
                 inserted = bookRepository.save(bookToAdd); // save book if does not exists
             }
-            bookToAdd.addAuthor(insertedAuthor);
-            bookToAdd.addPerson(person);
             log.info("insert succes for book with id"+ bookToAdd.getId());
-            return bookToAdd;
+            return inserted;
         }catch (Exception e){
             log.error("insert error " + e.getMessage());
             e.printStackTrace();
