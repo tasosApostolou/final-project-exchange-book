@@ -48,6 +48,7 @@ matBadgeValue(){
     this.userService.getUserNotifications().subscribe(
       (data:[]) =>{
         this.notifications = data
+        
         this.notificationsUnseenNumber = this.notifications.filter(notification => !notification.isSeen).length
       
       })
@@ -59,16 +60,12 @@ matBadgeValue(){
     this.UpdateNotificationAsSeen(notificationToUpdate)
     
     localStorage.setItem('interestedUser_id',notification.interested.id.toString())// to find user's books after navigating router in user's bookstable 
-    console.log(`${this.notificationsUnseenNumber} notifications`)
   }
 
   UpdateNotificationAsSeen(notificationToUpdate:Notifica){
-    console.log(notificationToUpdate.notificationType)
     notificationToUpdate.isSeen = true
-    console.log(`type:${notificationToUpdate.notificationType}`)
     this.notificationService.updateNotificationStatus(notificationToUpdate as Notifica).subscribe({
       next:(response) => {
-        console.log(`${response} data`)
         console.log(`${response} data`)
       },
       error:(response) => {
