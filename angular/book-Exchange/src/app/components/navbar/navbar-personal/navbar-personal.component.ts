@@ -13,12 +13,13 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 import { UpdateComponent } from '../../update/update.component';
 import { ManageAccountComponent } from '../../manage-account/manage-account.component';
 import { SearchBookManagerComponent } from '../../search-book-manager/search-book-manager.component';
+import { PersonWelcomeComponent } from '../../person-welcome/person-welcome.component';
 
 @Component({
   selector: 'app-navbar-personal',
   standalone: true,
   imports: [UpdateComponent,SearchBookManagerComponent, BooksTableComponent,ManageAccountComponent,
-    MatIcon,RouterLink,AddBookComponent,MatIconModule,MatMenu,MatMenuTrigger,MatBadgeModule,MatBadge,MatButtonToggle,MatButtonToggleGroup,MatButtonToggleModule,MatIcon,MatIconButton,MatButton,BooksTableComponent,BooksTableComponent
+    MatIcon,RouterLink,AddBookComponent,MatIconModule,MatMenu,MatMenuTrigger,MatBadgeModule,MatBadge,MatButtonToggle,MatButtonToggleGroup,MatButtonToggleModule,MatIcon,MatIconButton,MatButton,BooksTableComponent,BooksTableComponent,PersonWelcomeComponent
     ],
   templateUrl: './navbar-personal.component.html',
   styleUrl: './navbar-personal.component.css'

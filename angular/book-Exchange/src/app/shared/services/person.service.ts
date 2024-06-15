@@ -42,6 +42,9 @@ personSignal = signal<Person | null>(null);
     return this.http.put<{any:Person}>(`${API_URL}/update/${
       person.id}`,person)
   }
+  getPersonById(personID:number){
+    return this.http.get<Person>(`${API_URL}/${personID}`)
+  }
 
   getPersonByUserId(userID:number){
     return this.http.get<Person>(`${API_URL}/user/${userID}`,{
@@ -54,7 +57,4 @@ personSignal = signal<Person | null>(null);
   deleteUser(){
     return this.http.delete<{user:User}>(`${environment.apiURL}/${this.userService.user().role.toLowerCase()}/${this.userService.user().roleEntityId}`)
   }
-  // deleteUser(){
-  //   return this.http.delete<{user:User}>(`${environment.apiURL}/user/${this.userService.user().userId}`)
-  // }
 }

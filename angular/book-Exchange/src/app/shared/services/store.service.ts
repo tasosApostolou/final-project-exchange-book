@@ -47,9 +47,16 @@ export class StoreService {
       return this.http.put<{any:Store}>(`${API_URL}/update/${
         store.id}`,store)
     }
-  
+    getStoreById(storeID:number){
+      return this.http.get<any>(`${API_URL}/${storeID}`,{
+        headers: {
+          Accept:'application/json'
+        },
+      })
+    }
+    
     getStoreByUserId(userID:number){
-      return this.http.get<Person>(`${API_URL}/user/${userID}`,{
+      return this.http.get<Store>(`${API_URL}/user/${userID}`,{
         headers: {
           Accept:'application/json'
         },

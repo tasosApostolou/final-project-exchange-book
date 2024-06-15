@@ -5,9 +5,11 @@ import com.example.changebook.dto.BookDTO.StoreBookReadOnlyDTO;
 import com.example.changebook.dto.StoreDTO.StoreReadOnlyDTO;
 import com.example.changebook.dto.StoreDTO.StoreRegisterDTO;
 import com.example.changebook.dto.StoreDTO.StoreUpdateDTO;
+import com.example.changebook.dto.personDTO.PersonReadonlyDTO;
 import com.example.changebook.dto.usersDTO.UserReadOnlyDTO;
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.Book;
+import com.example.changebook.model.Person;
 import com.example.changebook.model.Store;
 import com.example.changebook.model.StoreBook;
 import com.example.changebook.service.IStoreService;
@@ -176,6 +178,24 @@ public class StoreRestController {
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>( HttpStatus.NOT_FOUND);
         }
+    }
 
+    @Operation(summary = "Get a Store by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Store Found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
+            @ApiResponse(responseCode = "400", description = "Store not found",
+                    content = @Content)})
+    @GetMapping("/{storeId}")
+    public ResponseEntity<StoreReadOnlyDTO> getStore(@PathVariable("storeId") Long id) {
+        Store store;
+        try {
+            store = storeService.getStoreById(id);
+            StoreReadOnlyDTO dto = Mapper.mapToReadOnlyDTO(store);
+            return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

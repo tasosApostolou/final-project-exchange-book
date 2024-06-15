@@ -18,8 +18,8 @@ public interface IStoreService {
     Book removeBookFromStore(Long personId, Long bookId) throws EntityNotFoundException;
     List<StoreBook> getStoreBooksByBookTitle(String title) throws EntityNotFoundException;
    Store updateStore(StoreUpdateDTO dto) throws EntityNotFoundException;
+   Store getStoreById(Long id) throws EntityNotFoundException;
 //    List<Store> getStoresByName(String lastname) throws EntityNotFoundException;
-//    Store getStoreById(Long id) throws EntityNotFoundException;
 //    Store getStoreByUserId(Long id) throws EntityNotFoundException;
 //    List<Store> getStoresByBookTitle(String bookTitle) throws EntityNotFoundException;
 

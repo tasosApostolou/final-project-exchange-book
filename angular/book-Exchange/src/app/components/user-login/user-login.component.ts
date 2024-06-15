@@ -44,8 +44,8 @@ export class UserLoginComponent {
           roleEntityId: decodedTokenSubject.roleEntityId
         });
         const rout = {
-          'PERSONAL':'my-books',
-          'STORE':'store-books'
+          'PERSONAL':'person-welcome',
+          'STORE':'store-welcome'
         }
         this.router.navigate([rout[decodedTokenSubject.role]]);
       },

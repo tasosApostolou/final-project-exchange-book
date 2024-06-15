@@ -22,6 +22,8 @@ import { SearchBookFormComponent } from './components/search-book-form/search-bo
 import { UpdateStoreComponent } from './components/update-store/update-store.component';
 import { BuyBookComponent } from './components/buy-book/buy-book.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
+import { StoreWelcomeComponent } from './components/store-welcome/store-welcome.component';
+import { PersonWelcomeComponent } from './components/person-welcome/person-welcome.component';
 
 
 
@@ -32,7 +34,9 @@ export const routes: Routes = [
 
   { path: 'login', component: UserLoginComponent },
   {path:'add-book-store', component: AddBookStoreComponent,canActivate:[authStoreGuard]},
+  {path:'store-welcome', component: StoreWelcomeComponent,canActivate:[authStoreGuard]},
   {path:'store-books', component: StoreBooksComponent,canActivate:[authStoreGuard]},
+  {path:'person-welcome', component: PersonWelcomeComponent,canActivate:[authPersonalGuard]},
   {path:'update-store', component: UpdateStoreComponent,canActivate:[authStoreGuard]},
   {path: 'add-book-person', component: AddBookComponent,canActivate:[authPersonalGuard] },
   {path:'books-table', component: BooksTableComponent,canActivate:[authPersonalGuard]},

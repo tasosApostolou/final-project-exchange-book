@@ -137,15 +137,22 @@ public class StoreService implements IStoreService {
         return  storeBooks;
     }
 
+        @Override
+    public Store getStoreById(Long id) throws EntityNotFoundException {
+            Store store;
+            try {
+                store = storeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(User.class,id));
+            }catch (EntityNotFoundException e){
+                log.error(e.getMessage());
+                throw e;
+            }
+            return store;
+        }
 //    @Override
 //    public List<Store> getStoresByName(String lastname) throws EntityNotFoundException {
 //        return null;
 //    }
 //
-//    @Override
-//    public Store getStoreById(Long id) throws EntityNotFoundException {
-//        return null;
-//    }
 //
 //    @Override
 //    public Store getStoreByUserId(Long id) throws EntityNotFoundException {
