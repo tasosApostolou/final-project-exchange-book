@@ -70,7 +70,6 @@ public class BookServiceImpl implements IBookService{
     @Override
     @Transactional
     public Book insertBookToPerson(Long personId,BookInsertDTO dto) throws Exception {
-        Book book;
         Author insertedAuthor;
         Book inserted;
         Person person;
