@@ -82,22 +82,18 @@ public class BookServiceImpl implements IBookService{
             if(insertedAuthor == null){ //create new author if does not exist
                 insertedAuthor = authorRepository.save(author);
             }
-            book = Mapper.mapToBook(dto);
             Book bookToAdd = Mapper.mapToBook(dto);
             bookToAdd.addAuthor(insertedAuthor);
+            /**
+             * Check is book is present and if is not then add a new book into book table, and next add a book to person in person_books middleware table
+             * book.isTheSameBook() model public api method lets say if  book.title and author.name is the same, then book is the same(present)
+             * @param optBook the object of book if is present to publish by a person for exchange
+             * if book is present then just build relationship with store to publish this book
+             */
             List<Book> listWithSameTitleBooks = bookRepository.findBookByTitle(dto.getTitle());
-            Optional<Book> optBook= listWithSameTitleBooks.stream().filter(book1 -> book1.isTheSameBook(bookToAdd)).findFirst();//lets say that if book title and author name is the same then book is the same
-            if (optBook.isPresent()){
-                inserted = optBook.get();
-                inserted.addAuthor(insertedAuthor);
-                inserted.addPerson(person);
-            }
-            else{
-//            if (listWithSameTitleBooks.stream().noneMatch(b -> b.isTheSameBook(bookToAdd))){
-               bookToAdd.addAuthor(insertedAuthor);
-               bookToAdd.addPerson(person);
-               inserted = bookRepository.save(bookToAdd); // save book if does not exists
-            }
+            Optional<Book> optBook= listWithSameTitleBooks.stream().filter(book1 -> book1.isTheSameBook(bookToAdd)).findFirst();// check if its present, lets say that if book title and author name is the same then book is the same
+            inserted = optBook.orElse(bookRepository.save(bookToAdd));
+            inserted.addPerson(person);
             if (inserted.getId() == null){
                 throw new Exception("Problem in inserting book");
             }
@@ -136,7 +132,7 @@ public class BookServiceImpl implements IBookService{
             /**
              * Check is book is present and if is not then add a new book into book table, and next add a book to store in storeBooks middleware table
              * book.isTheSameBook() model public api method lets say if  book.title and author.name is the same, then book is the same(present)
-             * @param optBook the objeck of book to publish by a store
+             * @param optBook the object of book if is present to publish by a store
              * if book is present then just build relationship with store to publish this book with the given price
              */
             Optional<Book> optBook= listWithSameTitleBooks.stream().filter(b -> b.isTheSameBook(bookComparsion)).findFirst();// check if is present the same book and if is not lets say that if book title and author name is the same then book is the same
