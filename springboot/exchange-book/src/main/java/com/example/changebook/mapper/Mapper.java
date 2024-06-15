@@ -94,9 +94,6 @@ public class Mapper {
     public static Book mapToBook(BookInsertDTO dto) {
         Book book = new Book();
         book.setTitle(dto.Title);
-        Author author = new Author();
-        author.setName(dto.author.name);
-        book = new Book(null,dto.getTitle(),author);
         return book;
     }
 

@@ -37,8 +37,6 @@ public class Store extends AbstractEntity {
     public void addBook(StoreBook storeBook){
         this.storeBooks.add(storeBook);
         storeBook.setStore(this);
-//        storeBook.getBook().getStoreBooks().add(storeBook);
-//        storeBook.getBook().addStore(storeBook);
     }
     public Set<StoreBook> getAllBooks() {
         return Collections.unmodifiableSet(storeBooks);
