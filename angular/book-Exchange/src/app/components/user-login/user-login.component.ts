@@ -43,7 +43,10 @@ export class UserLoginComponent {
           role: decodedTokenSubject.role,
           roleEntityId: decodedTokenSubject.roleEntityId
         });
-        const rout = {'PERSONAL':'my-books','STORE':'store-books'}
+        const rout = {
+          'PERSONAL':'my-books',
+          'STORE':'store-books'
+        }
         this.router.navigate([rout[decodedTokenSubject.role]]);
       },
     // if role is PERSONAL, router navigates to page with its book, else if role is store, router navigates at page with  store books 

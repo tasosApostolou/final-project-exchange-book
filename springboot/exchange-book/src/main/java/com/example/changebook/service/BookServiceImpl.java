@@ -72,7 +72,7 @@ public class BookServiceImpl implements IBookService{
     public Book insertBookToPerson(Long personId,BookInsertDTO dto) throws Exception {
         Book book;
         Author insertedAuthor;
-        Book inserted = new Book();
+        Book inserted;
         Person person;
         Author author = new Author();
         try{
@@ -82,23 +82,25 @@ public class BookServiceImpl implements IBookService{
             if(insertedAuthor == null){ //create new author if does not exist
                 insertedAuthor = authorRepository.save(author);
             }
-
             Book bookToAdd = Mapper.mapToBook(dto);
 //            List<Book> listWithSameTitleBooks = person.getBooks().stream().filter(book1 -> book1.getTitle()== dto.Title).collect(Collectors.toList());
             List<Book> listWithSameTitleBooks = bookRepository.findBookByTitle(dto.getTitle());
-            Optional<Book> optBook= listWithSameTitleBooks.stream().filter(book1 -> book1.isTheSameBook(bookToAdd)).findFirst();
+            Optional<Book> optBook= listWithSameTitleBooks.stream().filter(book1 -> book1.isTheSameBook(bookToAdd)).findFirst();//lets say that if book title and author name is the same then book is the same
             if (optBook.isPresent()){
                 inserted = optBook.get();
                 inserted.addAuthor(insertedAuthor);
                 inserted.addPerson(person);
             }
             else{
-//            if (!listWithSameTitleBooks.stream().anyMatch(b -> b.isTheSameBook(bookToAdd))){ //isTheSameBook returns if author name and book title is the same so books is the same
+//            if (!listWithSameTitleBooks.stream().anyMatch(b -> b.isTheSameBook(bookToAdd))){
                bookToAdd.addAuthor(insertedAuthor);
                bookToAdd.addPerson(person);
                 inserted = bookRepository.save(bookToAdd); // save book if does not exists
             }
-            log.info("insert succes for book with id"+ bookToAdd.getId());
+            if (inserted == null){
+                throw new Exception("Problem in inserting book");
+            }
+            log.info("insert succes for book with id"+ inserted.getId());
             return inserted;
         }catch (Exception e){
             log.error("insert error " + e.getMessage());
@@ -118,14 +120,13 @@ public class BookServiceImpl implements IBookService{
         try{
             store = storeRepository.findById(storeId).orElseThrow(() -> new EntityNotFoundException(Person.class,storeId));
             author = Mapper.mapToAuthor(dto.book.author);
-            System.out.println(authorRepository.findByName(dto.book.author.getName())+"--------------------------------------------------");
 //            insertedAuthor = authorRepository.findByName(dto.authorInsertDTO.getName()).orElse(authorRepository.save(author));
             insertedAuthor = authorRepository.findAuthorByName(dto.book.author.getName());
             if(insertedAuthor == null){ //creates new author if does not exist
                 insertedAuthor = authorRepository.save(author);
             }
             book = Mapper.mapToBook(dto.book);
-            Book bookToAdd =  new Book();// Να θυμηθω να το αλλαξω
+            Book bookToAdd =  new Book();
             Boolean thereIsSameBook = store.getAllBooks().stream().anyMatch(bookStore -> bookStore.getBook().isTheSameBook(book));//lets say if author name and book title is the same so books is the same
             if (!thereIsSameBook){
                 bookToAdd = bookRepository.save(book); // save book if does not exists
