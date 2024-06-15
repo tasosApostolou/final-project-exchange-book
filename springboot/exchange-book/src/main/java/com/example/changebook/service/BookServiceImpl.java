@@ -92,7 +92,7 @@ public class BookServiceImpl implements IBookService{
              */
             List<Book> listWithSameTitleBooks = bookRepository.findBookByTitle(dto.getTitle());
             Optional<Book> optBook= listWithSameTitleBooks.stream().filter(book1 -> book1.isTheSameBook(bookToAdd)).findFirst();// check if its present, lets say that if book title and author name is the same then book is the same
-            inserted = optBook.orElse(bookRepository.save(bookToAdd));
+            inserted = optBook.orElse(bookRepository.save(bookToAdd)); // first save book if does not exists
             inserted.addPerson(person);
             if (inserted.getId() == null){
                 throw new Exception("Problem in inserting book");
@@ -114,7 +114,6 @@ public class BookServiceImpl implements IBookService{
         Store store;
         Author author = new Author();
         StoreBook storeBook;
-        StoreBook insertedStoreBook;
         try{
             store = storeRepository.findById(storeId).orElseThrow(() -> new EntityNotFoundException(Person.class,storeId));
             author = Mapper.mapToAuthor(dto.book.author);
