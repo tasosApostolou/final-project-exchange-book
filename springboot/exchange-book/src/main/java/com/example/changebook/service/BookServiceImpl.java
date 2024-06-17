@@ -88,7 +88,7 @@ public class BookServiceImpl implements IBookService{
              * Check iφ book is present and if is not then add a new book into book table, and next add a book to person in person_books middleware table
              * book.isTheSameBook() model public api method lets say if  book.title and author.name is the same, then book is the same(present)
              * @param optBook the object of book if is present to publish by a person for exchange
-             * if book is present then just build relationship with store to publish this book
+             * if book is present then just build relationship with person to publish this book
              */
             List<Book> listWithSameTitleBooks = bookRepository.findBookByTitle(dto.getTitle());
             Optional<Book> optBook= listWithSameTitleBooks.stream().filter(book1 -> book1.isTheSameBook(bookToAdd)).findFirst();// check if its present, lets say that if book title and author name is the same then book is the same
