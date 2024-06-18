@@ -34,6 +34,15 @@ public class StoreBook {
         this.setStore(store);
         store.getStoreBooks().add(this);
     }
+
+    @Override
+    public String toString() {
+        return "StoreBook{" +
+                "store=" + this.store.getName() +
+                ", book=" + this.book.getTitle() +
+                ", price=" + price +
+                '}';
+    }
 }
 
 

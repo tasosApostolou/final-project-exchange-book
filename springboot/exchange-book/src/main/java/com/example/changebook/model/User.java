@@ -104,7 +104,17 @@ public class User extends AbstractEntity implements UserDetails {
         return this.getIsActive() == null || this.getIsActive();
     }
 
-//    @PreRemove
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", status=" + status +
+                '}';
+    }
+
+    //    @PreRemove
 //    private void preRemove() {
 //        notifications.forEach(notification -> notification.setHolderUSer(null));
 //        notifications.forEach((notification -> notification.setInterestedUser(null)));

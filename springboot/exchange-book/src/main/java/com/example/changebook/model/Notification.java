@@ -68,5 +68,18 @@ public class Notification  {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+//                ", updatedAt=" + updatedAt +
+                ", interestedUser=" + this.interestedUser.getUsername() +
+                ", holderUSer=" + this.holderUSer.getUsername() +
+                ", book=" + this.book.getTitle() +
+                ", type=" + type +
+                ", isSeen=" + isSeen +
+                '}';
+    }
 }
 

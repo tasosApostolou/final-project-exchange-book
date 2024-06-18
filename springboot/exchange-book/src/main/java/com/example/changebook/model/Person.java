@@ -55,4 +55,13 @@ public class Person extends AbstractEntity {
         this.user = user;
         user.setPerson(this);
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", username=" + this.user.getUsername() +
+                '}';
+    }
 }

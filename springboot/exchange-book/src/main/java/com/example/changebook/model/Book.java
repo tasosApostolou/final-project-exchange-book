@@ -64,4 +64,10 @@ public class Book extends AbstractEntity {
         return Collections.unmodifiableSet(persons);
     }
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "author=" + this.author.getName() +
+                '}';
+    }
 }

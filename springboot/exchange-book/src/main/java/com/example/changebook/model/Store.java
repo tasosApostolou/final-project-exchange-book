@@ -42,4 +42,12 @@ public class Store extends AbstractEntity {
         return Collections.unmodifiableSet(storeBooks);
     }
 
+    @Override
+    public String toString() {
+        return "Store{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", username=" + this.user.getUsername() +
+                '}';
+    }
 }
