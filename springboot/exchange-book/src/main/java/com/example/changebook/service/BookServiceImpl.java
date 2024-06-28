@@ -77,7 +77,6 @@ public class BookServiceImpl implements IBookService{
         try{
             person = personRepository.findById(personId).orElseThrow(() -> new EntityNotFoundException(Person.class,personId));
             author = Mapper.mapToAuthor(dto.author);
-//            insertedAuthor = authorRepository.findByName(dto.author.getName()).orElse(authorRepository.save(author));
             insertedAuthor = authorRepository.findAuthorByName(dto.author.getName());
             if(insertedAuthor == null){ //create new author if does not exist
                 insertedAuthor = authorRepository.save(author);
@@ -85,7 +84,7 @@ public class BookServiceImpl implements IBookService{
             Book bookToAdd = Mapper.mapToBook(dto);
             bookToAdd.addAuthor(insertedAuthor);
             /**
-             * Check iφ book is present and if is not then add a new book into book table, and next add a book to person in person_books middleware table
+             * Check if book is present and if is not then add a new book into book table, and next add a book to person in person_books middleware table
              * book.isTheSameBook() model public api method lets say if  book.title and author.name is the same, then book is the same(present)
              * @param optBook the object of book if is present to publish by a person for exchange
              * if book is present then just build relationship with person to publish this book
