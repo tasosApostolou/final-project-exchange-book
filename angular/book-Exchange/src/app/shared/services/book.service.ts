@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Book, BookWithPersons, BookWithUsers, InsertBook, InsertStoreBook } from '../interfaces/book';
+import { Book, BookWithPersons, InsertBook, InsertStoreBook } from '../interfaces/book';
 import { environment } from 'src/environments/environment.development';
 import { UserService } from './user.service';
 const API_URL = `${environment.apiURL}/book`
