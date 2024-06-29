@@ -14,7 +14,6 @@ public String name;
         this.setId(id);
         this.name = name;
     }
-
     public AuthorReadOnlyDTO() {
 
     }

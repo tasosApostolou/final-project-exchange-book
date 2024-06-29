@@ -32,7 +32,6 @@ export class NavbarPersonalComponent {
   user = this.userService.user
   notifications:Notifica[] = []
 
-// notificationsNumber:any = ''
 notificationsUnseenNumber:number
 matBadgeValue(){
   if (this.notificationsUnseenNumber == 0){

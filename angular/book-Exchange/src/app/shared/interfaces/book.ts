@@ -28,12 +28,12 @@ export interface InsertStoreBook{
     price:number
 }
 
-export interface BookWithUsers {
-    id:number;
-    title:string
-    author:Author
-    users: User[];
-  }
+// export interface BookWithUsers {
+//     id:number;
+//     title:string
+//     author:Author
+//     users: User[];
+//   }
 
 export interface BookWithPersons{
     id:number;

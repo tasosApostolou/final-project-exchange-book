@@ -15,5 +15,4 @@ public class AuthorInsertDTO {
 //    @NotBlank
     public String name;
 
-//    public Set<BookInsertDTO> booksDTO;
 }
