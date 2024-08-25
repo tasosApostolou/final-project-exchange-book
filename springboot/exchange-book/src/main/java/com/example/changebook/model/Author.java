@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -22,7 +23,7 @@ public class Author extends AbstractEntity {
 
   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
   @Getter(AccessLevel.PUBLIC)
-  private Set<Book> books;
+  private Set<Book> books = new HashSet<>();
 
 
   public Author(Long id,String name, Set<Book> books) {

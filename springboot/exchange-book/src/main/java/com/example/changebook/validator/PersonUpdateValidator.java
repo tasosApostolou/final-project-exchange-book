@@ -25,10 +25,6 @@ public class PersonUpdateValidator implements Validator {
         if(personUpdateDTO.getLastname().length()< 3 || personUpdateDTO.getLastname().length() > 50){
             errors.reject("password", "size");
         }
-
-//        if(teacherService.inUsernameExists(teachereInsertDTO.getUsername())){
-//            errors.reject(("username","exists"));
-//        }
     }
 }
 

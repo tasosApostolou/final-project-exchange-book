@@ -123,7 +123,7 @@ public class PersonRestController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Person Found",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
+                            schema = @Schema(implementation = PersonReadonlyDTO.class))}),
             @ApiResponse(responseCode = "400", description = "Person not found",
                     content = @Content)})
     @GetMapping("/{personId}")
@@ -141,9 +141,9 @@ public class PersonRestController {
 
     @Operation(summary = "Update a Person")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User updated",
+            @ApiResponse(responseCode = "200", description = "Person updated",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserReadOnlyDTO.class)) }),
+                            schema = @Schema(implementation = PersonReadonlyDTO.class)) }),
             @ApiResponse(responseCode = "401", description = "Unauthorized user",
                     content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid input was supplied",
@@ -171,7 +171,7 @@ public class PersonRestController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Person Deleted",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserReadOnlyDTO.class)) }),
+                            schema = @Schema(implementation = PersonReadonlyDTO.class)) }),
             @ApiResponse(responseCode = "404", description = "Person not found",
                     content = @Content)})
     @DeleteMapping("/{id}")
@@ -186,11 +186,11 @@ public class PersonRestController {
         }
     }
 
-    @Operation(summary = "get all books of a user by person id")
+    @Operation(summary = "get all books of a person by person id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "books founs",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
+                            schema = @Schema(implementation = PersonReadonlyDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Person not found or user not have added books yet",
                     content = @Content)})
     @GetMapping("{personId}/books")
@@ -219,7 +219,7 @@ public class PersonRestController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "the book deleted from person list with books",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
+                            schema = @Schema(implementation = PersonReadonlyDTO.class))}),
             @ApiResponse(responseCode = "404", description = "entity not found(person or book) searching by id in variable path ",
                     content = @Content),
             @ApiResponse(responseCode = "401", description = "personn does not have this book to delete, Unauthorized",

@@ -25,8 +25,5 @@ public class UserUpdateValidator implements Validator {
             errors.reject("password", "size");
         }
 
-//        if(teacherService.inUsernameExists(teachereInsertDTO.getUsername())){
-//            errors.reject(("username","exists"));
-//        }
     }
 }

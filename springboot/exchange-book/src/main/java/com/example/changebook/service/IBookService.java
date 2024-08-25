@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Set;
 
 public interface IBookService {
-    Book insertBookToPerson(Long userID,BookInsertDTO dto) throws Exception;
+    Book insertBookToPerson(Long personID,BookInsertDTO dto) throws Exception;
 //    Book insertBookToStore(Long storeId,BookInsertDTO dto) throws Exception;
 
-    StoreBook insertBookToStore(Long personId, StoreBookInsertDTO dto) throws Exception;
+    StoreBook insertBookToStore(Long storeId, StoreBookInsertDTO dto) throws Exception;
 
     Book delete(Long id) throws EntityNotFoundException;
     List<Book> getBookByTitle(String title) throws EntityNotFoundException;

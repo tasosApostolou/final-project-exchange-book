@@ -28,7 +28,6 @@ private final UserRepository userRepository;
 private final BookRepository bookRepository;;
     @Override
     @Transactional
-    //Not expected yet
     public Notification insert(NotificationInsertDTO dto, Long interestedID) throws Exception {
         Notification notification = new Notification();
         Notification inserted = new Notification();

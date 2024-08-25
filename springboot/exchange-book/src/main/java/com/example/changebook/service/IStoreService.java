@@ -15,7 +15,7 @@ public interface IStoreService {
     Store deleteStore(Long id) throws EntityNotFoundException;
 
     List<StoreBook> getAllBooksByStoreId(Long id) throws EntityNotFoundException;
-    Book removeBookFromStore(Long personId, Long bookId) throws EntityNotFoundException;
+    Book removeBookFromStore(Long storeId, Long bookId) throws EntityNotFoundException;
     List<StoreBook> getStoreBooksByBookTitle(String title) throws EntityNotFoundException;
    Store updateStore(StoreUpdateDTO dto) throws EntityNotFoundException;
    Store getStoreById(Long id) throws EntityNotFoundException;

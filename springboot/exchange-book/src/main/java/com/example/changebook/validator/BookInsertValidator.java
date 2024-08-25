@@ -24,5 +24,4 @@ public class BookInsertValidator implements Validator {
             errors.reject("username", "size");
         }
     }
-
 }

@@ -47,6 +47,7 @@ public class Book extends AbstractEntity {
     }
     public void addAuthor(Author author){
         this.setAuthor(author);
+        author.getBooks().add(this);
     }
 
     public Boolean isTheSameBook(Book book){ // lets say that if a title book and the name of autho is the same then book also the same
