@@ -37,15 +37,11 @@ public class WebSecurityConfiguration {
         )
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/teachers/register").permitAll()
-//                .authorizeHttpRequests()
                 .requestMatchers("/login", "/register").permitAll()
                                 .requestMatchers("/api/**").permitAll()
                                 .anyRequest().authenticated()
                 )
-//                .and()
-//                .authorizeHttpRequests().requestMatchers("/api/**")
-//                .authenticated().and()
+
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -54,15 +50,6 @@ public class WebSecurityConfiguration {
                 .build();
     }
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-//        return config.getAuthenticationManager();
-//    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

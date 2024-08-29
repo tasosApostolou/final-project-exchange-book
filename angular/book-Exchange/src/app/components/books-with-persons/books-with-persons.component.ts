@@ -1,14 +1,10 @@
 import { Component, inject,QueryList, ViewChildren, ElementRef, ViewChild, Input } from '@angular/core';
-import { FormControl, FormGroup, NgForm, NgModel, NgModelGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Title } from '@angular/platform-browser';
 import { Book, BookWithPersons } from 'src/app/shared/interfaces/book';
-import { User } from 'src/app/shared/interfaces/user';
-import { BookService } from 'src/app/shared/services/book.service';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UserLoginComponent } from '../user-login/user-login.component';
