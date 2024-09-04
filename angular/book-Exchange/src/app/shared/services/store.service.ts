@@ -21,7 +21,7 @@ export class StoreService {
   
     constructor() { }
     registerStore(store:storeRegister){
-      return this.http.post<{data:JSON}>(`${API_URL}/register`, store);
+      return this.http.post<{data:JSON}>(`${environment.apiURL}/register/store`, store);
     }
   
     getStoreBooks(){

@@ -19,6 +19,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -45,6 +47,7 @@ public class BookRestController {
                     content = @Content),
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
                     content = @Content)})
+    @PreAuthorize("hasAuthority('PERSONAL')")
     @PostMapping("/personal/{personID}/add")
     public ResponseEntity<BookReadOnlyDTO> addBookToPerson(@PathVariable("personID") Long personID, @RequestBody @Valid BookInsertDTO bookDTO, BindingResult bindingResult) {
         bookInsertValidator.validate(bookDTO,bindingResult);
@@ -76,6 +79,7 @@ public class BookRestController {
                     content = @Content),
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
                     content = @Content)})
+    @PreAuthorize("hasAuthority('STORE')")
     @PostMapping("/store/{storeID}/add")
     public ResponseEntity<StoreBookReadOnlyDTO> addBookToStore(@PathVariable("storeID") Long storeID, @RequestBody @Valid StoreBookInsertDTO dto, BindingResult bindingResult) {
         storeBookInsertValidator.validate(dto,bindingResult);

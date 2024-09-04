@@ -40,7 +40,6 @@ interest(bkps:BookWithPersons,person:Person,event:Event){
       id:bkps.id
     }
   }
-  
   this.notificationService.createNotification(notification as any as JSON ).subscribe({
     next:(response) => {
       console.log(`${response} data`)

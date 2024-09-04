@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -38,6 +39,7 @@ public class NotificationRestController {
                             schema = @Schema(implementation = NotificationReadOnlyDTO.class))}),
             @ApiResponse(responseCode = "400", description = "Notification not found",
                     content = @Content)})
+    @PreAuthorize("hasAuthority('PERSONAL') or hasAuthority('STORE')")
     @GetMapping("/{notificationID}")
     public ResponseEntity<NotificationReadOnlyDTO> getNotification (@PathVariable("notificationID") Long id){
         Notification notification;

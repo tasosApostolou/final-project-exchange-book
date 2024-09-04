@@ -27,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -42,38 +43,7 @@ import java.util.List;
 @Slf4j
 public class StoreRestController {
     private final IStoreService storeService;
-    private final StoreRegisterValidator storeRegisterValidator;
     private final StoreUpdateValidator updateValidator;
-
-    @Operation(summary = "Add a Store")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Store created",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserReadOnlyDTO.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid input was supplied",
-                    content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable",
-                    content = @Content)})
-    @PostMapping("/register")
-    public ResponseEntity<StoreReadOnlyDTO> RegisterStore(@Valid @RequestBody @Schema(implementation = StoreRegisterDTO.class) StoreRegisterDTO dto, BindingResult bindingResult) throws EntityAlreadyExistsException {
-        storeRegisterValidator.validate(dto,bindingResult);
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        Store createdStore;
-        try {
-            createdStore = storeService.registerStore(dto);
-            StoreReadOnlyDTO storeReadOnlyDTO = Mapper.mapToReadOnlyDTO(createdStore);
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(storeReadOnlyDTO.getUserId())
-                    .toUri();
-            return ResponseEntity.created(location).body(storeReadOnlyDTO);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-        }
-    }
-
     @Operation(summary = "Update a store(name and address")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "store updated",
@@ -108,6 +78,7 @@ public class StoreRestController {
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Store user not found or store not have added books yet",
                     content = @Content)})
+    @PreAuthorize("hasAuthority('PERSONAL') or hasAuthority('STORE')")
     @GetMapping("{storeId}/books")
     public ResponseEntity<List<StoreBookReadOnlyDTO>> getAllBooksByStoreId(@PathVariable Long storeId){
         List<StoreBook> books;
@@ -144,7 +115,7 @@ public class StoreRestController {
         }
     }
 
-    @Operation(summary = "remove the book_id and person_id from middleware person_books ")
+    @Operation(summary = "remove the from middleware ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "the book deleted from person list with books",
                     content = {@Content(mediaType = "application/json",
@@ -152,7 +123,7 @@ public class StoreRestController {
             @ApiResponse(responseCode = "404", description = "entity not found(person or book) searching by id in variable path ",
                     content = @Content)})
     @DeleteMapping("/{storeId}/books/{bookId}")
-    public ResponseEntity<BookReadOnlyDTO> removeBookFromPerson(@PathVariable Long storeId, @PathVariable Long bookId) {
+    public ResponseEntity<BookReadOnlyDTO> removeBookFromStore(@PathVariable Long storeId, @PathVariable Long bookId) {
         Book book;
         try {
             book = storeService.removeBookFromStore(storeId, bookId);
@@ -162,7 +133,7 @@ public class StoreRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @PreAuthorize("hasAuthority('PERSONAL') or hasAuthority('STORE')")
     @GetMapping("/books")
     public ResponseEntity<List<StoreBookReadOnlyDTO>> getStoreBooksByBookTitle(@RequestParam("title") String title){
         List<StoreBook> books;
@@ -187,6 +158,7 @@ public class StoreRestController {
                             schema = @Schema(implementation = UserReadOnlyDTO.class))}),
             @ApiResponse(responseCode = "400", description = "Store not found",
                     content = @Content)})
+    @PreAuthorize("hasAuthority('PERSONAL') or hasAuthority('STORE')")
     @GetMapping("/{storeId}")
     public ResponseEntity<StoreReadOnlyDTO> getStore(@PathVariable("storeId") Long id) {
         Store store;

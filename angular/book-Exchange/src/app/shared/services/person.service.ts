@@ -23,7 +23,7 @@ personSignal = signal<Person | null>(null);
   constructor() { }
 
   registerPerson(person:PersonRegister){
-    return this.http.post<{data:JSON}>(`${API_URL}/register`, person);
+    return this.http.post<{data:JSON}>(`${environment.apiURL}/register/person`, person);
   }
 
   getPersonBooks(){

@@ -38,37 +38,7 @@ import java.util.List;
 @Slf4j
 public class PersonRestController {
     private final IPersonService personService;
-    private final RegisterPersonValidator registerPersonValidator;
     private final PersonUpdateValidator updateValidator;
-
-    @Operation(summary = "Add a person")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Person created",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PersonReadonlyDTO.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid input was supplied",
-                    content = @Content),
-            @ApiResponse(responseCode = "503", description = "Service Unavailable",
-                    content = @Content)})
-    @PostMapping("/register")
-    public ResponseEntity<PersonReadonlyDTO> RegisterPerson(@Valid @RequestBody @Schema(implementation = RegisterPersonDTO.class) RegisterPersonDTO dto, BindingResult bindingResult) throws EntityAlreadyExistsException {
-        registerPersonValidator.validate(dto,bindingResult);
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        Person createdPerson;
-        try {
-            createdPerson = personService.registerPerson(dto);
-            PersonReadonlyDTO personReadonlyDTO = Mapper.mapToReadOnlyDTO(createdPerson);
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(personReadonlyDTO.getId())
-                    .toUri();
-            return ResponseEntity.created(location).body(personReadonlyDTO);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-        }
-    }
 
     @Operation(summary = "Get persons by their lastname starting with initials")
     @ApiResponses(value = {

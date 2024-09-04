@@ -114,10 +114,4 @@ public class User extends AbstractEntity implements UserDetails {
                 '}';
     }
 
-    //    @PreRemove
-//    private void preRemove() {
-//        notifications.forEach(notification -> notification.setHolderUSer(null));
-//        notifications.forEach((notification -> notification.setInterestedUser(null)));
-//        notifications.clear();
-//    }
 }

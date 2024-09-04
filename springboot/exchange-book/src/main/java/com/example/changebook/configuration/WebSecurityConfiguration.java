@@ -1,6 +1,7 @@
 package com.example.changebook.configuration;
 
 import com.example.changebook.filters.JwtRequestFilter;
+import com.example.changebook.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,13 +34,15 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.cors((cors) -> cors
-                .configurationSource(corsConfigurationSource())
-        )
+                        .configurationSource(corsConfigurationSource())
+                )
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/login", "/register").permitAll()
-                                .requestMatchers("/api/**").permitAll()
-                                .anyRequest().authenticated()
+                        .requestMatchers("api/PERSONAL/**").hasAnyAuthority(Role.PERSONAL.name())
+                        .requestMatchers("api/STORE/**").hasAnyAuthority(Role.STORE.name())
+                        .requestMatchers("/api/login", "api/register").permitAll()
+                        .requestMatchers("/api/**").permitAll()
+                        .anyRequest().authenticated()
                 )
 
                 .httpBasic(Customizer.withDefaults())
@@ -50,14 +53,15 @@ public class WebSecurityConfiguration {
                 .build();
     }
 
-
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://codingfactory.aueb.gr"));
-        configuration.setAllowedMethods(List.of("*")); // List.of("GET","POST")
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
+        configuration.setExposedHeaders(List.of("Authorization"));
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
