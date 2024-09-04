@@ -9,12 +9,14 @@ import com.example.changebook.model.Book;
 import com.example.changebook.model.Notification;
 import com.example.changebook.model.User;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.Set;
 
 public interface IUserService {
     User insertUser(UserInsertDTO userDTO) throws Exception;
+    User findByUsername(String username) throws UsernameNotFoundException;
     User updateUser(UserUpdateDTO userDTO) throws EntityNotFoundException;
     User deleteUser(Long id) throws EntityNotFoundException;
     List<User> getUsersByUsername(String username) throws EntityNotFoundException;

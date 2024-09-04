@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -100,14 +101,20 @@ public class UserRestController {
                     content = @Content) })
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserReadOnlyDTO> updateUser(@PathVariable("id") Long id, @Valid @RequestBody @Schema(implementation = UserUpdateDTO.class) UserUpdateDTO dto, BindingResult bindingResult) {
-        if (!Objects.equals(id, dto.getId())) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<UserReadOnlyDTO> updateUser(@PathVariable("id") Long id, @Valid @RequestBody @Schema(implementation = UserUpdateDTO.class) UserUpdateDTO dto, Principal principal, BindingResult bindingResult) {
         updateValidator.validate(dto, bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        String authenticatedUsername = principal.getName();
+        User authenticatedUser = userService.findByUsername(authenticatedUsername);
+//        if (! authenticatedUsername.equals(dto.getUsername())){
+//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//        }
+        if (!Objects.equals(authenticatedUser.getId(), dto.getId())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
         try {
 
             User user = userService.updateUser(dto);
