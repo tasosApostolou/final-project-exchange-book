@@ -33,7 +33,7 @@ export class StoreService {
     }
 
     getStoreBooksByTitle(title:string){
-      return this.http.get<StoreBook[]>(`${API_URL}/books?title=${title}`,{
+      return this.http.get<StoreBook[]>(`${environment.apiURL}/book/store?title=${title}`,{
         headers: {
           Accept:'application/json'
         },

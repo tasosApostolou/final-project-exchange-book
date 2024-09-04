@@ -38,8 +38,10 @@ public class WebSecurityConfiguration {
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("api/PERSONAL/**").hasAnyAuthority(Role.PERSONAL.name())
-                        .requestMatchers("api/STORE/**").hasAnyAuthority(Role.STORE.name())
+                        .requestMatchers("api/personal/**").hasAnyAuthority(Role.PERSONAL.name())
+                        .requestMatchers("api/store/**").hasAnyAuthority(Role.STORE.name())
+                        .requestMatchers("/api/user/**").hasAnyAuthority(Role.PERSONAL.name(), Role.STORE.name()) // Allow PERSONAL and STORE for getBooks
+
                         .requestMatchers("/api/login", "api/register").permitAll()
                         .requestMatchers("/api/**").permitAll()
                         .anyRequest().authenticated()

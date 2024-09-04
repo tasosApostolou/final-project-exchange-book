@@ -133,23 +133,6 @@ public class StoreRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PreAuthorize("hasAuthority('PERSONAL') or hasAuthority('STORE')")
-    @GetMapping("/books")
-    public ResponseEntity<List<StoreBookReadOnlyDTO>> getStoreBooksByBookTitle(@RequestParam("title") String title){
-        List<StoreBook> books;
-        List<StoreBookReadOnlyDTO> readOnlyDTOs = new ArrayList<>();
-
-        try {
-            books = storeService.getStoreBooksByBookTitle(title);
-            for (StoreBook book : books) {
-                readOnlyDTOs.add(Mapper.mapToReadOnlyDTO(book));
-            }
-            if (readOnlyDTOs.isEmpty()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(readOnlyDTOs, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
-        }
-    }
 
     @Operation(summary = "Get a Store by id")
     @ApiResponses(value = {

@@ -98,6 +98,7 @@ public class UserRestController {
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content) })
+
     @PutMapping("/update/{id}")
     public ResponseEntity<UserReadOnlyDTO> updateUser(@PathVariable("id") Long id, @Valid @RequestBody @Schema(implementation = UserUpdateDTO.class) UserUpdateDTO dto, BindingResult bindingResult) {
         if (!Objects.equals(id, dto.getId())) {

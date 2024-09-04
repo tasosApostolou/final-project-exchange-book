@@ -6,6 +6,7 @@ import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.Book;
 import com.example.changebook.model.StoreBook;
 import com.example.changebook.service.IBookService;
+import com.example.changebook.service.IStoreService;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import com.example.changebook.validator.BookInsertValidator;
 import com.example.changebook.validator.StoreBookInsertValidator;
@@ -35,6 +36,7 @@ import java.util.List;
 @Slf4j
 public class BookRestController {
     private final IBookService bookService;
+    private final IStoreService storeService;
     private final BookInsertValidator bookInsertValidator;
     private final StoreBookInsertValidator storeBookInsertValidator;
 
@@ -192,6 +194,24 @@ public class BookRestController {
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>( HttpStatus.NOT_FOUND);
 
+        }
+    }
+
+    @PreAuthorize("hasAuthority('PERSONAL') or hasAuthority('STORE')")
+    @GetMapping("/store")
+    public ResponseEntity<List<StoreBookReadOnlyDTO>> getStoreBooksByBookTitle(@RequestParam("title") String title){
+        List<StoreBook> books;
+        List<StoreBookReadOnlyDTO> readOnlyDTOs = new ArrayList<>();
+
+        try {
+            books = storeService.getStoreBooksByBookTitle(title);
+            for (StoreBook book : books) {
+                readOnlyDTOs.add(Mapper.mapToReadOnlyDTO(book));
+            }
+            if (readOnlyDTOs.isEmpty()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(readOnlyDTOs, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
         }
     }
 }
