@@ -1,6 +1,7 @@
 package com.example.changebook.rest;
 
 import com.example.changebook.dto.NotificationDTO.NotificationReadOnlyDTO;
+import com.example.changebook.dto.usersDTO.ChangePassswordDTO;
 import com.example.changebook.dto.usersDTO.UserInsertDTO;
 import com.example.changebook.dto.usersDTO.UserReadOnlyDTO;
 import com.example.changebook.dto.usersDTO.UserUpdateDTO;
@@ -107,8 +108,8 @@ public class UserRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         String authenticatedUsername = principal.getName();
-        User authenticatedUser = userService.findByUsername(authenticatedUsername);
-//        if (! authenticatedUsername.equals(dto.getUsername())){
+        User authenticatedUser = userService.getUserByUsername(authenticatedUsername);
+//        if (! Objects.equals(authenticatedUsername,dto.getUsername())){
 //            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 //        }
         if (!Objects.equals(authenticatedUser.getId(), dto.getId())) {
@@ -167,6 +168,27 @@ public class UserRestController {
         }
     }
 
+
+    @PatchMapping("/password/{username}")
+    public ResponseEntity<UserReadOnlyDTO> changePassword(@PathVariable("username") String username, @Valid @RequestBody ChangePassswordDTO dto, Principal principal, BindingResult bindingResult) {
+//        updateValidator.validate(dto, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+        String authenticatedUsername = principal.getName();
+        System.out.println(authenticatedUsername);
+        if (! Objects.equals(authenticatedUsername,username)){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        try {
+            User user = userService.changePassword(authenticatedUsername,dto);
+            UserReadOnlyDTO readOnlyDTO = Mapper.mapToReadOnlyDTO(user);
+            return new ResponseEntity<>(readOnlyDTO,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
 
 

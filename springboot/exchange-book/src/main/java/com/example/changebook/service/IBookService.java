@@ -5,6 +5,7 @@ import com.example.changebook.dto.BookDTO.BookInsertDTO;
 import com.example.changebook.dto.BookDTO.StoreBookInsertDTO;
 import com.example.changebook.model.Author;
 import com.example.changebook.model.Book;
+import com.example.changebook.model.Store;
 import com.example.changebook.model.StoreBook;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ public interface IBookService {
     Book insertBookToPerson(Long personID,BookInsertDTO dto) throws Exception;
 //    Book insertBookToStore(Long storeId,BookInsertDTO dto) throws Exception;
 
-    StoreBook insertBookToStore(Long storeId, StoreBookInsertDTO dto) throws Exception;
+    StoreBook insertBookToStore(Store authenticatedStore, StoreBookInsertDTO dto) throws Exception;
 
     Book delete(Long id) throws EntityNotFoundException;
     List<Book> getBookByTitle(String title) throws EntityNotFoundException;

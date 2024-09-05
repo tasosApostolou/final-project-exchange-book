@@ -107,14 +107,13 @@ public class BookServiceImpl implements IBookService{
 
     @Override
     @Transactional
-    public StoreBook insertBookToStore(Long storeId, StoreBookInsertDTO dto) throws Exception {
+    public StoreBook insertBookToStore(Store storeFromPrincipal, StoreBookInsertDTO dto) throws Exception {
         Book book;
         Author insertedAuthor;
-        Store store;
+        Store store = storeFromPrincipal;
         Author author = new Author();
         StoreBook storeBook;
         try{
-            store = storeRepository.findById(storeId).orElseThrow(() -> new EntityNotFoundException(Person.class,storeId));
             author = Mapper.mapToAuthor(dto.book.author);
 //            insertedAuthor = authorRepository.findByName(dto.authorInsertDTO.getName()).orElse(authorRepository.save(author));
             insertedAuthor = authorRepository.findAuthorByName(dto.book.author.getName());

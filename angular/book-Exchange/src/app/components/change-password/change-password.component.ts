@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { User } from 'src/app/shared/interfaces/user';
+import { ChangePasswordForm, User } from 'src/app/shared/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { DialogRef } from '@angular/cdk/dialog';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -37,12 +37,12 @@ export class ChangePasswordComponent {
   
   form = new FormGroup({
     oldPassword:new FormControl('', Validators.required),
-    password: new FormControl('',[Validators.required, Validators.minLength(4)]),
+    newPassword: new FormControl('',[Validators.required, Validators.minLength(4)]),
     confirmPassword:new FormControl('',[Validators.required, Validators.minLength(4)]),
   },this.passwordConfirmsValidator)
   
   passwordConfirmsValidator(form:FormGroup){
-    if (form.get('password').value !== form.get('confirmPassword').value){
+    if (form.get('newPassword').value !== form.get('confirmPassword').value){
       form.get('confirmPassword').setErrors({passwordMismatch:true});
       return{ passwordMismatch:true}
     }
@@ -56,40 +56,45 @@ export class ChangePasswordComponent {
   }
   changePassword(oldPassword:string){
     //check authendication before password changing using credentials
-    this.userService.loginUser({username:this.userSignal().sub, password:oldPassword}).subscribe({
+    const changePasswordDTO = this.form.value as ChangePasswordForm
+    this.userService.changePassword(changePasswordDTO).subscribe({
       next: (response) =>{
-        console.log(response.jwt)
         if (this.passwordConfirmsValidator(this.form)){
-          this.updatePassword(this.form.get('password').value)
+          // this.updatePassword(this.form.get('password').value)
           this.changeStatus = {succes:true,message:"password changed succesfully"}
         }else{
+          this.changeStatus ={
+            succes:false,message:'Not valid password '
+          }
           console.log("Confirm password is not access")
         }
       },
       error:(response) => {
         console.log("Unothorized user")
         this.changeStatus.succes=false
+        this.changeStatus.message="unauthorized"
       }
     })
 
   }
-  updatePassword(password:string):void{
-    const user:User = {
-    id:this.userSignal().userId,
-    username:this.userSignal().sub,// sub is username taken from token
-    password:password,
-    role:this.userSignal().role
-  }
-    this.userService.updateUser(user).subscribe({
-      next:(response) => {
-        console.log("password changed",response)
-      },
-      error:(response) => {
-        console.log(response)
-      }
+  // updatePassword(password:string):void{
+  //   const user:User = {
+  //   id:this.userSignal().userId,
+  //   username:this.userSignal().sub,// sub is username taken from token
+  //   password:password,
+  //   role:this.userSignal().role
+  // }
+  //   this.userService.updateUser(user).subscribe({
+  //     next:(response) => {
+  //       console.log("password changed",response)
+  //     },
+  //     error:(response) => {
+  //       console.log(response)
+  
+  //     }
       
-    })
-  }
+  //   })
+  // }
 
   TryToChangeAgain(){
   this.form.reset();

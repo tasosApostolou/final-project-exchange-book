@@ -8,6 +8,7 @@ import com.example.changebook.dto.usersDTO.UserReadOnlyDTO;
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.Book;
 import com.example.changebook.model.Person;
+import com.example.changebook.model.User;
 import com.example.changebook.service.IPersonService;
 import com.example.changebook.service.exceptions.EntityAlreadyExistsException;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
@@ -29,8 +30,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -145,13 +149,18 @@ public class PersonRestController {
             @ApiResponse(responseCode = "404", description = "Person not found",
                     content = @Content)})
     @DeleteMapping("/{id}")
-    public ResponseEntity<PersonReadonlyDTO> deletePerson(@PathVariable("id") Long id){
+    public ResponseEntity<PersonReadonlyDTO> deletePerson(@PathVariable("id") Long id, Principal principal){
         Person person;
+        User user;
         try {
+            person = personService.getPersonById(id);
+            String authenticatedUsername = principal.getName();
+            if (!Objects.equals(person.getUser().getUsername(), authenticatedUsername)){
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);            }
             person = personService.deletePerson(id);
             PersonReadonlyDTO readOnlyDTO = Mapper.mapToReadOnlyDTO(person);
             return new ResponseEntity<>(readOnlyDTO,HttpStatus.OK);
-        }catch (EntityNotFoundException e){
+        }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

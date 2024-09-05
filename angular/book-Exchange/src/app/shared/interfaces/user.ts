@@ -14,5 +14,9 @@ export interface LoggedInUser{
     sub:string; // username taken from jwt as sub
     role :string;
     roleEntityId:number //PERSONAL or STORE logged in user
-    
+}
+export interface ChangePasswordForm{
+    oldPassword:string;
+    newPassword: string;
+    confirmPassword:string;
 }

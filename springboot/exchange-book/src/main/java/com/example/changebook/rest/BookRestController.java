@@ -4,9 +4,12 @@ package com.example.changebook.rest;
 import com.example.changebook.dto.BookDTO.*;
 import com.example.changebook.mapper.Mapper;
 import com.example.changebook.model.Book;
+import com.example.changebook.model.Store;
 import com.example.changebook.model.StoreBook;
+import com.example.changebook.model.User;
 import com.example.changebook.service.IBookService;
 import com.example.changebook.service.IStoreService;
+import com.example.changebook.service.IUserService;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import com.example.changebook.validator.BookInsertValidator;
 import com.example.changebook.validator.StoreBookInsertValidator;
@@ -27,8 +30,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @AllArgsConstructor
@@ -36,6 +41,7 @@ import java.util.List;
 @Slf4j
 public class BookRestController {
     private final IBookService bookService;
+    private final IUserService userService;
     private final IStoreService storeService;
     private final BookInsertValidator bookInsertValidator;
     private final StoreBookInsertValidator storeBookInsertValidator;
@@ -51,13 +57,19 @@ public class BookRestController {
                     content = @Content)})
     @PreAuthorize("hasAuthority('PERSONAL')")
     @PostMapping("/personal/{personID}/add")
-    public ResponseEntity<BookReadOnlyDTO> addBookToPerson(@PathVariable("personID") Long personID, @RequestBody @Valid BookInsertDTO bookDTO, BindingResult bindingResult) {
+    public ResponseEntity<BookReadOnlyDTO> addBookToPerson(@PathVariable("personID") Long personID, @RequestBody @Valid BookInsertDTO bookDTO, Principal principal, BindingResult bindingResult) throws EntityNotFoundException {
         bookInsertValidator.validate(bookDTO,bindingResult);
+        User authUser;
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Book book= new Book();
         try {
+            authUser = userService.getUserByUsername(principal.getName());
+            if(authUser.getPerson().getId() != personID){
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        }
             book = bookService.insertBookToPerson(personID,bookDTO);
             System.out.println("pre" + book.toString());
             log.info(book.getTitle() + book.getAuthor().getName());
@@ -83,15 +95,22 @@ public class BookRestController {
                     content = @Content)})
     @PreAuthorize("hasAuthority('STORE')")
     @PostMapping("/store/{storeID}/add")
-    public ResponseEntity<StoreBookReadOnlyDTO> addBookToStore(@PathVariable("storeID") Long storeID, @RequestBody @Valid StoreBookInsertDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<StoreBookReadOnlyDTO> addBookToStore(@PathVariable("storeID") Long storeID, @RequestBody @Valid StoreBookInsertDTO dto,Principal principal, BindingResult bindingResult) {
         storeBookInsertValidator.validate(dto,bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         StoreBook storeBook = new StoreBook();
         StoreBookReadOnlyDTO readOnlyDTO;
+        User authUser;
+        Store authStore;
         try {
-            storeBook = bookService.insertBookToStore(storeID,dto);
+            authUser = userService.getUserByUsername(principal.getName());
+            authStore = authUser.getStore();
+            if(!Objects.equals(storeID, authStore.getId())){
+                return  new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            storeBook = bookService.insertBookToStore(authStore,dto);
             readOnlyDTO = Mapper.mapToReadOnlyDTO(storeBook);
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")

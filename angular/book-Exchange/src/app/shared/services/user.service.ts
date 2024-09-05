@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, effect, inject, signal } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
-import { Credentials, LoggedInUser, User } from '../interfaces/user';
+import { ChangePasswordForm, Credentials, LoggedInUser, User } from '../interfaces/user';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { Book, StoreBook } from '../interfaces/book';
@@ -59,6 +59,9 @@ this.router.navigate(['login']);
 
   updateUser(user:User){
     return this.http.put<{user:User}>(`${API_USER}/update/${this.user().userId}`,user)
+  }
+  changePassword(changePasswordDTO:ChangePasswordForm){
+    return this.http.patch<{user:User}>(`${API_USER}/password/${this.user().sub}`,changePasswordDTO)
   }
 
   deleteUser(){

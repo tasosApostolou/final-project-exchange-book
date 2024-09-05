@@ -42,7 +42,7 @@ public class WebSecurityConfiguration {
                         .requestMatchers("api/store/**").hasAnyAuthority(Role.STORE.name())
                         .requestMatchers("/api/user/**").hasAnyAuthority(Role.PERSONAL.name(), Role.STORE.name()) // Allow PERSONAL and STORE for getBooks
 
-                        .requestMatchers("/api/login", "api/register").permitAll()
+                        .requestMatchers("/api/login", "/api/register").permitAll()
                         .requestMatchers("/api/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -59,11 +59,10 @@ public class WebSecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH","OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
         configuration.setExposedHeaders(List.of("Authorization"));
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

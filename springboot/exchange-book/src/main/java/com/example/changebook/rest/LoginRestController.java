@@ -59,7 +59,7 @@ public class LoginRestController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
             user = userService.getUserByUsername(dto.username);
             responseDTO = Mapper.mapToLoginResponseDTO(user);
-        } catch (BadCredentialsException | EntityNotFoundException e) {
+        } catch (BadCredentialsException  | UsernameNotFoundException e) {
             throw new BadCredentialsException("Incorrect username or password!");
         } catch (DisabledException disabledException) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "User is not activated");

@@ -1,5 +1,6 @@
 package com.example.changebook.service;
 
+import com.example.changebook.dto.usersDTO.ChangePassswordDTO;
 import com.example.changebook.dto.usersDTO.UserInsertDTO;
 import com.example.changebook.dto.usersDTO.UserUpdateDTO;
 import com.example.changebook.mapper.Mapper;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,10 +86,34 @@ public class UserServiceImpl implements IUserService {
         return user;
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+@Override
+public User getUserByUsername(String username) {
+    Optional<User> user = userRepository.findByUsername(username);
+    return user.orElseThrow(() -> new UsernameNotFoundException("user not found"));
+}
+
+    @Override
+    public User changePassword(String authenticatedUserName, ChangePassswordDTO dto) throws Exception {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        User authenticatedUser;
+        try{
+            authenticatedUser = userRepository.findByUsername(authenticatedUserName).orElseThrow(() -> new Exception("unauthorized"));
+            if (!passwordEncoder.matches(dto.getOldPassword(),authenticatedUser.getPassword())) {
+                throw new Exception("Password not matches");
+            }
+            if(!dto.getNewPassword().equals( dto.getConfirmPassword())){
+                throw new Exception("Password not confirm");
+            }
+            authenticatedUser.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+            userRepository.save(authenticatedUser);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+        return authenticatedUser;
+
     }
+
     @Override
     public List<User> getUsersByUsername(String username) throws EntityNotFoundException {
         List<User> users = new ArrayList<>();
@@ -113,22 +139,6 @@ public class UserServiceImpl implements IUserService {
             throw e;
         }
         return user;
-    }
-
-    @Override
-    public User getUserByUsername(String username) throws EntityNotFoundException {
-//        User user;
-//        try {
-//            user = userRepository.findUserByUsername(username);
-//            if(user==null)throw new EntityNotFoundException(User.class,0L);
-//
-//        }catch (EntityNotFoundException e){
-//            log.error(e.getMessage());
-//            throw e;
-//        }
-
-        Optional<User> user = userRepository.findByUsername(username);
-        return user.orElseThrow(() -> new EntityNotFoundException(User.class,0L));
     }
 
     @Override
