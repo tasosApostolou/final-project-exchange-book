@@ -53,7 +53,7 @@ public class RegisterRestController {
                     content = @Content),
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
                     content = @Content)})
-    @PostMapping("/Person")
+    @PostMapping("/person")
     public ResponseEntity<PersonReadonlyDTO> RegisterPerson(@Valid @RequestBody @Schema(implementation = RegisterPersonDTO.class) RegisterPersonDTO dto, BindingResult bindingResult) throws EntityAlreadyExistsException {
         registerPersonValidator.validate(dto,bindingResult);
         if (bindingResult.hasErrors()) {
