@@ -12,6 +12,7 @@ import com.example.changebook.service.IUserService;
 import com.example.changebook.service.exceptions.EntityNotFoundException;
 import com.example.changebook.validator.UserInsertValidator;
 import com.example.changebook.validator.UserUpdateValidator;
+import com.sun.security.auth.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,6 +22,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -49,7 +51,6 @@ public class UserRestController {
     @GetMapping("/{userID}")
     public ResponseEntity<UserReadOnlyDTO> getUser(@PathVariable("userID") Long id) {
         User user;
-
         try {
             user = userService.getUserById(id);
             UserReadOnlyDTO dto = Mapper.mapToReadOnlyDTO(user);

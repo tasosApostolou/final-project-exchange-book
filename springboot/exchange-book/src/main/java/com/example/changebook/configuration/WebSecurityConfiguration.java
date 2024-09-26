@@ -40,8 +40,7 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("api/personal/**").hasAnyAuthority(Role.PERSONAL.name())
                         .requestMatchers("api/store/**").hasAnyAuthority(Role.STORE.name())
-                        .requestMatchers("/api/user/**").hasAnyAuthority(Role.PERSONAL.name(), Role.STORE.name()) // Allow PERSONAL and STORE for getBooks
-
+                        .requestMatchers("/api/user/**").hasAnyAuthority(Role.PERSONAL.name(), Role.STORE.name())
                         .requestMatchers("/api/login", "/api/register").permitAll()
                         .requestMatchers("/api/**").permitAll()
                         .anyRequest().authenticated()

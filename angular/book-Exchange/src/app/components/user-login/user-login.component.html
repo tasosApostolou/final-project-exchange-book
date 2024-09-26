@@ -21,17 +21,18 @@
   <button
     type="submit"
     class="btn btn-primary"
+    id="authenticate"
     [disabled]="!form.valid">
     Login
   </button>
   @if (invalidLogin) {
-    <div class="alert alert-danger text-wrap">
+    <div aria-details="invalidLogin" class="alert alert-danger text-wrap" >
       <strong>Error:</strong>
-      Invalid email or password. Click
+      <span>Invalid email or password.</span>
       <a
         role="button"
         routerLink="/user-registration">
-        here
+        click here
       </a>
       to register
     </div>
