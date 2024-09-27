@@ -24,7 +24,7 @@ public class BaseTest extends ReportSetup {
         navbarPage = new NavbarPage(driver);
     }
 
-    @BeforeSuite//(appropriate override in every test class), ensures that all tests run in a shared report suit with this extent instance
+    @BeforeSuite//(appropriate override in every test class), ensures that all tests run in a shared default report suit with this extent instance
     public ExtentReports setupBeforeSuitReportingExtent() {
         localExtentReport = ReportSetup.getDefaultExtent();
         return localExtentReport;
