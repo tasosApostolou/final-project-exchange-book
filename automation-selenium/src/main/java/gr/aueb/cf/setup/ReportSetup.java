@@ -7,7 +7,7 @@ public class ReportSetup {
     private ExtentSparkReporter reporter;
     private ExtentReports extent;
     private static ReportSetup SINGLETON = null; //LAZY_IMPL: a shared default report for all tests
-    private static final String SHARED_REPORT_PATH = System.getProperty("user.dir")+"\\TestReports\\new.html";
+    private static final String SHARED_REPORT_PATH = System.getProperty("user.dir")+"\\TestReports\\defaultFile.html";
     private static ReportSetup getDefaultReport() {
         if(SINGLETON == null){
             SINGLETON = new ReportSetup();
