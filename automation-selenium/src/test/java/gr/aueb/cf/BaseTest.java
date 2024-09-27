@@ -17,7 +17,6 @@ public class BaseTest extends ReportSetup {
     NavbarPage navbarPage;
     ExtentReports localExtentReport;
     Actions actions;
-    //    private static final String DRIVER_PATH = "C:\\Users\\User\\Νέος φάκελος\\chromedriver.exe";
     @BeforeClass
     public void setUp(){
         Setup.initProperties();
