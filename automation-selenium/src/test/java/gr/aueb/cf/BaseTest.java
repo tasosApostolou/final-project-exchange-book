@@ -18,7 +18,6 @@ public class BaseTest extends ReportSetup {
     ExtentReports localExtentReport;
     Actions actions;
     //    private static final String DRIVER_PATH = "C:\\Users\\User\\Νέος φάκελος\\chromedriver.exe";
-    private static final String REPORT_PATH = "C:\\Users\\User\\Desktop\\books\\springboot\\exchange-book\\TestReports\\new.html";
     @BeforeClass
     public void setUp(){
         Setup.initProperties();
