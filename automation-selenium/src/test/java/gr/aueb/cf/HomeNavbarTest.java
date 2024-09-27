@@ -21,13 +21,6 @@ import java.util.List;
 public class HomeNavbarTest extends BaseTest {
 
 
-//    @BeforeSuite
-//    @Override
-//    public void setupReporting() {
-//        super.setupReporting();
-//        extent.setSystemInfo("Navbar","register button");
-//    }
-
     @Test(priority = 1)
     public void testRegisterButtonDropDown() throws InterruptedException {
 
@@ -67,8 +60,6 @@ public class HomeNavbarTest extends BaseTest {
 
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-//            WebElement dropdown = navbarPage.getDropDown();
-//            wait.until(ExpectedConditions.visibilityOf(dropdown));
             List<WebElement> dropdownLinks = navbarPage.getDropDown().findElements(By.tagName("a"));
             // Perform hover action and verify hover effect of each droped link item
             actions = new Actions(driver);
@@ -79,7 +70,6 @@ public class HomeNavbarTest extends BaseTest {
                 String backgroundColor = link.getCssValue("background-color");
                 Assert.assertEquals(backgroundColor, "rgba(231, 231, 231, 1)", "Hover background color mismatch");
                 test.pass("success report details to selenium grid:  Background-color on hover works");
-//                test.pass("Background color on dropdown item hover is correct: " + backgroundColor);
                 Reporter.log("background color -"+link.getAttribute("text")+"- : " + backgroundColor);
                 System.out.println("background color -"+link.getAttribute("text")+"- : " + backgroundColor);
             }
@@ -91,25 +81,4 @@ public class HomeNavbarTest extends BaseTest {
         }
     }
 
-
-
-
-//    @AfterClass
-//    public void tearDown()  {
-//        if (driver != null) {
-//            driver.quit();
-//        }
-//        extent.flush();
-//    }
-//NavbarPage navbarPage = new NavbarPage(driver);
-//    @Test
-//    public void titleTest(){
-//        String title = navbarPage.homeNavbarTitle();
-//        System.out.println(title);
-//
-//    }
-//    @Test
-//    public void clickRegister(){
-//        navbarPage.clickRegisterDropdn();
-//    }
 }
